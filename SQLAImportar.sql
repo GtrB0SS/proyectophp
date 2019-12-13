@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-12-2019 a las 23:30:43
+-- Tiempo de generación: 14-12-2019 a las 00:03:56
 -- Versión del servidor: 10.4.8-MariaDB
 -- Versión de PHP: 7.3.11
 
@@ -38,7 +38,6 @@ CREATE TABLE `cliente` (
   `telefono` varchar(9) COLLATE latin1_spanish_ci NOT NULL,
   `objetivo` text COLLATE latin1_spanish_ci NOT NULL,
   `contrasena` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
-  `codplan` varchar(10) COLLATE latin1_spanish_ci NOT NULL,
   `coddieta` varchar(10) COLLATE latin1_spanish_ci NOT NULL,
   `codtabla` varchar(10) COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
@@ -187,7 +186,8 @@ CREATE TABLE `plan` (
   `descripcion` text COLLATE latin1_spanish_ci NOT NULL,
   `disponibilidad` varchar(50) COLLATE latin1_spanish_ci DEFAULT NULL,
   `observaciones` text COLLATE latin1_spanish_ci DEFAULT NULL,
-  `vencimiento` date NOT NULL
+  `vencimiento` date NOT NULL,
+  `dni` varchar(9) COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 -- --------------------------------------------------------
@@ -250,8 +250,7 @@ CREATE TABLE `tablaejercicios` (
 ALTER TABLE `cliente`
   ADD PRIMARY KEY (`dni`),
   ADD KEY `coddietacli` (`coddieta`),
-  ADD KEY `codtablacli` (`codtabla`),
-  ADD KEY `codplan` (`codplan`);
+  ADD KEY `codtablacli` (`codtabla`);
 
 --
 -- Indices de la tabla `comida`
@@ -332,7 +331,8 @@ ALTER TABLE `lineatabla`
 -- Indices de la tabla `plan`
 --
 ALTER TABLE `plan`
-  ADD PRIMARY KEY (`codPlan`);
+  ADD PRIMARY KEY (`codPlan`),
+  ADD KEY `dniplan` (`dni`);
 
 --
 -- Indices de la tabla `plato`
@@ -369,7 +369,6 @@ ALTER TABLE `tablaejercicios`
 --
 ALTER TABLE `cliente`
   ADD CONSTRAINT `coddietacli` FOREIGN KEY (`coddieta`) REFERENCES `dieta` (`coddieta`),
-  ADD CONSTRAINT `codplan` FOREIGN KEY (`codplan`) REFERENCES `plan` (`codPlan`),
   ADD CONSTRAINT `codtablacli` FOREIGN KEY (`codtabla`) REFERENCES `tablaejercicios` (`codtabla`);
 
 --
@@ -413,6 +412,12 @@ ALTER TABLE `lineaempleado`
 ALTER TABLE `lineatabla`
   ADD CONSTRAINT `codsesiontabla` FOREIGN KEY (`codsesion`) REFERENCES `sesion` (`codsesion`),
   ADD CONSTRAINT `codtabla` FOREIGN KEY (`codtabla`) REFERENCES `tablaejercicios` (`codtabla`);
+
+--
+-- Filtros para la tabla `plan`
+--
+ALTER TABLE `plan`
+  ADD CONSTRAINT `dniplan` FOREIGN KEY (`dni`) REFERENCES `cliente` (`dni`);
 
 --
 -- Filtros para la tabla `progreso`
