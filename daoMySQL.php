@@ -12,3 +12,10 @@ function getConnection(){
     
     return $conex;
 }
+
+
+function login(){
+    
+    
+    
+}
