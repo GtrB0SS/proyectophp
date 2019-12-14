@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-12-2019 a las 00:03:56
+-- Tiempo de generación: 14-12-2019 a las 14:03:20
 -- Versión del servidor: 10.4.8-MariaDB
 -- Versión de PHP: 7.3.11
 
@@ -37,10 +37,17 @@ CREATE TABLE `cliente` (
   `direccion` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   `telefono` varchar(9) COLLATE latin1_spanish_ci NOT NULL,
   `objetivo` text COLLATE latin1_spanish_ci NOT NULL,
-  `contrasena` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
-  `coddieta` varchar(10) COLLATE latin1_spanish_ci NOT NULL,
-  `codtabla` varchar(10) COLLATE latin1_spanish_ci NOT NULL
+  `clave` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
+  `coddieta` varchar(10) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `codtabla` varchar(10) COLLATE latin1_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `cliente`
+--
+
+INSERT INTO `cliente` (`dni`, `nombre`, `email`, `direccion`, `telefono`, `objetivo`, `clave`, `coddieta`, `codtabla`) VALUES
+('1111', 'aadsd', 'asdasd', 'asdas', 'asdas', 'asdasd', '1', '1', NULL);
 
 -- --------------------------------------------------------
 
@@ -52,6 +59,14 @@ CREATE TABLE `comida` (
   `codcomida` varchar(10) COLLATE latin1_spanish_ci NOT NULL,
   `nombre` varchar(20) COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `comida`
+--
+
+INSERT INTO `comida` (`codcomida`, `nombre`) VALUES
+('1', 'desayuno'),
+('2', 'comida');
 
 -- --------------------------------------------------------
 
@@ -66,6 +81,17 @@ CREATE TABLE `diadieta` (
   `dia` varchar(20) COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `diadieta`
+--
+
+INSERT INTO `diadieta` (`coddia`, `calorias`, `macronutrientes`, `dia`) VALUES
+('1', 1222, '1223', 'lunes'),
+('2', 2323, '12313', 'martes'),
+('3', 31231, '12312', 'miercoles'),
+('4', 1312, '12312', 'jueves'),
+('5', 131, '123123', 'viernes');
+
 -- --------------------------------------------------------
 
 --
@@ -76,6 +102,13 @@ CREATE TABLE `dieta` (
   `coddieta` varchar(10) COLLATE latin1_spanish_ci NOT NULL,
   `semana` varchar(20) COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `dieta`
+--
+
+INSERT INTO `dieta` (`coddieta`, `semana`) VALUES
+('1', '1');
 
 -- --------------------------------------------------------
 
@@ -105,8 +138,16 @@ CREATE TABLE `empleado` (
   `dni` varchar(9) COLLATE latin1_spanish_ci NOT NULL,
   `telefono` varchar(9) COLLATE latin1_spanish_ci NOT NULL,
   `email` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
-  `direccion` varchar(50) COLLATE latin1_spanish_ci NOT NULL
+  `direccion` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
+  `clave` varchar(20) COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `empleado`
+--
+
+INSERT INTO `empleado` (`numeroempleado`, `especialidad`, `nombre`, `dni`, `telefono`, `email`, `direccion`, `clave`) VALUES
+('1', 3, 'pepe', '123', 'asd', 'asd', 'asd', '1');
 
 -- --------------------------------------------------------
 
@@ -130,6 +171,16 @@ CREATE TABLE `lineacomida` (
   `codplato` varchar(10) COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `lineacomida`
+--
+
+INSERT INTO `lineacomida` (`codcomida`, `codplato`) VALUES
+('1', '1'),
+('1', '2'),
+('2', '3'),
+('2', '4');
+
 -- --------------------------------------------------------
 
 --
@@ -141,6 +192,19 @@ CREATE TABLE `lineadia` (
   `codcomida` varchar(10) COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `lineadia`
+--
+
+INSERT INTO `lineadia` (`coddia`, `codcomida`) VALUES
+('1', '1'),
+('1', '2'),
+('2', '2'),
+('3', '1'),
+('3', '2'),
+('4', '1'),
+('5', '1');
+
 -- --------------------------------------------------------
 
 --
@@ -151,6 +215,17 @@ CREATE TABLE `lineadieta` (
   `coddieta` varchar(10) COLLATE latin1_spanish_ci NOT NULL,
   `coddia` varchar(10) COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `lineadieta`
+--
+
+INSERT INTO `lineadieta` (`coddieta`, `coddia`) VALUES
+('1', '1'),
+('1', '2'),
+('1', '3'),
+('1', '4'),
+('1', '5');
 
 -- --------------------------------------------------------
 
@@ -190,6 +265,13 @@ CREATE TABLE `plan` (
   `dni` varchar(9) COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `plan`
+--
+
+INSERT INTO `plan` (`codPlan`, `tipoplan`, `descripcion`, `disponibilidad`, `observaciones`, `vencimiento`, `dni`) VALUES
+('1', 'pro', 'asda', 'asd', 'asd', '2019-12-13', '1111');
+
 -- --------------------------------------------------------
 
 --
@@ -201,6 +283,16 @@ CREATE TABLE `plato` (
   `nombre` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   `link` varchar(50) COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `plato`
+--
+
+INSERT INTO `plato` (`codplato`, `nombre`, `link`) VALUES
+('1', 'macarrones', 'asdasd'),
+('2', 'espaguetis', 'asdasda'),
+('3', 'Pollo', 'asdas'),
+('4', 'ternera', 'asd');
 
 -- --------------------------------------------------------
 
@@ -216,6 +308,14 @@ CREATE TABLE `progreso` (
   `fecha` date NOT NULL,
   `dni` varchar(9) COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `progreso`
+--
+
+INSERT INTO `progreso` (`codProgreso`, `imagen`, `peso`, `medidas`, `fecha`, `dni`) VALUES
+('1', 'img/img.jpg', 100, '12/26/23', '2019-12-02', '1111'),
+('2', 'img/img.jpg', 22, '13/77/654', '2019-11-12', '1111');
 
 -- --------------------------------------------------------
 
@@ -296,6 +396,7 @@ ALTER TABLE `entrenamiento`
 -- Indices de la tabla `lineacomida`
 --
 ALTER TABLE `lineacomida`
+  ADD PRIMARY KEY (`codcomida`,`codplato`),
   ADD KEY `codcomida` (`codcomida`),
   ADD KEY `codplato` (`codplato`);
 
@@ -303,35 +404,35 @@ ALTER TABLE `lineacomida`
 -- Indices de la tabla `lineadia`
 --
 ALTER TABLE `lineadia`
-  ADD KEY `coddialinea` (`coddia`),
+  ADD PRIMARY KEY (`coddia`,`codcomida`),
   ADD KEY `codcomidalinea` (`codcomida`);
 
 --
 -- Indices de la tabla `lineadieta`
 --
 ALTER TABLE `lineadieta`
-  ADD KEY `coddieta` (`coddieta`),
+  ADD PRIMARY KEY (`coddieta`,`coddia`),
   ADD KEY `coddiadieta` (`coddia`);
 
 --
 -- Indices de la tabla `lineaempleado`
 --
 ALTER TABLE `lineaempleado`
-  ADD KEY `codempleado` (`numeroempleado`),
+  ADD PRIMARY KEY (`numeroempleado`,`dni`),
   ADD KEY `dniclienteemp` (`dni`);
 
 --
 -- Indices de la tabla `lineatabla`
 --
 ALTER TABLE `lineatabla`
-  ADD KEY `codtabla` (`codtabla`),
+  ADD PRIMARY KEY (`codtabla`,`codsesion`),
   ADD KEY `codsesiontabla` (`codsesion`);
 
 --
 -- Indices de la tabla `plan`
 --
 ALTER TABLE `plan`
-  ADD PRIMARY KEY (`codPlan`),
+  ADD PRIMARY KEY (`codPlan`,`dni`),
   ADD KEY `dniplan` (`dni`);
 
 --
