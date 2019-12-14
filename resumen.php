@@ -15,7 +15,41 @@ and open the template in the editor.
     <body>
         
         <div class="container">
-            
+            <nav class='navbar navbar-light bg-light row'>
+            <?php
+            // put your code here
+            session_start();
+            include "daoMySQL.php";
+
+
+            //$_SESSION['dni'] = $_POST['user'];
+
+            if($_SESSION['resLogin'] == "cliente" || $_SESSION['resLogin'] == "empleado"){
+
+                $plan = getPlan($_SESSION['dni']);
+
+                if($plan != null && $plan = "pro"){
+
+                    $linktabla = "tablas.php";
+
+                }
+                else{$linktabla = "ampliarplan.php";}
+
+                print(" 
+                            <a class='navbar-brand' href='index.php'>Inicio</a>
+                            <a class='navbar-brand' href='progreso.php'>Progreso</a>
+                            <a class='navbar-brand' href='dietas.php'>Dietas</a>
+                            <a class='navbar-brand' href='$linktabla'>Tabla de ejercicios</a>
+                        ");
+                if($_SESSION['resLogin'] == "empleado"){
+
+                    print("<a class='navbar-brand' href='admin.php'>Administracion</a>");
+
+                }
+
+            }
+            ?>
+            </nav>
             <table class="table">
                 <thead>
                     <tr>
@@ -28,8 +62,6 @@ and open the template in the editor.
                 <tbody>
                     <?php
                     // put your code here
-                    session_start();
-                    include "daoMySQL.php";
 
                     print(getProgreso($_SESSION['dni']));
 

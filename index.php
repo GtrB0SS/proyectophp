@@ -49,6 +49,32 @@ and open the template in the editor.
 
                 }
             }
+            else if(isset($_SESSION['dni'])){
+                if($_SESSION['resLogin'] == "cliente" || $_SESSION['resLogin'] == "empleado"){
+
+                $plan = getPlan($_SESSION['dni']);
+
+                if($plan != null && $plan = "pro"){
+
+                    $linktabla = "tablas.php";
+
+                }
+                else{$linktabla = "ampliarplan.php";}
+
+                print(" 
+                            <a class='navbar-brand' href='progreso.php'>Progreso</a>
+                            <a class='navbar-brand' href='resumen.php'>Resumen</a>
+                            <a class='navbar-brand' href='dietas.php'>Dietas</a>
+                            <a class='navbar-brand' href='$linktabla'>Tabla de ejercicios</a>
+                        ");
+                if($_SESSION['resLogin'] == "empleado"){
+
+                    print("<a class='navbar-brand' href='admin.php'>Administracion</a>");
+
+                }
+
+            }
+            }
             else{
                 print(" <a class='navbar-brand' href='login.php'>Progreso</a>
                         <a class='navbar-brand' href='login.php'>Resumen</a>
