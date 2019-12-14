@@ -25,7 +25,23 @@ and open the template in the editor.
             print("<p><a href='entrenForm.php'>Nuevo entrenamiento</a></p>");
         }
         
-        
         ?>
+        
+        <form action="admin.php" method="POST">
+            <p>DNI de cliente: <input type="text" name="dniInsertado"/></p>
+            <p><input type="submit"/></p>
+        </form>
+        
+        <?php
+        if(isset($_POST["dniInsertado"])){
+            $dni = $_POST["dniInsertado"];
+            $dietas = getDietas($dni);
+            if($dietas != ""){
+                print("<h2>Dietas</h2>");
+                print($dietas);
+            }
+        }
+        ?>
+        
     </body>
 </html>
