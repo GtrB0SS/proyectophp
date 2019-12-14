@@ -22,7 +22,10 @@ and open the template in the editor.
         
         // Añadir entrenamiento si es entrenador
         if($_SESSION["especialidad"] == "2" || $_SESSION["especialidad"] == "3"){
-            print("<p><a href='entrenForm.php'>Nuevo entrenamiento</a></p>");
+            print("<p><a href='#'>Nuevo ejercicio</a></p>");
+            print("<p><a href='#'>Insertar ejercicio en entrenamiento</a></p>");
+            print("<p><a href='#'>Insertar entrenamiento en sesión</a></p>");
+            print("<p><a href='#'>Insertar sesión en tabla</a></p>");
         }
         
         ?>
