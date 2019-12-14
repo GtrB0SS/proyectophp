@@ -46,7 +46,7 @@ and open the template in the editor.
                     print("<a class='navbar-brand' href='admin.php'>Administracion</a>");
 
                 }
-
+ 
             }
             ?>
             </nav>
