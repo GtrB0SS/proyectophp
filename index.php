@@ -79,7 +79,7 @@ and open the template in the editor.
                 print(" <a class='navbar-brand' href='login.php'>Progreso</a>
                         <a class='navbar-brand' href='login.php'>Resumen</a>
                         <a class='navbar-brand' href='login.php'>LogIn</a>
-                        <a class='navbar-brand' href='signup.php'>SignUp</a>
+                        <a class='navbar-brand' href='signupform.php'>SignUp</a>
                 ");
             }
 
