@@ -40,19 +40,6 @@
                 </form>
             </div>
         </div>
-        <!--
-        <form action="index.php" method="post">
-                <p>
-                <label>Usuario: </label> <input name="user" type="text">
-                </p>
-                <p>
-                <label>Clave: </label> <input name="pwd" type="password" maxlength="15">
-                </p>
-                <p>
-                <input name="envio" type="submit" value="Enviar">
-                <a href="form_alta_alum.html">Registrar Nuevo cliente</a>
-                </p>
-        </form>-->
     </div>
 </body>
 </html>
