@@ -9,7 +9,13 @@
 <title>Documento sin t&iacute;tulo</title>
 </head>
 <body>
+<?php
+session_start();
+if(isset($_SESSION['resLogin']) && $_SESSION['resLogin'] == "Usuario o clave incorrectos"){
+    print("Usuario o clave incorrectos");
+}
 
+?>
 <form action="index.php" method="post">
 	<p>
 	<label>Usuario: </label> <input name="user" type="text">

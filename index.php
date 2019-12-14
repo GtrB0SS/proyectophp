@@ -15,8 +15,25 @@ and open the template in the editor.
         session_start();
         include "daoMySQL.php";
         
+        if(isset($_POST['user']) && isset($_POST['pwd'])){
+            
+            
+            login($_POST['user'], $_POST['pwd']);
+            
+            if($_SESSION['resLogin'] == "cliente" || $_SESSION['resLogin'] == "empleado"){
+                
+                
+                
+            }
+            
+            if($_SESSION['resLogin'] == "empleado"){
+                
+                
+                
+            }
+            
+        }
         
         ?>
-        <h1>Hola mundo  !</h1>
     </body>
 </html>

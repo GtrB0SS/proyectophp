@@ -34,7 +34,8 @@ function login($user, $pwd){
                 or die (mysqli_error($conex));
         if ((mysqli_num_rows ($res_valid)==0) || !$user || !$pwd)
         {
-            print_r("clave o usuario erroneo");
+            $_SESSION['resLogin'] = "Usuario o clave incorrectos";
+            header('location: login.php');
 
         }
         else
@@ -42,6 +43,8 @@ function login($user, $pwd){
             $reg_usuario=mysqli_fetch_array($res_valid);
             $_SESSION['numeroempleado'] = $reg_usuario['numeroempleado'];
             $_SESSION['especialidad'] = $reg_usuario['especialidad'];
+            $_SESSION['resLogin'] = "empleado";
+            mysqli_close($conex);
             return;
 
         }
@@ -51,6 +54,8 @@ function login($user, $pwd){
     {
         $reg_usuario=mysqli_fetch_array($res_valid);
         $_SESSION['dni'] = $reg_usuario['dni'];
+        $_SESSION['resLogin'] = "cliente";
+        mysqli_close($conex);
         return;
 
     }
