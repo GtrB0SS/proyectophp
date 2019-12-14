@@ -25,27 +25,44 @@ and open the template in the editor.
                 <div class="col-md-6 login-form-1">
                     <h3>Signup Motofitness</h3>
                     <form action="signupinsert.php" method="post">
+                        <label>DNI:</label>
                         <div class="form-group">
                             <input type="text" class="form-control" name="dni" placeholder="Tu DNI" value="<?php if(isset($_SESSION['signup']['dni'])){print($_SESSION['signup']['dni']);} ?>" /><?php if(isset($_SESSION['erroressign']['dni'])){print($_SESSION['erroressign']['dni']);} ?>
                         </div>
+                        <label>Nombre:</label>
                         <div class="form-group">
                             <input type="text" class="form-control" name="nombre" placeholder="Tu nombre" value="<?php if(isset($_SESSION['signup']['nombre'])){print($_SESSION['signup']['nombre']);} ?>" /><?php if(isset($_SESSION['erroressign']['nombre'])){print($_SESSION['erroressign']['nombre']);} ?>
                         </div>
+                        <label>Email:</label>
                         <div class="form-group">
                             <input type="email" class="form-control" name="email" placeholder="Tu Email" value="<?php if(isset($_SESSION['signup']['email'])){print($_SESSION['signup']['email']);} ?>" /><?php if(isset($_SESSION['erroressign']['email'])){print($_SESSION['erroressign']['email']);} ?>
                         </div>
+                        <label>Direccion:</label>
                         <div class="form-group">
                             <input type="text" class="form-control" name="direccion" placeholder="Tu direccion" value="<?php if(isset($_SESSION['signup']['direccion'])){print($_SESSION['signup']['direccion']);} ?>" /><?php if(isset($_SESSION['erroressign']['direccion'])){print($_SESSION['erroressign']['direccion']);} ?>
                         </div>
+                        <label>Telefono:</label>
                         <div class="form-group">
                             <input type="text" class="form-control" name="telef" placeholder="Tu telefono" value="<?php if(isset($_SESSION['signup']['telef'])){print($_SESSION['signup']['telef']);} ?>" /><?php if(isset($_SESSION['erroressign']['telef'])){print($_SESSION['erroressign']['telef']);} ?>
                         </div>
+                        <label>Objetivo:</label>
                         <div class="form-group">
                             <textarea type="text" class="form-control" name="objetivo" placeholder="Tu objetivo" value="" ><?php if(isset($_SESSION['signup']['objetivo'])){print($_SESSION['signup']['objetivo']);} ?></textarea><?php if(isset($_SESSION['erroressign']['objetivo'])){print($_SESSION['erroressign']['objetivo']);} ?>
                         </div>
+                        <label>Contraseña:</label>
                         <div class="form-group">
                             <input type="password" class="form-control" name="pwd" placeholder="Tu clave" value="<?php if(isset($_SESSION['signup']['pwd'])){print($_SESSION['signup']['pwd']);} ?>" /><?php if(isset($_SESSION['erroressign']['pwd'])){print($_SESSION['erroressign']['pwd']);} ?>
                         </div>
+                        <label>Plan:</label>
+                        <select name="plan" class="form-control" id="exampleFormControlSelect1">
+                            <option value="" disabled selected>Seleccione un plan</option>
+                            <option value="nutricion" <?php if(isset($_SESSION['signup']['plan']) && $_SESSION['signup']['plan'] == "nutricion"){print('selected');} ?>>Nutricion</option>
+                            <option value="entrenamiento" <?php if(isset($_SESSION['signup']['plan']) && $_SESSION['signup']['plan'] == "entrenamiento"){print('selected');} ?>>Nutricion+Entrenamiento</option>
+                            <option value="pro" <?php if(isset($_SESSION['signup']['plan']) && $_SESSION['signup']['plan'] == "pro"){print('selected');} ?>>Pro</option>
+                        </select>
+                        <?php if(isset($_SESSION['erroressign']['plan'])){print($_SESSION['erroressign']['plan']);} ?>
+                        
+                        <br>
                         <div class="form-group">
                             <input type="submit" class="btnSubmit" value="Signup" />
                         </div>
@@ -53,6 +70,8 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
-        <?php if(isset($_SESSION['erroressign'])){unset($_SESSION['erroressign']);} ?>
+        <?php if(isset($_SESSION['erroressign'])){unset($_SESSION['erroressign']);}?>
+        
+        
     </body>
 </html>
