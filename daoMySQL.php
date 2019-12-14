@@ -62,3 +62,23 @@ function login($user, $pwd){
     
     
 }
+
+function getPlan($user){
+    $conex = getConnection();
+
+
+    $query="SELECT tipoplan
+            FROM plan 
+            WHERE (dni LIKE '$user')";
+    
+    $res_valid=mysqli_query($conex,$query) 
+            or die (mysqli_error($conex));
+    if ((mysqli_num_rows ($res_valid)!=0))
+    {
+        $plan=mysqli_fetch_array($res_valid);
+        return $plan['tipoplan'];
+        
+    }
+    else{return null;}
+    
+}
