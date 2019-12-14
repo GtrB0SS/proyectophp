@@ -39,6 +39,7 @@ and open the template in the editor.
 
                         print("<a class='navbar-brand' href='admin.php'>Administracion</a>");
                     }
+                    print("<a class='navbar-brand' href='logout.php'>Logout</a>");
                 }
                 ?>
             </nav>
