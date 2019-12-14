@@ -21,6 +21,7 @@ and open the template in the editor.
             print("<p><a href='formNuevaDieta.php'>Nueva dieta</a></p>");
             print("<p><a href='formNuevaComida.php'>Nueva comida</a></p>");
             print("<p><a href='#'>Nuevo plato</a></p>");
+            
         }
         
         // Añadir entrenamiento si es entrenador
@@ -44,8 +45,14 @@ and open the template in the editor.
             $dni = $_POST["dniInsertado"];
             $dietas = getDietas($dni);
             if($dietas != ""){
-                print("<h2>Dietas</h2>");
+                print("<h2>Dietas de $dni</h2>");
                 print($dietas);
+            }
+            
+            $tablas = getTablas($dni);
+            if($tablas != ""){
+                print("<h2>Tablas de $dni</h2>");
+                print($tablas);
             }
             
         }
