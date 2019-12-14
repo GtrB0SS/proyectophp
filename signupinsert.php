@@ -17,6 +17,8 @@ $telef = $_POST['telef'];
 $objetivo = $_POST['objetivo'];
 $pwd = $_POST['pwd'];
 $plan = $_POST['plan'];
+$dispo = $_POST['dispo'];
+$observaciones = $_POST['observaciones'];
 
 if (strlen($dni) != 9 || preg_match('/^[XYZ]?([0-9]{7,8})([A-Z])$/i', $dni) !== 1) {
     
@@ -67,6 +69,14 @@ if(trim($plan) == ""){
 }
 else{$_SESSION['signup']['plan'] = $plan;}
 
+if(trim($dispo) == ""){
+    $_SESSION['erroressign']['dispo'] = "Disponibilidad Incorrecta";
+    
+}
+else{$_SESSION['signup']['dispo'] = $dispo;}
+
+
+$_SESSION['signup']['observaciones'] = $observaciones;
 
 if(isset($_SESSION['erroressign'])){
     header('location: signupform.php');
@@ -77,12 +87,16 @@ if(isset($_SESSION['erroressign'])){
 else{
     $preparador = selectpreparador();
     
-    if(insertCliente($dni, $nombre, $email, $direccion, $telef, $objetivo, $pwd)){
-        
+    if(!insertCliente($dni, $nombre, $email, $direccion, $telef, $objetivo, $pwd)){
+        header('location: error.html');
     }
     
     if(asignarprep($dni, $preparador)){
         
+        header('location: error.html');
+    }
+    
+    if(insertPlan($dni, $tipoplan, $dispo, $observaciones)){
         $_SESSION['dni'] = $dni;
         $_SESSION['resLogin'] = "cliente";
         unset($_SESSION['signup']);

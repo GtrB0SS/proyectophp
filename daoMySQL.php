@@ -73,18 +73,16 @@ function getPlan($user) {
 function getProgreso($dni) {
 
     $conex = getConnection();
-
+    
 
     $query = "SELECT fecha, peso, medidas, imagen
             FROM `progreso` 
-            WHERE dni = $dni
+            WHERE dni = '$dni'
             ORDER BY `progreso`.`fecha` DESC ";
 
     $result = mysqli_query($conex, $query)
             or die(mysqli_error($conex));
     if ((mysqli_num_rows($result) != 0)) {
-        //$plan=mysqli_fetch_array($res_valid);
-
         $tabla = "";
 
         while ($fila = mysqli_fetch_array($result)) {
@@ -233,4 +231,19 @@ function nuevoEjercicio($codigo, $nombre, $series, $repeticiones, $peso, $link){
     mysqli_close($conex);
     
     return $result;
+
+}
+
+function insertPlan($dni, $tipoplan, $dispo, $observaciones){
+    
+    $fecha = date("d-m-Y",strtotime($fecha_actual."+ 1 month")); 
+    
+    $conex = getConnection();
+    $query = "INSERT INTO `plan` (`codPlan`, `tipoplan`, `descripcion`, `disponibilidad`, `observaciones`, `vencimiento`, `dni`)
+                VALUES (NULL, '$tipoplan', '$tipoplan', '$dispo', '$observaciones', '$fecha', '$dni') ";
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    mysqli_close($conex);
+    return $result;
+    
 }
