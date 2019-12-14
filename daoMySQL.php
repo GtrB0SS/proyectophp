@@ -222,8 +222,7 @@ function asignarprep($dni, $numempleado){
 function nuevoEjercicio($codigo, $nombre, $series, $repeticiones, $peso, $link){
     $conex = getConnection();
     
-    $query = "INSERT INTO `ejercicio` (`codejercicio`, `nombre`, `series, `repeticiones`, `peso`, `link`) "
-            . "VALUES ('$codigo', '$nombre', '$series', '$repeticiones', '$peso', '$link') ";
+    $query = "INSERT INTO `ejercicio` (`codejercicio`, `nombre`, `series`, `repeticiones`, `peso`, `link`) VALUES ('$codigo', '$nombre', '$series', '$repeticiones', '$peso', '$link')";
     
     $result = mysqli_query($conex, $query)
             or die(mysqli_error($conex));

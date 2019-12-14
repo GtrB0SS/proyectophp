@@ -17,9 +17,9 @@ and open the template in the editor.
         if(isset($_POST["codigo"]) /*&& isset($_POST["nombre"]) && isset($_POST["series"]) && isset($_POST["repeticiones"]) && isset($_POST["peso"]) && isset($_POST["link"])*/){
             $codigo = $_POST["codigo"];
             $nombre = $_POST["nombre"];
-            $series = $_POST["series"];
-            $repeticiones = $_POST["repeticiones"];
-            $peso = $_POST["peso"];
+            $series = (int)$_POST["series"];
+            $repeticiones = (int)$_POST["repeticiones"];
+            $peso = (int)$_POST["peso"];
             $link = $_POST["link"];
             
             $resultado = nuevoEjercicio($codigo, $nombre, $series, $repeticiones, $peso, $link);
