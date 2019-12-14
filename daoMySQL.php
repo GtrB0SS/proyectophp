@@ -76,9 +76,58 @@ function getPlan($user){
     if ((mysqli_num_rows ($res_valid)!=0))
     {
         $plan=mysqli_fetch_array($res_valid);
+        mysqli_close($conex);
         return $plan['tipoplan'];
         
     }
-    else{return null;}
+    else{
+        mysqli_close($conex);
+        return null;}
+    
+}
+
+function getProgreso($dni){
+    
+    $conex = getConnection();
+
+
+    $query="SELECT fecha, peso, medidas, imagen
+            FROM `progreso` 
+            WHERE dni = $dni
+            ORDER BY `progreso`.`fecha` DESC ";
+    
+    $result=mysqli_query($conex,$query) 
+            or die (mysqli_error($conex));
+    if ((mysqli_num_rows ($result)!=0))
+    {
+        //$plan=mysqli_fetch_array($res_valid);
+        
+        $tabla="";
+        
+        /*<tr>
+            <th>1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>*/
+         while ($fila = mysqli_fetch_array($result)){
+
+             $tabla = $tabla . "<tr>
+            <th>".$fila['fecha']."</th>
+            <td>".$fila['peso']."</td>
+            <td>".$fila['medidas']."</td>
+            <td><img src='".$fila['imagen']."' width='256' height='200' /></td>
+          </tr>";
+
+        }
+        mysqli_close($conex);
+        return $tabla;
+        
+    }
+    else{
+        mysqli_close($conex);
+        return "";
+        
+    }
     
 }
