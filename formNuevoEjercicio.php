@@ -10,7 +10,24 @@ and open the template in the editor.
         <title></title>
     </head>
     <body>
-        <form action="formNuevoEjercicio.php" action="POST">
+        <?php
+        session_start();
+        include "daoMySQL.php";
+        
+        if(isset($_POST["codigo"]) /*&& isset($_POST["nombre"]) && isset($_POST["series"]) && isset($_POST["repeticiones"]) && isset($_POST["peso"]) && isset($_POST["link"])*/){
+            $codigo = $_POST["codigo"];
+            $nombre = $_POST["nombre"];
+            $series = $_POST["series"];
+            $repeticiones = $_POST["repeticiones"];
+            $peso = $_POST["peso"];
+            $link = $_POST["link"];
+            
+            $resultado = nuevoEjercicio($codigo, $nombre, $series, $repeticiones, $peso, $link);
+            print($resultado);
+        }
+        ?>
+        
+        <form action="formNuevoEjercicio.php" action="?">
             <p>Código: <input type="text" name="codigo"/></p>
             <p>Nombre: <input type="text" name="nombre"/></p>
             <p>Series: <input type="number" name="series"/></p>
@@ -19,10 +36,6 @@ and open the template in the editor.
             <p>Link: <input type="text" name="link"/></p>
             <p><input type="submit"/></p>
         </form>
-        <?php
-        if(isset($_POST["codigo"]) && isset($_POST["nombre"]) && isset($_POST["series"]) && isset($_POST["repeticiones"]) && isset($_POST["peso"]) && isset($_POST["link"])){
-            
-        }
-        ?>
+        
     </body>
 </html>
