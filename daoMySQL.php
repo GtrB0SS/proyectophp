@@ -247,24 +247,50 @@ function insertPlan($dni, $tipoplan, $dispo, $observaciones){
     
 }
 
-/*
-function getTablas($user){
+
+function getTablas($dni){
+    
+    $tab = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+
     $conex = getConnection();
-    
-    $query = "SELECT ej.nombre, ej.series, ej.repeticiones, ej.peso 
-              FROM ejercicio ej, entrenamiento en, sesion se, lineatable lt, tablaejercicios te, cliente c
-              WHERE c.dni = '$user'
-              AND c.codtabla = lt.codtabla
-              AND lt.codsesion = se.codsesion
-              AND se.codsesion = en.codigosesion
-              AND en.codigoejercicio = ej.codejercicio";
-    
+
+
+    $query = "SELECT *
+            FROM tablaejercicios t, lineatabla lt, sesion s, entrenamiento e, ejercicio ej, cliente c
+            WHERE c.dni = '$dni'
+            AND   c.codtabla = t.codtabla
+            AND t.codtabla = lt.codtabla
+            AND lt.codsesion = s.codsesion
+            AND s.codsesion = e.codigosesion
+            AND e.codigoejercicio = ej.codejercicio";
     $result = mysqli_query($conex, $query)
             or die(mysqli_error($conex));
     
-    if ((mysqli_num_rows($result) != 0)) {
-        
+    $tabla = "";
+    $diaantit = "";
+    $sesionantit = "";
+    $primit = 1;
+    while ($fila = mysqli_fetch_array($result)) {
+
+        if($primit == 1){
+            $tabla = $tabla . "
+                                <h3>Tabla de &nbsp;" . $fila['tipo'] . "</h3>";
+            $primit =2;
+        }
+
+        if($fila['dia'] != $diaantit){
+            $tabla = $tabla . "
+                                <h3> $tab" . $fila['dia'] . "</h3>";
+                                
+            $diaantit = $fila['dia'];
+            $sesionantit = "";
+        }
+
+        $tabla = $tabla . "<p>$tab $tab <b>Nombre:</b>&nbsp;" . $fila['nombre'] . "</p>
+                                <p>$tab $tab Series x Reps:&nbsp;" . $fila['series'] . "&nbsp;x&nbsp;" . $fila['repeticiones'] ."</p>"
+                . "         <p>$tab $tab Link:". $fila['link'] ." ";
     }
     
+    return $tabla;
+    
 }
-*/
