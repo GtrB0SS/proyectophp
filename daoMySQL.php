@@ -247,8 +247,49 @@ function insertPlan($dni, $tipoplan, $dispo, $observaciones){
     
 }
 
+<<<<<<< Updated upstream
 
 function getTablas($dni){
+=======
+function insertPlato($codigoplato, $nombre, $link){
+    $conex = getConnection();
+    
+    $query = "INSERT INTO `plato` (`codplato`, `nombre`, `link`) VALUES ('$codigoplato', '$nombre', '$link')";
+    
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    mysqli_close($conex);
+    
+    return $result;
+}
+
+/*
+function insertDieta($codcomida, $nombre){
+    $conex = getConnection();
+    
+    $query = "INSERT INTO `comida` (`codcomida`, `nombre`) VALUES ('$codcomida', '$nombre')";
+    
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    mysqli_close($conex);
+    
+    return $result;
+}
+
+ */
+
+/*
+function getTablas($user){
+    $conex = getConnection();
+    
+    $query = "SELECT ej.nombre, ej.series, ej.repeticiones, ej.peso 
+              FROM ejercicio ej, entrenamiento en, sesion se, lineatable lt, tablaejercicios te, cliente c
+              WHERE c.dni = '$user'
+              AND c.codtabla = lt.codtabla
+              AND lt.codsesion = se.codsesion
+              AND se.codsesion = en.codigosesion
+              AND en.codigoejercicio = ej.codejercicio";
+>>>>>>> Stashed changes
     
     $tab = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 
