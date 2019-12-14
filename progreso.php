@@ -51,7 +51,7 @@ and open the template in the editor.
             <div class="row">
                 <div class="col-md-6 login-form-1">
                     <h3>Inserte progreso</h3>
-                    <form action="insertprogreso.php" method="post">
+                    <form action="insertprogreso.php" method="get" enctype="multipart/form-data">
                         <div class="form-group">
                             <input type="number" class="form-control" name="peso" placeholder="Tu peso" value="" />
                         </div>
@@ -62,10 +62,10 @@ and open the template in the editor.
                             <input type="date" class="form-control" name="fecha" placeholder="Fecha" value="" />
                         </div>
                         <div class="form-group">
-                            <input type="file" class="form-control" name="img" placeholder="Tu foto" value="" />
+                            <input type="file" class="form-control" name="img" value="" />
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btnSubmit" value="Login" />
+                            <input type="submit" class="btnSubmit" value="Subir progreso" />
                         </div>
 
                     </form>
