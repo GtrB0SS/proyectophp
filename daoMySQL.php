@@ -247,11 +247,24 @@ function insertPlan($dni, $tipoplan, $dispo, $observaciones){
     
 }
 
+/*
 function getTablas($user){
     $conex = getConnection();
     
     $query = "SELECT ej.nombre, ej.series, ej.repeticiones, ej.peso 
-              FROM ejercicio ej, entrenamiento en, sesion se, lineatable lt, tablaejercicios te
-              WHERE ";
+              FROM ejercicio ej, entrenamiento en, sesion se, lineatable lt, tablaejercicios te, cliente c
+              WHERE c.dni = '$user'
+              AND c.codtabla = lt.codtabla
+              AND lt.codsesion = se.codsesion
+              AND se.codsesion = en.codigosesion
+              AND en.codigoejercicio = ej.codejercicio";
+    
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    
+    if ((mysqli_num_rows($result) != 0)) {
+        
+    }
     
 }
+*/
