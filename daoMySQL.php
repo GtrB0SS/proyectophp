@@ -158,3 +158,18 @@ function getDietas($user) {
         return "";
     }
 }
+
+function insertProgreso($img, $peso, $medidas, $fecha, $dni){
+    
+    
+    
+    $conex = getConnection();
+
+
+    $query = "INSERT INTO `progreso` (`codProgreso`, `imagen`, `peso`, `medidas`, `fecha`, `dni`) "
+            . "VALUES (NULL, '".$img."', '".$peso."', '".$medidas."', '".$fecha."', '".$dni."') ";
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    mysqli_close($conex);
+    
+}

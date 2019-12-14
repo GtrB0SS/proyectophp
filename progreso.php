@@ -53,13 +53,10 @@ and open the template in the editor.
                     <h3>Inserte progreso</h3>
                     <form action="insertprogreso.php" method="post" enctype="multipart/form-data">
                         <div class="form-group">
-                            <input type="number" class="form-control" name="peso" placeholder="Tu peso" value="" />
+                            <input type="number" class="form-control" name="peso" placeholder="Tu peso" value="" /><?php if(isset($_SESSION['erroresProgreso']['peso']) ) print("<p>".$_SESSION['erroresProgreso']['peso']."</p>");?>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="medidas" placeholder="Tus medidas" value="" />
-                        </div>
-                        <div class="form-group">
-                            <input type="date" class="form-control" name="fecha" placeholder="Fecha" value="" />
+                            <input type="text" class="form-control" name="medidas" placeholder="Tus medidas" value="" /><?php if(isset($_SESSION['erroresProgreso']['medidas']) ) print("<p>".$_SESSION['erroresProgreso']['medidas']."</p>");?>
                         </div>
                         <div class="form-group">
                             <input type="file" class="form-control" name="img" value="" />
@@ -71,6 +68,11 @@ and open the template in the editor.
                     </form>
                 </div>
             </div>
+            <?php
+                if(isset($_SESSION['erroresProgreso'])){
+                    unset($_SESSION['erroresProgreso']);
+                }
+            ?>
         </div>
     </body>
 </html>
