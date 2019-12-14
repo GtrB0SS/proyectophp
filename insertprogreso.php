@@ -7,6 +7,11 @@
  */
 
 
+$peso = $_POST['peso'];
+$medidas = $_POST['medidas'];
+$fecha = $_POST['fecha'];
+
+
 if (is_uploaded_file ($_FILES['img']['tmp_name']))
 {
    $nombreDirectorio = "img/";
@@ -15,6 +20,8 @@ if (is_uploaded_file ($_FILES['img']['tmp_name']))
 
    move_uploaded_file ($_FILES['img']['tmp_name'],
       $nombreDirectorio . $nombreFichero);
+   $nombreFichero = $nombreDirectorio . $nombreFichero;
 }
 else
-   print ("No se ha podido subir el fichero\n");
+   $nombreFichero = "img/img.jpg"; //Imagen por defecto
+

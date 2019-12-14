@@ -51,7 +51,7 @@ and open the template in the editor.
             <div class="row">
                 <div class="col-md-6 login-form-1">
                     <h3>Inserte progreso</h3>
-                    <form action="insertprogreso.php" method="get" enctype="multipart/form-data">
+                    <form action="insertprogreso.php" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <input type="number" class="form-control" name="peso" placeholder="Tu peso" value="" />
                         </div>
