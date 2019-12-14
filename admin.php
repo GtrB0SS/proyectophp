@@ -12,6 +12,20 @@ and open the template in the editor.
     <body>
         <?php
         // put your code here
+        session_start();
+        include "daoMySQL.php";
+        
+        // Añadir dieta si es nutricionista
+        if($_SESSION["especialidad"] == "1" || $_SESSION["especialidad"] == "3"){
+            print("<p><a href='dietaForm.php'>Nueva dieta</a></p>");
+        }
+        
+        // Añadir entrenamiento si es entrenador
+        if($_SESSION["especialidad"] == "2" || $_SESSION["especialidad"] == "3"){
+            print("<p><a href='entrenForm.php'>Nuevo entrenamiento</a></p>");
+        }
+        
+        
         ?>
     </body>
 </html>
