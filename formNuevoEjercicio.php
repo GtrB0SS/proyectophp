@@ -14,8 +14,8 @@ and open the template in the editor.
         session_start();
         include "daoMySQL.php";
         
-        if(isset($_POST["codigo"]) /*&& isset($_POST["nombre"]) && isset($_POST["series"]) && isset($_POST["repeticiones"]) && isset($_POST["peso"]) && isset($_POST["link"])*/){
-            $codigo = $_POST["codigo"];
+        if(isset($_POST["nombre"]) /*&& isset($_POST["nombre"]) && isset($_POST["series"]) && isset($_POST["repeticiones"]) && isset($_POST["peso"]) && isset($_POST["link"])*/){
+            
             $nombre = $_POST["nombre"];
             $series = (int)$_POST["series"];
             $repeticiones = (int)$_POST["repeticiones"];
@@ -28,7 +28,7 @@ and open the template in the editor.
         ?>
         
         <form action="formNuevoEjercicio.php" action="?">
-            <p>Código: <input type="text" name="codigo"/></p>
+           <!-- <p>Código: <input type="text" name="codigo"/></p>-->
             <p>Nombre: <input type="text" name="nombre"/></p>
             <p>Series: <input type="number" name="series"/></p>
             <p>Repeticiones: <input type="number" name="repeticiones"/></p>
