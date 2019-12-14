@@ -10,8 +10,19 @@ and open the template in the editor.
         <title></title>
     </head>
     <body>
+        <form action="formNuevoEjercicio.php" action="POST">
+            <p>Código: <input type="text" name="codigo"/></p>
+            <p>Nombre: <input type="text" name="nombre"/></p>
+            <p>Series: <input type="number" name="series"/></p>
+            <p>Repeticiones: <input type="number" name="repeticiones"/></p>
+            <p>Peso: <input type="number" name="peso"/></p>
+            <p>Link: <input type="text" name="link"/></p>
+            <p><input type="submit"/></p>
+        </form>
         <?php
-        // put your code here
+        if(isset($_POST["codigo"]) && isset($_POST["nombre"]) && isset($_POST["series"]) && isset($_POST["repeticiones"]) && isset($_POST["peso"]) && isset($_POST["link"])){
+            
+        }
         ?>
     </body>
 </html>
