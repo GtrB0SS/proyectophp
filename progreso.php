@@ -47,7 +47,7 @@ and open the template in the editor.
                     print("Error en la insercion");
                 }
                 ?>
-
+ 
             <div class="row">
                 <div class="col-md-6 login-form-1">
                     <h3>Inserte progreso</h3>
