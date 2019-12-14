@@ -45,6 +45,7 @@ and open the template in the editor.
                 print("<h2>Dietas</h2>");
                 print($dietas);
             }
+            
         }
         ?>
         

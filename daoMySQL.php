@@ -246,3 +246,12 @@ function insertPlan($dni, $tipoplan, $dispo, $observaciones){
     return $result;
     
 }
+
+function getTablas($user){
+    $conex = getConnection();
+    
+    $query = "SELECT ej.nombre, ej.series, ej.repeticiones, ej.peso 
+              FROM ejercicio ej, entrenamiento en, sesion se, lineatable lt, tablaejercicios te
+              WHERE ";
+    
+}

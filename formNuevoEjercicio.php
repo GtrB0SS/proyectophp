@@ -25,8 +25,8 @@ and open the template in the editor.
             $resultado = nuevoEjercicio($codigo, $nombre, $series, $repeticiones, $peso, $link);
             print($resultado);
         }
-        ?>
         
+        ?>
         <form action="formNuevoEjercicio.php" action="?">
             <p>Código: <input type="text" name="codigo"/></p>
             <p>Nombre: <input type="text" name="nombre"/></p>
