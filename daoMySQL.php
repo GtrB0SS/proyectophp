@@ -6,3 +6,9 @@
  * and open the template in the editor.
  */
 
+function getConnection(){
+    $conex=mysqli_connect('localhost', 'root', '') or die (mysqli_error($conex));
+    mysqli_select_db($conex,"motofitness") or die (mysqli_error($conex));
+    
+    return $conex;
+}

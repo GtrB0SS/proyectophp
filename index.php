@@ -12,6 +12,10 @@ and open the template in the editor.
     <body>
         <?php
         // put your code here
+        session_start();
+        include "daoMySQL.php";
+        
+        
         ?>
         <h1>Hola mundo  !</h1>
     </body>
