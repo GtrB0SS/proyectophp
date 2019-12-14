@@ -173,3 +173,28 @@ function insertProgreso($img, $peso, $medidas, $fecha, $dni){
     mysqli_close($conex);
     
 }
+
+function selectpreparador(){
+    
+    
+    $conex = getConnection();
+
+    $numempleado = "";
+
+    $query = "SELECT e.numeroempleado, count(le.dni)
+            FROM empleado e, cliente c, lineaempleado le
+            WHERE e.numeroempleado = le.numeroempleado
+            AND   c.dni = le.dni
+            ORDER BY count(le.dni) ASC";
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    
+    if ((mysqli_num_rows($result) != 0)) {
+        $fila = mysqli_fetch_array($result);
+        $numempleado = $fila['numeroempleado'];
+    }
+    
+    
+    mysqli_close($conex);
+    return $numempleado;
+}
