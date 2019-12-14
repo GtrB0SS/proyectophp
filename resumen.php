@@ -50,6 +50,7 @@ and open the template in the editor.
             }
             ?>
             </nav>
+            
             <table class="table">
                 <thead>
                     <tr>

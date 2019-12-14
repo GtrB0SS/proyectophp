@@ -61,6 +61,16 @@ and open the template in the editor.
                             <option value="pro" <?php if(isset($_SESSION['signup']['plan']) && $_SESSION['signup']['plan'] == "pro"){print('selected');} ?>>Pro</option>
                         </select>
                         <?php if(isset($_SESSION['erroressign']['plan'])){print($_SESSION['erroressign']['plan']);} ?>
+                        <br>
+                        <label>Disponibilidad:</label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="dispo" placeholder="Numero de dias disponibles" value="<?php if(isset($_SESSION['signup']['dispo'])){print($_SESSION['signup']['dispo']);} ?>" /><?php if(isset($_SESSION['erroressign']['dispo'])){print($_SESSION['erroressign']['dispo']);} ?>
+                        </div>
+                        
+                        <label>Observaciones (Alergias, lesiones, etc.):</label>
+                        <div class="form-group">
+                            <textarea type="text" class="form-control" name="observaciones" placeholder="Tu objetivo" value="" ><?php if(isset($_SESSION['signup']['observaciones'])){print($_SESSION['signup']['observaciones']);} ?></textarea>
+                        </div>
                         
                         <br>
                         <div class="form-group">
