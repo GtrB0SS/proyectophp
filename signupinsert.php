@@ -16,6 +16,7 @@ $direccion = $_POST['direccion'];
 $telef = $_POST['telef'];
 $objetivo = $_POST['objetivo'];
 $pwd = $_POST['pwd'];
+$plan = $_POST['plan'];
 
 if (strlen($dni) != 9 || preg_match('/^[XYZ]?([0-9]{7,8})([A-Z])$/i', $dni) !== 1) {
     
@@ -60,6 +61,33 @@ if(trim($pwd) == ""){
 }
 else{$_SESSION['signup']['pwd'] = $pwd;}
 
-if(isset($_SESSION['erroressign'])){header('location: signupform.php');}
+if(trim($plan) == ""){
+    $_SESSION['erroressign']['plan'] = "Plan Incorrecto";
+    
+}
+else{$_SESSION['signup']['plan'] = $plan;}
 
-else{print("OK");}
+
+if(isset($_SESSION['erroressign'])){
+    header('location: signupform.php');
+    
+    
+}
+
+else{
+    $preparador = selectpreparador();
+    
+    if(insertCliente($dni, $nombre, $email, $direccion, $telef, $objetivo, $pwd)){
+        
+    }
+    
+    if(asignarprep($dni, $preparador)){
+        
+        $_SESSION['dni'] = $dni;
+        $_SESSION['resLogin'] = "cliente";
+        unset($_SESSION['signup']);
+        
+        header('location: index.php');
+    }
+    
+}

@@ -198,3 +198,25 @@ function selectpreparador(){
     mysqli_close($conex);
     return $numempleado;
 }
+
+function insertCliente($dni, $nombre, $email, $direccion, $telef, $objetivo, $pwd){
+    
+    $conex = getConnection();
+    $query = "INSERT INTO `cliente` (`dni`, `nombre`, `email`, `direccion`, `telefono`, `objetivo`, `clave`, `coddieta`, `codtabla`) 
+                            VALUES ('$dni', '$nombre', '$email', '$direccion', '$telef', '$objetivo', '$pwd', NULL, NULL) ";
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    mysqli_close($conex);
+    return $result;
+}
+
+function asignarprep($dni, $numempleado){
+    $conex = getConnection();
+    $query = "INSERT INTO `lineaempleado` (`dni`, `numeroempleado`) 
+                            VALUES ('$dni', '$numempleado') ";
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    mysqli_close($conex);
+    return $result;
+    
+}
