@@ -13,7 +13,11 @@ $option = $_REQUEST['option'];
 
 if ($option == "ejercicios") {
     $ejercicios = $_POST['listaEjercicios'];
+    $tipo = $_POST["tipo"];
+    $fecha = $_POST["fecha"];
+    $codigoSesion = $_POST["codigoSesion"];
     
+    /*
     if(count($ejercicios) == 0){
         print("<p>Error no hay ejercicios</p>");
     }
@@ -22,6 +26,26 @@ if ($option == "ejercicios") {
             print("<p>$clave -> $valor</p>");
         }
     }
+     */
     
+    // nueva tabla
+    $codNuevaTabla = insertTabla($fecha, $tipo);
+    
+    // bind lineatabla
+    $resultBindSesion = bindSesion($codSesion, $codNuevaTabla);
+    if($resultBindSesion != 1){
+        print("<h2>Error al bindear la tabla y la sesión</h2>");
+    }
+    
+    // insertar ejercicios en entrenamiento
+    foreach ($ejercicios as $clave => $valor) {
+        $resultInsertEntrenamiento = meterEjercicio($valor, $codigoSesion);
+        if($resultInsertEntrenamiento != 1){
+            print("<h2>Error al insertar entrenamiento.</h2>");
+        }
+    }
+    
+    print("<h2>Insertado correctamente</h2>");
+    print("<p><a href='index.php'>Volver a inicio</a></p>");
     
 }

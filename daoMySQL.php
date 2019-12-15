@@ -520,3 +520,42 @@ function getEjercicios(){
     
     return $ejercicios;
 }
+
+function insertTabla($fecha, $tipo){
+    $conex = getConnection();
+    
+    $query = "INSERT INTO `tablaejercicios` (`codtabla`, `fecha`, `tipo`) VALUES (NULL, '$fecha', '$tipo')";
+    
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    
+    mysqli_close($conex);
+    
+    return mysqli_insert_id();
+}
+
+function bindSesion($codSesion, $codTabla){
+    $conex = getConnection();
+    
+    $query = "INSERT INTO `lineatabla` (`codtabla`, `codsesion`) VALUES ('$codTabla', '$codSesion')";
+    
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    
+    mysqli_close($conex);
+    
+    return $result;
+}
+
+function meterEjercicio($ejercicio, $codigoSesion){
+    $conex = getConnection();
+    
+    $query = "INSERT INTO `entrenamiento` (`codigoejercicio`, `codigosesion`) VALUES ('$ejercicio', '$codigoSesion')";
+    
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    
+    mysqli_close($conex);
+    
+    return $result;
+}

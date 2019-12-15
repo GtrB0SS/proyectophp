@@ -52,7 +52,14 @@ and open the template in the editor.
         <h3>Nueva Tabla</h3>
         <form action="gestionTablas.php" method="POST">
             <!-- METER FECHA -->
-            <label>Fecha:</label>
+            <label>Fecha (AAAA-MM-DD):</label>
+            <input type="date" name="fecha"/>
+            
+            <label>Tipo:</label>
+            <input type="text" name="tipo"/>
+            
+            <label>Código de sesión:</label>
+            <input type="text" name="codigoSesion"/>
             
             <label>Ejercicios:</label>
             <select multiple class="form-control" id="exampleFormControlSelect2" name="listaEjercicios[]">
