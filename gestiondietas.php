@@ -82,4 +82,56 @@ if ($option == "plato") {
             header("location: admin.php");
         }
     }
+}else if ($option == "dia") {
+    $dia = $_POST['dia'];
+    
+    if(trim($dia) == "" || !preg_match("(lunes|martes|miercoles|jueves|viernes|sabado|domingo)", strtolower($dia))){
+        
+        $_SESSION['erroresdia']['dia'] = "Dia erroneo";
+    }
+    else {
+        $_SESSION['insertdia']['dia'] = $dia;
+    }
+    
+    $calorias = $_POST['calorias'];
+    if(trim($calorias) == "" || !is_numeric($calorias) || strlen($calorias)>4){
+        
+        $_SESSION['erroresdia']['calorias'] = "Las calorias deben ser un numero como maximo de 4 cifras";
+    }
+    else {
+        $_SESSION['insertdia']['calorias'] = $calorias;
+    }
+    
+    $macros = $_POST['macros'];
+    if(trim($macros) == "" ){
+        
+        $_SESSION['erroresdia']['macros'] = "Macronutrientes erroneos";
+    }
+    else {
+        $_SESSION['insertdia']['macros'] = $macros;
+    }
+    
+    
+    //Select verificacion
+    
+    
+    if (isset($_SESSION['erroresdia'])) {
+        header('location: formNuevoDiaDieta.php');
+    } else {
+        unset($_SESSION['insertdia']);
+        unset($_SESSION['erroresdia']);
+        print("HOLÑA");
+//        $id = insertComida($nombre);
+//        if ($id==0) {
+//            headder('location: error.html');
+//        } else {
+//            
+//            foreach ($platos as $clave => $valor) {
+//                if(!bindComidaPlato($id, $valor)){
+//                    headder('location: error.html');
+//                }
+//            }
+//            header("location: admin.php");
+//        }
+    }
 }

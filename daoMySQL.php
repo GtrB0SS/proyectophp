@@ -302,6 +302,22 @@ function bindComidaPlato($idComida, $idPlato){
     return $result;
 }
 
+function getComidas(){
+    
+    $conex = getConnection();
+    
+    $query = "SELECT * FROM `comida` ";
+    
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    while ($fila = mysqli_fetch_array($result)) {
+        
+        $comidas[$fila['codcomida']] = $fila['nombre'];
+    }
+    
+    return $comidas;
+    
+}
 /*
 function insertDieta($codcomida, $nombre){
     $conex = getConnection();
