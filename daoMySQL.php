@@ -548,10 +548,11 @@ function bindSesion($codSesion, $codTabla){
     return $result;
 }
 
-function meterEjercicio($ejercicio, $codigoSesion){
+function insertEjercicio($nombre, $series, $repes, $peso, $link){
     $conex = getConnection();
     
-    $query = "INSERT INTO `entrenamiento` (`codigoejercicio`, `codigosesion`) VALUES ('$ejercicio', '$codigoSesion')";
+    $query = "INSERT INTO `ejercicio` (`codejercicio`, `nombre`, `series`, `repeticiones`, `peso`, `link`) "
+            . "VALUES (NULL, '$nombre', '$series', '$repes', '$peso', '$link') ";
     
     $result = mysqli_query($conex, $query)
             or die(mysqli_error($conex));

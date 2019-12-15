@@ -20,7 +20,7 @@ and open the template in the editor.
             <?php
             // put your code here
             session_start();
-            include "../daoMySQL.php";
+            include "daoMySQL.php";
 
 
             //$_SESSION['dni'] = $_POST['user'];
@@ -88,6 +88,19 @@ and open the template in the editor.
                 ?>" /><?php
                        if (isset($_SESSION['erroresejercicio']['repeticiones'])) {
                            print($_SESSION['erroresejercicio']['repeticiones']);
+                       }
+                       ?>
+            </div>
+            
+            <label>Peso:</label>
+            <div class="form-group">
+                <input type="text" class="form-control" name="peso" placeholder="Peso del ejercicio" value="<?php
+                if (isset($_SESSION['insertejercicio']['peso'])) {
+                    print($_SESSION['insertejercicio']['peso']);
+                }
+                ?>" /><?php
+                       if (isset($_SESSION['erroresejercicio']['peso'])) {
+                           print($_SESSION['erroresejercicio']['peso']);
                        }
                        ?>
             </div>
