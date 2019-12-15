@@ -219,8 +219,10 @@ function asignarprep($dni, $numempleado){
     
 }
 
-function nuevoEjercicio($codigo, $nombre, $series, $repeticiones, $peso, $link){
+function nuevoEjercicio($nombre, $series, $repeticiones, $peso, $link){
     $conex = getConnection();
+    
+    //$query = "INSERT INTO `ejercicio` (`codejercicio`, `nombre`, `series`, `repeticiones`, `peso`, `link`) VALUES (NULL, '$nombre', '$series', '$repeticiones', '$peso', '$link')";
     
     $query = "INSERT INTO `ejercicio` (`codejercicio`, `nombre`, `series`, `repeticiones`, `peso`, `link`) VALUES (NULL, '$nombre', '$series', '$repeticiones', '$peso', '$link')";
     
