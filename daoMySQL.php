@@ -530,9 +530,11 @@ function insertTabla($fecha, $tipo){
     $result = mysqli_query($conex, $query)
             or die(mysqli_error($conex));
     
+    $idNuevo = mysqli_insert_id();
+    
     mysqli_close($conex);
     
-    return mysqli_insert_id();
+    return $idNuevo;
 }
 
 function bindSesion($codSesion, $codTabla){
