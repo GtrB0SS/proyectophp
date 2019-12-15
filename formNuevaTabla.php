@@ -74,7 +74,7 @@ and open the template in the editor.
                 <div class="form-group">
                     <input type="submit" class="btnSubmit" value="Continuar" />
                 </div>
-                <input type="hidden" class="form-control" name="option"  value="ejercicios" />
+                <input type="hidden" class="form-control" name="option"  value="tabla" />
             </select>
             
         </form>
