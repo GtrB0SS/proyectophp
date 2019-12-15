@@ -521,7 +521,6 @@ function getEjercicios() {
 
     return $ejercicios;
 }
-<<<<<<< HEAD
 
 function insertTabla($fecha, $tipo){
     $conex = getConnection();
@@ -561,5 +560,3 @@ function meterEjercicio($ejercicio, $codigoSesion){
     
     return $result;
 }
-=======
->>>>>>> master
