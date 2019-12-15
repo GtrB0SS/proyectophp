@@ -531,7 +531,8 @@ function insertTabla($fecha, $tipo){
     
     mysqli_close($conex);
     
-    return $idNuevo;
+
+    return mysqli_insert_id($conex);
 }
 
 function bindSesion($codSesion, $codTabla){
