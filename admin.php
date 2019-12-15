@@ -61,6 +61,7 @@ and open the template in the editor.
             print("<p><a href='formNuevoPlato.php'>Nuevo plato</a></p>");
             
 
+
         }
         
         // Añadir entrenamiento si es entrenador
