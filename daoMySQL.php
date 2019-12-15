@@ -198,10 +198,7 @@ function selectpreparador() {
             $numeroempleado = $fila['numeroempleado'];
             $antit = $fila2['res'];
         }
-        
-        
     }
-
 
     mysqli_close($conex);
     return $numeroempleado;
