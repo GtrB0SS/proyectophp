@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-12-2019 a las 18:31:02
+-- Tiempo de generación: 15-12-2019 a las 20:46:34
 -- Versión del servidor: 10.4.8-MariaDB
 -- Versión de PHP: 7.3.11
 
@@ -47,13 +47,8 @@ CREATE TABLE `cliente` (
 --
 
 INSERT INTO `cliente` (`dni`, `nombre`, `email`, `direccion`, `telefono`, `objetivo`, `clave`, `coddieta`, `codtabla`) VALUES
-('1111', 'aadsd', 'asdasd', 'asdas', 'asdas', 'asdasd', '1', 1, NULL),
-('12121212A', 'adas', 'sda@gmail.com', 'adsasd', '678678678', 'asdas', '1', NULL, NULL),
-('21312311W', 'sad', 'asd@gmail.com', 'asd', '765765567', 'ads', '1', NULL, NULL),
-('2222', 'pepe', 'asd', 'asdasd', 'asda', 'asdasd', '1', 1, NULL),
-('23121212Q', 'adas', 'asd@gmail.com', 'adasd', '676767676', 'asdasd', '1', NULL, NULL),
-('32323223A', 'asdas', 'ad@sda.hjh', 'adas', '678678678', 'sfgsdf', '2', NULL, NULL),
-('79797979A', 'Carlos', 'asda@sad.es', 'asdasd', '898788987', 'qwe', '1', NULL, NULL);
+('32323223A', 'asdas', 'ad@sda.hjh', 'adas', '678678678', 'sfgsdf', '2', 2, 6),
+('99999999E', 'PEPEPEPEE', 'asdasd@fas.dsa', 'adasdadasd', '666666666', 'adadas', '1', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -72,7 +67,8 @@ CREATE TABLE `comida` (
 
 INSERT INTO `comida` (`codcomida`, `nombre`) VALUES
 (1, 'desayuno'),
-(2, 'comida');
+(2, 'comida'),
+(3, 'Plato insertado');
 
 -- --------------------------------------------------------
 
@@ -96,7 +92,9 @@ INSERT INTO `diadieta` (`coddia`, `calorias`, `macronutrientes`, `dia`) VALUES
 (2, 2323, '12313', 'martes'),
 (3, 31231, '12312', 'miercoles'),
 (4, 1312, '12312', 'jueves'),
-(5, 131, '123123', 'viernes');
+(5, 131, '123123', 'viernes'),
+(6, 1222, 'asdasd', 'Lunes'),
+(7, 1222, 'asdasd', 'Viernes');
 
 -- --------------------------------------------------------
 
@@ -114,7 +112,8 @@ CREATE TABLE `dieta` (
 --
 
 INSERT INTO `dieta` (`coddieta`, `semana`) VALUES
-(1, '1');
+(1, '1'),
+(2, '3');
 
 -- --------------------------------------------------------
 
@@ -127,9 +126,21 @@ CREATE TABLE `ejercicio` (
   `nombre` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
   `series` int(3) NOT NULL,
   `repeticiones` int(3) NOT NULL,
-  `peso` int(3) NOT NULL,
+  `peso` float NOT NULL,
   `link` varchar(50) COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `ejercicio`
+--
+
+INSERT INTO `ejercicio` (`codejercicio`, `nombre`, `series`, `repeticiones`, `peso`, `link`) VALUES
+(1, 'Pesas', 12, 12, 12, '123'),
+(2, 'asd', 23, 32, 12, 'aqweq'),
+(3, 'EjNuevo', 12, 12, 222, '23232'),
+(4, 'asdasd', 123, 212, 122, 'http://google.es'),
+(5, 'asdasdas', 123, 12, 12, 'sfsdf'),
+(6, 'adasdasdas', 12, 12, 12, 'http://google.es');
 
 -- --------------------------------------------------------
 
@@ -153,7 +164,8 @@ CREATE TABLE `empleado` (
 --
 
 INSERT INTO `empleado` (`numeroempleado`, `especialidad`, `nombre`, `dni`, `telefono`, `email`, `direccion`, `clave`) VALUES
-('1', 3, 'pepe', '123', 'asd', 'asd', 'asd', '1');
+('1', 3, 'pepe', '123', 'asd', 'asd', 'asd', '1'),
+('2', 1, 'Pedro', '21312', '1231', 'asda@sad.es', 'adas', '1');
 
 -- --------------------------------------------------------
 
@@ -165,6 +177,19 @@ CREATE TABLE `entrenamiento` (
   `codigoejercicio` int(10) NOT NULL,
   `codigosesion` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `entrenamiento`
+--
+
+INSERT INTO `entrenamiento` (`codigoejercicio`, `codigosesion`) VALUES
+(2, 1),
+(1, 1),
+(3, 1),
+(2, 2),
+(4, 1),
+(4, 2),
+(6, 6);
 
 -- --------------------------------------------------------
 
@@ -185,7 +210,9 @@ INSERT INTO `lineacomida` (`codcomida`, `codplato`) VALUES
 (1, 1),
 (1, 2),
 (2, 3),
-(2, 4);
+(2, 4),
+(3, 1),
+(3, 2);
 
 -- --------------------------------------------------------
 
@@ -209,7 +236,12 @@ INSERT INTO `lineadia` (`coddia`, `codcomida`) VALUES
 (3, 1),
 (3, 2),
 (4, 1),
-(5, 1);
+(5, 1),
+(6, 1),
+(6, 2),
+(7, 1),
+(7, 2),
+(7, 3);
 
 -- --------------------------------------------------------
 
@@ -231,7 +263,14 @@ INSERT INTO `lineadieta` (`coddieta`, `coddia`) VALUES
 (1, 2),
 (1, 3),
 (1, 4),
-(1, 5);
+(1, 5),
+(2, 1),
+(2, 2),
+(2, 3),
+(2, 4),
+(2, 5),
+(2, 6),
+(2, 7);
 
 -- --------------------------------------------------------
 
@@ -249,12 +288,8 @@ CREATE TABLE `lineaempleado` (
 --
 
 INSERT INTO `lineaempleado` (`numeroempleado`, `dni`) VALUES
-('1', '1111'),
-('1', '12121212A'),
-('1', '21312311W'),
-('1', '2222'),
-('1', '23121212Q'),
-('1', '32323223A');
+('1', '32323223A'),
+('2', '99999999E');
 
 -- --------------------------------------------------------
 
@@ -266,6 +301,17 @@ CREATE TABLE `lineatabla` (
   `codtabla` int(10) NOT NULL,
   `codsesion` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `lineatabla`
+--
+
+INSERT INTO `lineatabla` (`codtabla`, `codsesion`) VALUES
+(1, 1),
+(1, 2),
+(6, 1),
+(6, 2),
+(6, 4);
 
 -- --------------------------------------------------------
 
@@ -288,8 +334,8 @@ CREATE TABLE `plan` (
 --
 
 INSERT INTO `plan` (`codPlan`, `tipoplan`, `descripcion`, `disponibilidad`, `observaciones`, `vencimiento`, `dni`) VALUES
-(1, 'pro', 'asda', 'asd', 'asd', '2019-12-13', '1111'),
-(2, '', '', 'sf', 'sdf', '0000-00-00', '32323223A');
+(2, 'pro', 'pro', 'sf', 'sdf', '0000-00-00', '32323223A'),
+(8, 'nutricion', 'nutricion', '12', 'asdas', '2020-01-15', '99999999E');
 
 -- --------------------------------------------------------
 
@@ -311,7 +357,10 @@ INSERT INTO `plato` (`codplato`, `nombre`, `link`) VALUES
 (1, 'macarrones', 'asdasd'),
 (2, 'espaguetis', 'asdasda'),
 (3, 'Pollo', 'asdas'),
-(4, 'ternera', 'asd');
+(4, 'ternera', 'asd'),
+(5, 'Pepe', 'asdasd'),
+(8, 'asd', 'http://www.google.es'),
+(9, 'asd', 'http://www.google.es');
 
 -- --------------------------------------------------------
 
@@ -333,13 +382,7 @@ CREATE TABLE `progreso` (
 --
 
 INSERT INTO `progreso` (`codProgreso`, `imagen`, `peso`, `medidas`, `fecha`, `dni`) VALUES
-(1, 'img/img.jpg', 100, '12/26/23', '2019-12-02', '1111'),
-(2, 'img/img.jpg', 22, '13/77/654', '2019-11-12', '1111'),
-(3, 'img/img.jpg', 23, '121/434/34', '2019-12-10', '1111'),
-(4, 'img/img.jpg', 12, '12/23/23', '2019-12-14', '1111'),
-(5, 'img/1576334845-cc60uQq.jpg', 132, '123/23/34', '2019-12-14', '1111'),
-(6, 'img/1576342856-cc60uQq.jpg', 123, '123/23/123', '2019-12-14', '12121212A'),
-(7, 'img/1576343138-cc60uQq.jpg', 12, '12', '2019-12-14', '1111');
+(6, 'img/img.jpg', 123, '123/23/123', '2019-12-14', '99999999E');
 
 -- --------------------------------------------------------
 
@@ -352,6 +395,17 @@ CREATE TABLE `sesion` (
   `dia` varchar(20) COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `sesion`
+--
+
+INSERT INTO `sesion` (`codsesion`, `dia`) VALUES
+(1, 'lunes'),
+(2, 'martes'),
+(4, 'Miercoles'),
+(5, 'Martes'),
+(6, 'Domingo');
+
 -- --------------------------------------------------------
 
 --
@@ -363,6 +417,14 @@ CREATE TABLE `tablaejercicios` (
   `fecha` date NOT NULL,
   `tipo` varchar(20) COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `tablaejercicios`
+--
+
+INSERT INTO `tablaejercicios` (`codtabla`, `fecha`, `tipo`) VALUES
+(1, '2019-12-04', 'cardio'),
+(6, '2019-12-04', 'Musculacion');
 
 --
 -- Índices para tablas volcadas
@@ -476,8 +538,7 @@ ALTER TABLE `progreso`
 -- Indices de la tabla `sesion`
 --
 ALTER TABLE `sesion`
-  ADD PRIMARY KEY (`codsesion`),
-  ADD UNIQUE KEY `dia.unico` (`dia`);
+  ADD PRIMARY KEY (`codsesion`);
 
 --
 -- Indices de la tabla `tablaejercicios`
@@ -493,37 +554,37 @@ ALTER TABLE `tablaejercicios`
 -- AUTO_INCREMENT de la tabla `comida`
 --
 ALTER TABLE `comida`
-  MODIFY `codcomida` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `codcomida` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `diadieta`
 --
 ALTER TABLE `diadieta`
-  MODIFY `coddia` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `coddia` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `dieta`
 --
 ALTER TABLE `dieta`
-  MODIFY `coddieta` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `coddieta` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `ejercicio`
 --
 ALTER TABLE `ejercicio`
-  MODIFY `codejercicio` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `codejercicio` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `plan`
 --
 ALTER TABLE `plan`
-  MODIFY `codPlan` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `codPlan` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `plato`
 --
 ALTER TABLE `plato`
-  MODIFY `codplato` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `codplato` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `progreso`
@@ -535,13 +596,13 @@ ALTER TABLE `progreso`
 -- AUTO_INCREMENT de la tabla `sesion`
 --
 ALTER TABLE `sesion`
-  MODIFY `codsesion` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `codsesion` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `tablaejercicios`
 --
 ALTER TABLE `tablaejercicios`
-  MODIFY `codtabla` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `codtabla` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas
