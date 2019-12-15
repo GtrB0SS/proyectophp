@@ -365,3 +365,31 @@ function getTablas($dni){
     return $tabla;
     
 }
+
+function getEjercicios(){
+    $conex = getConnection();
+    
+    $query = "SELECT codejercicio, nombre FROM ejercicio ";
+    
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    
+    /*
+    if ((mysqli_num_rows($result) != 0)) {
+        $fila = mysqli_fetch_array($result);
+    }
+    else{
+        mysqli_close($conex);
+        return 0;
+    }
+    */
+    
+    while ($fila = mysqli_fetch_array($result)) {
+        
+        $ejercicios[$fila['codejercicio']] = $fila['nombre'];
+    }
+    
+    mysqli_close($conex);
+    
+    return $ejercicios;
+}
