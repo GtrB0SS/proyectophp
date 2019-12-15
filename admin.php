@@ -56,7 +56,7 @@ and open the template in the editor.
         if($_SESSION["especialidad"] == "1" || $_SESSION["especialidad"] == "3"){
             print("<h2>Sección nutricionista:</h2>");
             print("<p><a href='formNuevaDieta.php'>Nueva dieta</a></p>");
-
+            print("<p><a href='formNuevoDiaDieta.php'>Nuevo dia dieta</a></p>");
             print("<p><a href='formNuevaComida.php'>Nueva comida</a></p>");
             print("<p><a href='formNuevoPlato.php'>Nuevo plato</a></p>");
             
