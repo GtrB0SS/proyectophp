@@ -60,14 +60,16 @@ and open the template in the editor.
                 print($_SESSION['insertcomida']['nombre']);
             }
             ?>" /><?php
-                       if (isset($_SESSION['erroresplato']['nombre'])) {
+                       if (isset($_SESSION['errorescomida']['nombre'])) {
                            print($_SESSION['errorescomida']['nombre']);
                        }
                        ?>
             </div>
-            <label>Link del plato:</label>
-            <div class="form-group">
-                <select multiple name="plato[]"> 
+            <label>Platos:</label>
+            
+                <!-- MUESTRA TODOS LOS PLATOS DE LA BASE DE DATOS COMO OPTIONES DEL SELECT -->
+                <!--<select class="selectpicker" multiple name="plato[]" > -->
+                    <select multiple class="form-control" id="exampleFormControlSelect2" name="plato[]">
                     <?php 
                         $platos = getPlatos();
                     
@@ -83,27 +85,12 @@ and open the template in the editor.
                     
                     ?>
                 </select>
-                <!-- AQUI VA UN SELECT MULTIPLE -->
-<?php 
-                        $platos = getPlatos();
-                    print($platos);
-//                        foreach($platos as $clave => $valor){
-//                            if (isset($_SESSION['insertcomida']['platos'][$clave])) {
-//                                print($clave.$valor."seleccion");
-//                                
-//                            }
-//                            else{
-//                                print($clave.$valor);
-//                            }
-//                        }
-                    
-                    ?>
+  
                 <?php
                 if (isset($_SESSION['errorescomida']['platos'])) {
                     print($_SESSION['errorescomida']['platos']);
                 }
                 ?>
-            </div>
 
             <br>
             <div class="form-group">
@@ -112,5 +99,10 @@ and open the template in the editor.
 
             <input type="hidden" class="form-control" name="option"  value="comida" />
         </form>
+        <?php
+                if (isset($_SESSION['errorescomida'])) {
+                    unset($_SESSION['errorescomida']);
+                }
+                ?>
     </body>
 </html>

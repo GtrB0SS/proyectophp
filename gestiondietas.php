@@ -44,6 +44,24 @@ if ($option == "plato") {
     }
 }
 else if ($option == "comida") {
+    $nombre = $_POST['nombre'];
+    if (trim($nombre) == "") {
+        $_SESSION['errorescomida']['nombre'] = "Nombre Incorrecto";
+    } else {
+        $_SESSION['insertcomida']['nombre'] = $nombre;
+    }
     
+    if (isset($_SESSION['erroresplato'])) {
+        header('location: formNuevoPlato.php');
+    } else {
+        unset($_SESSION['insertcomida']);
+        unset($_SESSION['erroresplato']);
+        
+//        if (!insertPlato($nombre, $link)) {
+//            headder('location: error.html');
+//        } else {
+//            header("location: admin.php");
+//        }
+    }
     
 }
