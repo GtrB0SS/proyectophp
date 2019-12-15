@@ -261,6 +261,24 @@ function insertPlato($nombre, $link){
     return $result;
 }
 
+function getPlatos(){
+    
+    $conex = getConnection();
+    
+    $query = "SELECT * FROM `plato` ";
+    
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    $platos = "";
+    while ($fila = mysqli_fetch_array($result)) {
+        
+        $platos[$fila['codplato']] = $fila['nombre'];
+    }
+    
+    return $platos;
+    
+}
+
 /*
 function insertDieta($codcomida, $nombre){
     $conex = getConnection();

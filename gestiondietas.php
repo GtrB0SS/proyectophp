@@ -43,3 +43,7 @@ if ($option == "plato") {
         }
     }
 }
+else if ($option == "comida") {
+    
+    
+}

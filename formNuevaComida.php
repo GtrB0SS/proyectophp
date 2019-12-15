@@ -25,16 +25,16 @@ and open the template in the editor.
 
             //$_SESSION['dni'] = $_POST['user'];
 
-            if($_SESSION['resLogin'] == "cliente" || $_SESSION['resLogin'] == "empleado"){
+            if ($_SESSION['resLogin'] == "cliente" || $_SESSION['resLogin'] == "empleado") {
 
                 $plan = getPlan($_SESSION['dni']);
 
-                if($plan != null && $plan = "pro"){
+                if ($plan != null && $plan = "pro") {
 
                     $linktabla = "tablas.php";
-
+                } else {
+                    $linktabla = "ampliarplan.php";
                 }
-                else{$linktabla = "ampliarplan.php";}
 
                 print(" 
                             <a class='navbar-brand' href='index.php'>Inicio</a>
@@ -42,43 +42,61 @@ and open the template in the editor.
                             <a class='navbar-brand' href='dietas.php'>Dietas</a>
                             <a class='navbar-brand' href='$linktabla'>Tabla de ejercicios</a>
                         ");
-                if($_SESSION['resLogin'] == "empleado"){
+                if ($_SESSION['resLogin'] == "empleado") {
 
                     print("<a class='navbar-brand' href='admin.php'>Administracion</a>");
-
                 }
                 print("<a class='navbar-brand' href='logout.php'>Logout</a>");
- 
             }
             ?>
-            </nav>
+        </nav>
 
         <h3>Nueva Comida</h3>
         <form action="gestiondietas.php" method="post">
             <label>Nombre de la comida:</label>
             <div class="form-group">
-                <input type="text" class="form-control" name="nombre" placeholder="Nombre de la comida" value="<?php if (isset($_SESSION['insertcomida']['nombre'])) {
-            print($_SESSION['insertcomida']['nombre']);
-        } ?>" /><?php if (isset($_SESSION['erroresplato']['nombre'])) {
-            print($_SESSION['errorescomida']['nombre']);
-        } ?>
+                <input type="text" class="form-control" name="nombre" placeholder="Nombre de la comida" value="<?php
+            if (isset($_SESSION['insertcomida']['nombre'])) {
+                print($_SESSION['insertcomida']['nombre']);
+            }
+            ?>" /><?php
+                       if (isset($_SESSION['erroresplato']['nombre'])) {
+                           print($_SESSION['errorescomida']['nombre']);
+                       }
+                       ?>
             </div>
             <label>Link del plato:</label>
             <div class="form-group">
-                
-                
+                <select multiple name="plato[]"> 
+                    <?php 
+                        $platos = getPlatos();
+                    
+                        foreach($platos as $clave => $valor){
+                            if (isset($_SESSION['insertcomida']['platos'][$clave])) {
+                                print("<option value='$clave' selected>$valor</option>");
+                                
+                            }
+                            else{
+                                print("<option value='$clave'>$valor</option>");
+                            }
+                        }
+                    
+                    ?>
+                </select>
                 <!-- AQUI VA UN SELECT MULTIPLE -->
-                
-                <?php if (isset($_SESSION['errorescomida']['platos'])) {
-            print($_SESSION['errorescomida']['platos']);
-        } ?>
+
+                <?php
+                if (isset($_SESSION['errorescomida']['platos'])) {
+                    print($_SESSION['errorescomida']['platos']);
+                }
+                ?>
             </div>
 
             <br>
             <div class="form-group">
                 <input type="submit" class="btnSubmit" value="Signup" />
             </div>
-            
+
             <input type="hidden" class="form-control" name="option"  value="comida" />
         </form>
     </body>
