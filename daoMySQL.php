@@ -499,19 +499,10 @@ function getEjercicios() {
     $result = mysqli_query($conex, $query)
             or die(mysqli_error($conex));
 
-    /*
-      if ((mysqli_num_rows($result) != 0)) {
-      $fila = mysqli_fetch_array($result);
-      }
-      else{
-      mysqli_close($conex);
-      return 0;
-      }
-     */
 
     while ($fila = mysqli_fetch_array($result)) {
 
-        $ejercicios[$fila['codejercicio']] = $fila['nombre'];
+        $ejercicios[$fila['codejercicio']] = "Codigo: ". $fila['codejercicio'] . " - " .$fila['nombre'];
     }
 
     mysqli_close($conex);
@@ -527,12 +518,12 @@ function insertTabla($fecha, $tipo){
     $result = mysqli_query($conex, $query)
             or die(mysqli_error($conex));
     
-    $idNuevo = mysqli_insert_id();
+    $idNuevo = mysqli_insert_id($conex);
     
     mysqli_close($conex);
     
 
-    return mysqli_insert_id($conex);
+    return $idNuevo;
 }
 
 function bindSesion($codSesion, $codTabla){
@@ -560,4 +551,35 @@ function insertEjercicio($nombre, $series, $repes, $peso, $link){
     mysqli_close($conex);
     
     return $result;
+}
+
+function insertSesion($dia){
+    
+    
+    $conex = getConnection();
+    
+    $query = "INSERT INTO `sesion` (`codsesion`, `dia`) VALUES (NULL, '$dia') ";
+    
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    
+    $idNuevo = mysqli_insert_id($conex);
+    
+    mysqli_close($conex);
+    return $idNuevo;
+}
+
+function bindEntrenamientoSesion($codejercicio, $codsesion){
+    
+    $conex = getConnection();
+    
+    $query = "INSERT INTO `entrenamiento` (`codigoejercicio`, `codigosesion`) VALUES ('$codejercicio', '$codsesion') ";
+    
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    
+    mysqli_close($conex);
+    
+    return $result;
+    
 }

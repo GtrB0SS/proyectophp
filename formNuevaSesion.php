@@ -31,22 +31,22 @@ and open the template in the editor.
 
                 if ($plan != null && $plan = "pro") {
 
-                    $linktabla = "../tablas.php";
+                    $linktabla = "tablas.php";
                 } else {
-                    $linktabla = "../ampliarplan.php";
+                    $linktabla = "ampliarplan.php";
                 }
 
                 print(" 
-                            <a class='navbar-brand' href='../index.php'>Inicio</a>
-                            <a class='navbar-brand' href='../progreso.php'>Progreso</a>
-                            <a class='navbar-brand' href='../dietas.php'>Dietas</a>
+                            <a class='navbar-brand' href='index.php'>Inicio</a>
+                            <a class='navbar-brand' href='progreso.php'>Progreso</a>
+                            <a class='navbar-brand' href='dietas.php'>Dietas</a>
                             <a class='navbar-brand' href='$linktabla'>Tabla de ejercicios</a>
                         ");
                 if ($_SESSION['resLogin'] == "empleado") {
 
-                    print("<a class='navbar-brand' href='../admin.php'>Administracion</a>");
+                    print("<a class='navbar-brand' href='admin.php'>Administracion</a>");
                 }
-                print("<a class='navbar-brand' href='../logout.php'>Logout</a>");
+                print("<a class='navbar-brand' href='logout.php'>Logout</a>");
             }
             ?>
         </nav>
@@ -70,9 +70,9 @@ and open the template in the editor.
 
             <select multiple class="form-control" id="exampleFormControlSelect2" name="ejercicio[]">
                 <?php
-                $ejercicios = getEjercicios();
+                $ejercicios1 = getEjercicios();
 
-                foreach ($ejercicios as $clave => $valor) {
+                foreach ($ejercicios1 as $clave => $valor) {
                     if (isset($_SESSION['insertsesion']['ejercicios'][$clave])) {
                         print("<option value='$clave' selected>$valor</option>");
                     } else {

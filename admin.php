@@ -68,10 +68,10 @@ and open the template in the editor.
         // Añadir entrenamiento si es entrenador
         if($_SESSION["especialidad"] == "2" || $_SESSION["especialidad"] == "3"){
             print("<h2>Sección entrenador:</h2>");
-            print("<p><a href='formNuevoEjercicio.php'>Nuevo ejercicio</a></p>");
+            print("<p><a href='asignarTablaCliente.php'>Asignar tabla a cliente</a></p>");
             print("<p><a href='formNuevaTabla.php'>Insertar nueva tabla</a></p>");
-            print("<p><a href='#'>Insertar entrenamiento en sesión</a></p>");
-            print("<p><a href='#'>Insertar sesión en tabla</a></p>");
+            print("<p><a href='formNuevaSesion.php'>Nueva sesión</a></p>");
+            print("<p><a href='formNuevoEjercicio.php'>Nuevo ejercicio</a></p>");
         }
         
         ?>

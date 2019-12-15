@@ -65,4 +65,48 @@ if ($option == "ejercicio") {
             header("location: admin.php");
         }
     }
+}else if ($option == "sesion") {
+    
+    $dia = $_POST['dia'];
+    
+    if(trim($dia) == "" || !preg_match("(lunes|martes|miercoles|jueves|viernes|sabado|domingo)", strtolower($dia))){
+        
+        $_SESSION['erroressesion']['dia'] = "Dia erroneo";
+    }
+    else {
+        $_SESSION['insertsesion']['dia'] = $dia;
+    }
+    
+    $ejercicios = $_POST['ejercicio'];
+
+    
+    if(count($ejercicios) == 0){
+        $_SESSION['erroressesion']['ejercicios'] = "Seleccione al menos un ejercicio";
+    }
+    else{
+        foreach ($ejercicios as $clave => $valor) {
+            $_SESSION['insertsesion']['ejercicios'][$valor] = "1";
+        }
+    }
+    
+    if (isset($_SESSION['erroressesion'])) {
+        header('location: formNuevaSesion.php');
+    } else {
+        unset($_SESSION['insertsesion']);
+        unset($_SESSION['erroressesion']);
+        
+        $idsesion = insertSesion($dia);
+        if ($idsesion == 0) {
+            headder('location: error.html');
+        } else {
+            
+            foreach ($ejercicios as $clave => $valor) {
+                if(!bindEntrenamientoSesion($idsesion, $valor)){
+                    headder('location: ../error.html');
+                }
+            }
+            
+            header("location: admin.php");
+        }
+    }
 }
