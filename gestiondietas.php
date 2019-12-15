@@ -215,18 +215,12 @@ if ($option == "plato") {
     } else {
         unset($_SESSION['asignar']);
         unset($_SESSION['erroresasignar']);
-//        print("Hola");
-//        $id = insertDieta($semana);
-//        if ($id==0) {
-//            headder('location: error.html');
-//        } else {
-//            
-//            foreach ($dias as $clave => $valor) {
-//                if(!bindDietaComida($id, $valor)){
-//                    headder('location: error.html');
-//                }
-//            }
-//            header("location: admin.php");
-//        }
+
+        if(!bindDietaCliente($cliente, $dieta)){
+            headder('location: error.html');
+        }
+        else{
+            header("location: admin.php");
+        }
     }
 }

@@ -419,6 +419,16 @@ function getTodasDietas(){
     
 }
 
+function bindDietaCliente($cliente, $dieta){
+    
+    $conex = getConnection();
+    
+    $query = "UPDATE `cliente` SET `coddieta` = '$dieta' WHERE `cliente`.`dni` = '$cliente'";
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    return $result;
+}
+
 /*
 function insertDieta($codcomida, $nombre){
     $conex = getConnection();
