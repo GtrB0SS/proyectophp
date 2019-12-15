@@ -2,21 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/xampp/htdocs/proyectophp/admin.php</file>
-            <file>file:/C:/xampp/htdocs/proyectophp/signupform.php</file>
-            <file>file:/C:/xampp/htdocs/proyectophp/signupinsert.php</file>
-            <file>file:/C:/xampp/htdocs/proyectophp/progreso.php</file>
-            <file>file:/C:/xampp/htdocs/proyectophp/logout.php</file>
-            <file>file:/C:/xampp/htdocs/proyectophp/error.html</file>
-            <file>file:/C:/xampp/htdocs/proyectophp/tablas.php</file>
-            <file>file:/C:/xampp/htdocs/proyectophp/formNuevoEjercicio.php</file>
-            <file>file:/C:/xampp/htdocs/proyectophp/dietas.php</file>
-            <file>file:/C:/xampp/htdocs/proyectophp/daoMySQL.php</file>
-            <file>file:/C:/xampp/htdocs/proyectophp/insertprogreso.php</file>
-            <file>file:/C:/xampp/htdocs/proyectophp/resumen.php</file>
-            <file>file:/C:/xampp/htdocs/proyectophp/login.php</file>
-            <file>file:/C:/xampp/htdocs/proyectophp/index.php</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

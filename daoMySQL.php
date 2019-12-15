@@ -247,10 +247,6 @@ function insertPlan($dni, $tipoplan, $dispo, $observaciones){
     
 }
 
-<<<<<<< Updated upstream
-
-function getTablas($dni){
-=======
 function insertPlato($codigoplato, $nombre, $link){
     $conex = getConnection();
     
@@ -278,7 +274,7 @@ function insertDieta($codcomida, $nombre){
 
  */
 
-/*
+
 function getTablas($user){
     $conex = getConnection();
     
@@ -289,7 +285,6 @@ function getTablas($user){
               AND lt.codsesion = se.codsesion
               AND se.codsesion = en.codigosesion
               AND en.codigoejercicio = ej.codejercicio";
->>>>>>> Stashed changes
     
     $tab = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 
