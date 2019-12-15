@@ -55,11 +55,11 @@ and open the template in the editor.
         // Añadir dieta si es nutricionista
         if($_SESSION["especialidad"] == "1" || $_SESSION["especialidad"] == "3"){
             print("<h2>Sección nutricionista:</h2>");
-            print("<p><a href='formAsignarDieta.php'>Asignar Dieta a cliente</a></p>");
-            print("<p><a href='formNuevaDieta.php'>Nueva dieta</a></p>");
-            print("<p><a href='formNuevoDiaDieta.php'>Nuevo dia dieta</a></p>");
-            print("<p><a href='formNuevaComida.php'>Nueva comida</a></p>");
-            print("<p><a href='formNuevoPlato.php'>Nuevo plato</a></p>");
+            print("<p><a href='dietas/formAsignarDieta.php'>Asignar Dieta a cliente</a></p>");
+            print("<p><a href='dietas/formNuevaDieta.php'>Nueva dieta</a></p>");
+            print("<p><a href='dietas/formNuevoDiaDieta.php'>Nuevo dia dieta</a></p>");
+            print("<p><a href='dietas/formNuevaComida.php'>Nueva comida</a></p>");
+            print("<p><a href='dietas/formNuevoPlato.php'>Nuevo plato</a></p>");
             
 
 

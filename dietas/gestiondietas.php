@@ -7,7 +7,7 @@
  */
 
 session_start();
-include "daoMySQL.php";
+include "../daoMySQL.php";
 
 $option = $_POST['option'];
 
@@ -37,9 +37,9 @@ if ($option == "plato") {
         unset($_SESSION['erroresplato']);
 
         if (!insertPlato($nombre, $link)) {
-            headder('location: error.html');
+            headder('location: ../error.html');
         } else {
-            header("location: admin.php");
+            header("location: ../admin.php");
         }
     }
 } else if ($option == "comida") {
@@ -71,15 +71,15 @@ if ($option == "plato") {
 
         $id = insertComida($nombre);
         if ($id==0) {
-            headder('location: error.html');
+            headder('location: ../error.html');
         } else {
             
             foreach ($platos as $clave => $valor) {
                 if(!bindComidaPlato($id, $valor)){
-                    headder('location: error.html');
+                    headder('location: ../error.html');
                 }
             }
-            header("location: admin.php");
+            header("location: ../admin.php");
         }
     }
 }else if ($option == "dia") {
@@ -132,15 +132,15 @@ if ($option == "plato") {
         unset($_SESSION['erroresdia']);
         $id = insertDia($calorias, $macros, $dia);
         if ($id==0) {
-            headder('location: error.html');
+            headder('location: ../error.html');
         } else {
             
             foreach ($comidas as $clave => $valor) {
                 if(!bindDiaComida($id, $valor)){
-                    headder('location: error.html');
+                    headder('location: ../error.html');
                 }
             }
-            header("location: admin.php");
+            header("location: ../admin.php");
         }
     }
 }else if ($option == "dieta") {
@@ -171,7 +171,7 @@ if ($option == "plato") {
         unset($_SESSION['erroresdieta']);
         $id = insertDieta($semana);
         if ($id==0) {
-            headder('location: error.html');
+            headder('location: ../error.html');
         } else {
             
             foreach ($dias as $clave => $valor) {
@@ -179,7 +179,7 @@ if ($option == "plato") {
                     headder('location: error.html');
                 }
             }
-            header("location: admin.php");
+            header("location: ../admin.php");
         }
     }
     
@@ -217,10 +217,10 @@ if ($option == "plato") {
         unset($_SESSION['erroresasignar']);
 
         if(!bindDietaCliente($cliente, $dieta)){
-            headder('location: error.html');
+            headder('location: ../error.html');
         }
         else{
-            header("location: admin.php");
+            header("location: ../admin.php");
         }
     }
 }

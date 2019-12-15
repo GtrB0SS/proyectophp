@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+../daoMySQL<!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -20,7 +20,7 @@ and open the template in the editor.
             <?php
             // put your code here
             session_start();
-            include "daoMySQL.php";
+            include "../daoMySQL.php";
 
 
             //$_SESSION['dni'] = $_POST['user'];
@@ -31,22 +31,22 @@ and open the template in the editor.
 
                 if ($plan != null && $plan = "pro") {
 
-                    $linktabla = "tablas.php";
+                    $linktabla = "../tablas.php";
                 } else {
-                    $linktabla = "ampliarplan.php";
+                    $linktabla = "../ampliarplan.php";
                 }
 
                 print(" 
-                            <a class='navbar-brand' href='index.php'>Inicio</a>
-                            <a class='navbar-brand' href='progreso.php'>Progreso</a>
-                            <a class='navbar-brand' href='dietas.php'>Dietas</a>
+                            <a class='navbar-brand' href='../index.php'>Inicio</a>
+                            <a class='navbar-brand' href='../progreso.php'>Progreso</a>
+                            <a class='navbar-brand' href='../dietas.php'>Dietas</a>
                             <a class='navbar-brand' href='$linktabla'>Tabla de ejercicios</a>
                         ");
                 if ($_SESSION['resLogin'] == "empleado") {
 
-                    print("<a class='navbar-brand' href='admin.php'>Administracion</a>");
+                    print("<a class='navbar-brand' href='../admin.php'>Administracion</a>");
                 }
-                print("<a class='navbar-brand' href='logout.php'>Logout</a>");
+                print("<a class='navbar-brand' href='../logout.php'>Logout</a>");
             }
             ?>
         </nav>
