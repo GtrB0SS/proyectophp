@@ -55,7 +55,7 @@ and open the template in the editor.
         <form action="gestiondietas.php" method="post">
             <label>Dia de la dieta:</label>
             <div class="form-group">
-                <input type="text" class="form-control" name="dia" placeholder="Nombre de la comida" value="<?php
+                <input type="text" class="form-control" name="dia" placeholder="Dia de la dieta" value="<?php
             if (isset($_SESSION['insertdia']['dia'])) {
                 print($_SESSION['insertdia']['dia']);
             }
@@ -67,7 +67,7 @@ and open the template in the editor.
             </div>
             <label>Calorias del dia:</label>
             <div class="form-group">
-                <input type="number" class="form-control" name="calorias" placeholder="Nombre de la comida" value="<?php
+                <input type="number" class="form-control" name="calorias" placeholder="Calorias del dia" value="<?php
             if (isset($_SESSION['insertdia']['calorias'])) {
                 print($_SESSION['insertdia']['calorias']);
             }
@@ -79,7 +79,7 @@ and open the template in the editor.
             </div>
             <label>Macronutrientes del dia:</label>
             <div class="form-group">
-                <input type="text" class="form-control" name="macros" placeholder="Nombre de la comida" value="<?php
+                <input type="text" class="form-control" name="macros" placeholder="Macronutrientes del dia" value="<?php
             if (isset($_SESSION['insertdia']['macros'])) {
                 print($_SESSION['insertdia']['macros']);
             }
@@ -121,7 +121,7 @@ and open the template in the editor.
 
             <br>
             <div class="form-group">
-                <input type="submit" class="btnSubmit" value="Signup" />
+                <input type="submit" class="btnSubmit" value="Insertar dia" />
             </div>
 
             <input type="hidden" class="form-control" name="option"  value="dia" />

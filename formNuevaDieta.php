@@ -51,7 +51,7 @@ and open the template in the editor.
             ?>
         </nav>
 
-        <h3>Nuevo dia para la dieta</h3>
+        <h3>Nueva dieta</h3>
         <form action="gestiondietas.php" method="post">
             <label>Semana de la dieta:</label>
             <div class="form-group">
@@ -98,7 +98,7 @@ and open the template in the editor.
 
             <br>
             <div class="form-group">
-                <input type="submit" class="btnSubmit" value="Signup" />
+                <input type="submit" class="btnSubmit" value="Insertar dieta" />
             </div>
 
             <input type="hidden" class="form-control" name="option"  value="dieta" />

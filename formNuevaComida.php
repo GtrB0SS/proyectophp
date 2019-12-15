@@ -97,7 +97,7 @@ and open the template in the editor.
 
             <br>
             <div class="form-group">
-                <input type="submit" class="btnSubmit" value="Signup" />
+                <input type="submit" class="btnSubmit" value="Insertar comida" />
             </div>
 
             <input type="hidden" class="form-control" name="option"  value="comida" />

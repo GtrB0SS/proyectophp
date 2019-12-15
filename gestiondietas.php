@@ -169,7 +169,6 @@ if ($option == "plato") {
     } else {
         unset($_SESSION['insertdieta']);
         unset($_SESSION['erroresdieta']);
-        print("Hola");
         $id = insertDieta($semana);
         if ($id==0) {
             headder('location: error.html');
@@ -185,4 +184,49 @@ if ($option == "plato") {
     }
     
     
+}else if ($option == "asignar") {
+    $cliente = $_POST['cliente'];
+    
+    if($cliente == "0" || !isset($_POST['cliente'])){
+        
+        $_SESSION['erroresasignar']['cliente'] = "Seleccione un cliente";
+        
+    }
+    else{
+        $_SESSION['asignar']['cliente'][$cliente] = "1";
+        
+        
+    }
+    $dieta = $_POST['dieta'];
+    
+    if($dieta == "0" || !isset($_POST['dieta'])){
+        
+        $_SESSION['erroresasignar']['dieta'] = "Seleccione una dieta";
+        
+    }
+    else{
+        $_SESSION['asignar']['dieta'][$dieta] = "1";
+        
+        
+    }
+    
+    if (isset($_SESSION['erroresasignar'])) {
+        header('location: formAsignarDieta.php');
+    } else {
+        unset($_SESSION['asignar']);
+        unset($_SESSION['erroresasignar']);
+//        print("Hola");
+//        $id = insertDieta($semana);
+//        if ($id==0) {
+//            headder('location: error.html');
+//        } else {
+//            
+//            foreach ($dias as $clave => $valor) {
+//                if(!bindDietaComida($id, $valor)){
+//                    headder('location: error.html');
+//                }
+//            }
+//            header("location: admin.php");
+//        }
+    }
 }

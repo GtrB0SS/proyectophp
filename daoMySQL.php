@@ -384,6 +384,41 @@ function bindDietaComida($idDieta, $idDia){
     return $result;
 }
 
+function getClientes($numempleado){
+    
+    $conex = getConnection();
+    
+    $query = "SELECT * FROM `lineaempleado` WHERE numeroempleado = $numempleado ";
+    
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    while ($fila = mysqli_fetch_array($result)) {
+        
+        $clientes[$fila['dni']] = $fila['dni'];
+    }
+    
+    return $clientes;
+    
+}
+
+function getTodasDietas(){
+    
+    $conex = getConnection();
+    
+    $query = "SELECT * FROM `dieta` ";
+    
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    
+    while ($fila = mysqli_fetch_array($result)) {
+        
+        $dietas[$fila['coddieta']] = "Codigo: ".$fila['coddieta']." Semana: ". $fila['semana'];
+    }
+    
+    return $dietas;
+    
+}
+
 /*
 function insertDieta($codcomida, $nombre){
     $conex = getConnection();
