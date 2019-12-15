@@ -14,12 +14,22 @@ and open the template in the editor.
     </head>
     <body>
         <div class="container">
-            <?php
-            session_start();
-//        if(isset($_SESSION['resLogin']) && $_SESSION['resLogin'] == "Usuario o clave incorrectos"){
-//            print("Usuario o clave incorrectos");
-//        }
-            ?>
+            
+            <nav class='navbar navbar-light bg-light row'>
+                <?php
+                // put your code here
+                session_start();
+                include "daoMySQL.php";
+
+                
+                    print(" <a class='navbar-brand' href='login.php'>Progreso</a>
+                        <a class='navbar-brand' href='login.php'>Resumen</a>
+                        <a class='navbar-brand' href='login.php'>LogIn</a>
+                        <a class='navbar-brand' href='signupform.php'>SignUp</a>
+                ");
+                ?>
+            </nav>
+            
 
             <div class="row">
                 <div class="col-md-6 login-form-1">

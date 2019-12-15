@@ -7,7 +7,7 @@
  */
 
 session_start();
-include "daoMySQL.php";
+include "../daoMySQL.php";
 
 $option = $_REQUEST['option'];
 
@@ -60,16 +60,16 @@ if ($option == "ejercicio") {
         unset($_SESSION['insertejercicio']);
         unset($_SESSION['erroresejercicio']);
         if (!insertEjercicio($nombre, $series, $repeticiones, $peso, $link)) {
-            headder('location: error.html');
+            header('location: ../error.html');
         } else {
-            header("location: admin.php");
+            header("location: ../admin.php");
         }
     }
 } else if ($option == "sesion") {
 
     $dia = $_POST['dia'];
 
-    if (trim($dia) == "" || !preg_match("(lunes|martes|miercoles|jueves|viernes|sabado|domingo)", strtolower($dia))) {
+    if (trim($dia) == "" || !preg_match("/^(lunes|martes|miercoles|jueves|viernes|sabado|domingo)([^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*)?/", strtolower($dia))) {
 
         $_SESSION['erroressesion']['dia'] = "Dia erroneo";
     } else {
@@ -95,16 +95,16 @@ if ($option == "ejercicio") {
 
         $idsesion = insertSesion($dia);
         if ($idsesion == 0) {
-            headder('location: error.html');
+            header('location: ../error.html');
         } else {
 
             foreach ($ejercicios as $clave => $valor) {
                 if (!bindEntrenamientoSesion($idsesion, $valor)) {
-                    headder('location: ../error.html');
+                    header('location: ../error.html');
                 }
             }
 
-            header("location: admin.php");
+            header("location: ../admin.php");
         }
     }
 } else if ($option == "tabla") {
@@ -150,16 +150,16 @@ if ($option == "ejercicio") {
         $id = insertTabla($fecha, $tipo);
         
         if($id == 0){
-            header("location: error.html");
+            header("location: ../error.html");
         }
         else{
             foreach ($sesiones as $clave => $valor) {
                 if (!bindSesionesTabla($id, $valor)) {
-                    headder('location: ../error.html');
+                    header('location: ../error.html');
                 }
             }
             
-            header("location: admin.php");
+            header("location: ../admin.php");
         }
         
     }
@@ -196,10 +196,10 @@ if ($option == "ejercicio") {
         unset($_SESSION['erroresasignar']);
 
         if(!bindTablaCliente($cliente, $tabla)){
-            headder('location: error.html');
+            header('location: ../error.html');
         }
         else{
-            header("location: admin.php");
+            header("location: ../admin.php");
         }
     }
 }

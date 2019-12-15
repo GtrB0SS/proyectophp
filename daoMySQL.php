@@ -171,12 +171,12 @@ function insertProgreso($img, $peso, $medidas, $fecha, $dni) {
     mysqli_close($conex);
 }
 
-function selectpreparador() {
+function selectpreparador($especialidad) {
 
 
     $conex = getConnection();
 
-    $query = "SELECT numeroempleado FROM empleado";
+    $query = "SELECT numeroempleado FROM empleado WHERE especialidad = '$especialidad' OR especialidad = '3'";
 
 
     $result = mysqli_query($conex, $query)
@@ -654,4 +654,20 @@ function bindTablaCliente($dni, $tabla){
     mysqli_close($conex);
     
     return $result;
+}
+
+function modificarPlan($dni, $plan){
+    $conex = getConnection();
+    
+    $query = "UPDATE `plan`"
+            . " SET `tipoplan` = '$plan', `descripcion` = '$plan'"
+            . " WHERE `plan`.`dni` = '$dni' ";
+    
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    
+    mysqli_close($conex);
+    
+    return $result;
+    
 }

@@ -20,7 +20,7 @@ and open the template in the editor.
             <?php
             // put your code here
             session_start();
-            include "daoMySQL.php";
+            include "../daoMySQL.php";
 
 
             //$_SESSION['dni'] = $_POST['user'];
@@ -29,7 +29,7 @@ and open the template in the editor.
 
                 $plan = getPlan($_SESSION['dni']);
 
-                if ($plan != null && $plan = "pro") {
+                if ($plan != null && ($plan = "pro" || $plan = "entrenamiento")) {
 
                     $linktabla = "../tablas.php";
                 } else {

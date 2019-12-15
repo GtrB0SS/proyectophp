@@ -85,7 +85,7 @@ if ($option == "plato") {
 }else if ($option == "dia") {
     $dia = $_POST['dia'];
     
-    if(trim($dia) == "" || !preg_match("(lunes|martes|miercoles|jueves|viernes|sabado|domingo)", strtolower($dia))){
+    if(trim($dia) == "" || !preg_match("/^(lunes|martes|miercoles|jueves|viernes|sabado|domingo)([^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*)?/", strtolower($dia))){
         
         $_SESSION['erroresdia']['dia'] = "Dia erroneo";
     }

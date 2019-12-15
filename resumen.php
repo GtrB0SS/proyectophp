@@ -28,7 +28,7 @@ and open the template in the editor.
 
                 $plan = getPlan($_SESSION['dni']);
 
-                if($plan != null && $plan = "pro"){
+                if($plan != null && ($plan = "pro" || $plan = "entrenamiento")){
 
                     $linktabla = "tablas.php";
 

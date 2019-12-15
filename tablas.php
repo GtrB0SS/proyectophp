@@ -28,7 +28,7 @@ and open the template in the editor.
 
                 $plan = getPlan($_SESSION['dni']);
 
-                if($plan != null && $plan = "pro"){
+                if($plan != null && ($plan = "pro" || $plan = "entrenamiento")){
 
                     $linktabla = "tablas.php";
 
@@ -39,7 +39,7 @@ and open the template in the editor.
                             <a class='navbar-brand' href='index.php'>Inicio</a>
                             <a class='navbar-brand' href='progreso.php'>Progreso</a>
                             <a class='navbar-brand' href='resumen.php'>Resumen</a>
-                            <a class='navbar-brand' href='$linktabla'>Tabla de ejercicios</a>
+                            <a class='navbar-brand' href='dietas.php'>Dietas</a>
                         ");
                 if($_SESSION['resLogin'] == "empleado"){
 

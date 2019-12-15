@@ -27,7 +27,7 @@ and open the template in the editor.
 
                 $plan = getPlan($_SESSION['dni']);
 
-                if($plan != null && $plan = "pro"){
+                if($plan != null && ($plan = "pro" || $plan = "entrenamiento")){
 
                     $linktabla = "tablas.php";
 
@@ -68,10 +68,10 @@ and open the template in the editor.
         // Añadir entrenamiento si es entrenador
         if($_SESSION["especialidad"] == "2" || $_SESSION["especialidad"] == "3"){
             print("<h2>Sección entrenador:</h2>");
-            print("<p><a href='formAsignarTabla.php'>Asignar tabla a cliente</a></p>");
-            print("<p><a href='formNuevaTabla.php'>Insertar nueva tabla</a></p>");
-            print("<p><a href='formNuevaSesion.php'>Nueva sesión</a></p>");
-            print("<p><a href='formNuevoEjercicio.php'>Nuevo ejercicio</a></p>");
+            print("<p><a href='tablas/formAsignarTabla.php'>Asignar tabla a cliente</a></p>");
+            print("<p><a href='tablas/formNuevaTabla.php'>Insertar nueva tabla</a></p>");
+            print("<p><a href='tablas/formNuevaSesion.php'>Nueva sesión</a></p>");
+            print("<p><a href='tablas/formNuevoEjercicio.php'>Nuevo ejercicio</a></p>");
         }
         
         ?>

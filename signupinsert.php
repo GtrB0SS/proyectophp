@@ -85,7 +85,19 @@ if(isset($_SESSION['erroressign'])){
 }
 
 else{
-    $preparador = selectpreparador();
+    
+    if($plan == "nutricion"){
+        $especialidad = "1";
+    }
+    if($plan == "entrenamiento"){
+        $especialidad = "2";
+    }
+    else{
+        $especialidad = "3";
+    }
+    
+    
+    $preparador = selectpreparador($especialidad);
     
     if(!insertCliente($dni, $nombre, $email, $direccion, $telef, $objetivo, $pwd)){
         header('location: error.html');
@@ -96,7 +108,7 @@ else{
         header('location: error.html');
     }
     
-    if(insertPlan($dni, $tipoplan, $dispo, $observaciones)){
+    if(insertPlan($dni, $plan, $dispo, $observaciones)){
         $_SESSION['dni'] = $dni;
         $_SESSION['resLogin'] = "cliente";
         unset($_SESSION['signup']);
