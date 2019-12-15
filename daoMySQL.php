@@ -275,16 +275,8 @@ function insertDieta($codcomida, $nombre){
  */
 
 
-function getTablas($user){
-    $conex = getConnection();
-    
-    $query = "SELECT ej.nombre, ej.series, ej.repeticiones, ej.peso 
-              FROM ejercicio ej, entrenamiento en, sesion se, lineatable lt, tablaejercicios te, cliente c
-              WHERE c.dni = '$user'
-              AND c.codtabla = lt.codtabla
-              AND lt.codsesion = se.codsesion
-              AND se.codsesion = en.codigosesion
-              AND en.codigoejercicio = ej.codejercicio";
+function getTablas($dni){
+
     
     $tab = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 
