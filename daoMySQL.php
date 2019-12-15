@@ -242,7 +242,7 @@ function nuevoEjercicio($nombre, $series, $repeticiones, $peso, $link) {
 
 function insertPlan($dni, $tipoplan, $dispo, $observaciones) {
 
-    $fecha = date("d-m-Y", strtotime($fecha_actual . "+ 1 month"));
+    $fecha = date("Y-m-d", strtotime($fecha_actual . "+ 1 month"));
 
     $conex = getConnection();
     $query = "INSERT INTO `plan` (`codPlan`, `tipoplan`, `descripcion`, `disponibilidad`, `observaciones`, `vencimiento`, `dni`)
@@ -581,5 +581,29 @@ function bindEntrenamientoSesion($codejercicio, $codsesion){
     mysqli_close($conex);
     
     return $result;
+    
+}
+
+function getSesiones(){
+    
+    
+    //SELECT * FROM `sesion` 
+    
+    $conex = getConnection();
+
+    $query = "SELECT * FROM `sesion` ";
+
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+
+
+    while ($fila = mysqli_fetch_array($result)) {
+
+        $sesiones[$fila['codsesion']] = "Codigo: ". $fila['codsesion'] . " - " .$fila['dia'];
+    }
+
+    mysqli_close($conex);
+
+    return $sesiones;
     
 }

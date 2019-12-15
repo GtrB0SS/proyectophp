@@ -9,11 +9,12 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <title>Motofitness</title>
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
     </head>
     <body class="container">
-        
+        <?php
+        // put your code here
+        ?>
         <nav class='navbar navbar-light bg-light row'>
             <?php
             // put your code here
@@ -48,39 +49,96 @@ and open the template in the editor.
             }
             ?>
         </nav>
-        
-        <h3>Nueva Tabla</h3>
-        <form action="gestionTablas.php" method="POST">
-            <!-- METER FECHA -->
-            <label>Fecha (AAAA-MM-DD):</label>
-            <input type="date" name="fecha"/>
-            
-            <label>Tipo:</label>
-            <input type="text" name="tipo"/>
-            
-            <label>Código de sesión:</label>
-            <input type="text" name="codigoSesion"/>
-            
-            <label>Ejercicios:</label>
-            <select multiple class="form-control" id="exampleFormControlSelect2" name="listaEjercicios[]">
-                <?php 
-                        $ejercicios = getEjercicios();
-                    
-                        foreach($ejercicios as $clave => $valor){
-                            print("<option value='$clave'>$valor</option>");
-                        }
+
+        <h3>Nueva tabla</h3>
+        <form action="gestiontablas.php" method="post">
+            <label>Fecha de la tabla:</label>
+            <div class="form-group">
+                <input type="date" class="form-control" name="fecha" value="<?php
+                if (isset($_SESSION['inserttabla']['fecha'])) {
+                    print($_SESSION['inserttabla']['fecha']);
+                }
+                ?>" /><?php
+                       if (isset($_SESSION['errorestabla']['fecha'])) {
+                           print($_SESSION['errorestabla']['fecha']);
+                       }
+                       ?>
+            </div>
+
+            <label>Tipo de la tabla:</label>
+            <div class="form-group">
+
+
+                <select class="form-control" id="exampleFormControlSelect2" name="tipo" >
+                    <?php
+                    if (isset($_SESSION['inserttabla']['tipo'])) {
+                        print("<option value='0' disabled>Seleccione un cliente</option>");
+                    } else {
+                        print("<option value='0' disabled selected>Seleccione un cliente</option>");
+                    }
+
+                    if (isset($_SESSION['inserttabla']['tipo']) && $_SESSION['inserttabla']['tipo'] == '1') {
+                        print("<option value='1' selected>Cardio</option>");
+                    } else {
+                        print("<option value='1'>Cardio</option>");
+                    }
+
+                    if (isset($_SESSION['inserttabla']['tipo']) && $_SESSION['inserttabla']['tipo'] == '2') {
+                        print("<option value='2' selected>Musculacion</option>");
+                    } else {
+                        print("<option value='2'>Musculacion</option>");
+                    }
+
+
+                    if (isset($_SESSION['inserttabla']['tipo'])) {
+                        unset($_SESSION['inserttabla']['tipo']);
+                    }
                     ?>
-                <br>
-                <div class="form-group">
-                    <input type="submit" class="btnSubmit" value="Continuar" />
-                </div>
-                <input type="hidden" class="form-control" name="option"  value="tabla" />
-            </select>
+                </select>
+                <?php
+            if (isset($_SESSION['errorestabla']['tipo'])) {
+                print($_SESSION['errorestabla']['tipo']);
+            }
+            ?>
+            </div>
             
+            <label>Sesiones:</label>
+
+            <select multiple class="form-control" id="exampleFormControlSelect2" name="sesion[]">
+                <?php
+                $sesiones = getSesiones();
+
+                foreach ($sesiones as $clave => $valor) {
+                    if (isset($_SESSION['inserttabla']['sesion'][$clave])) {
+                        print("<option value='$clave' selected>$valor</option>");
+                    } else {
+                        print("<option value='$clave'>$valor</option>");
+                    }
+                }
+                if (isset($_SESSION['inserttabla']['sesion'])) {
+                    unset($_SESSION['inserttabla']['sesion']);
+                }
+                ?>
+            </select>
+
+            <?php
+            if (isset($_SESSION['errorestabla']['sesion'])) {
+                print($_SESSION['errorestabla']['sesion']);
+            }
+            ?>
+
+            <br>
+            <div class="form-group">
+                <input type="submit" class="btnSubmit" value="Insertar sesion" />
+            </div>
+
+            <input type="hidden" class="form-control" name="option"  value="tabla" />
         </form>
-        
+
         <?php
-        // put your code here
+        if (isset($_SESSION['errorestabla'])) {
+            unset($_SESSION['errorestabla']);
+        }
         ?>
     </body>
 </html>
