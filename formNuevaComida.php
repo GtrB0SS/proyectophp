@@ -53,33 +53,33 @@ and open the template in the editor.
             ?>
             </nav>
 
-        <h3>Nuevo Plato</h3>
+        <h3>Nueva Comida</h3>
         <form action="gestiondietas.php" method="post">
-            <label>Nombre del plato:</label>
+            <label>Nombre de la comida:</label>
             <div class="form-group">
-                <input type="text" class="form-control" name="nombre" placeholder="Nombre del plato" value="<?php if (isset($_SESSION['insertplato']['nombre'])) {
-            print($_SESSION['insertplato']['nombre']);
+                <input type="text" class="form-control" name="nombre" placeholder="Nombre de la comida" value="<?php if (isset($_SESSION['insertcomida']['nombre'])) {
+            print($_SESSION['insertcomida']['nombre']);
         } ?>" /><?php if (isset($_SESSION['erroresplato']['nombre'])) {
-            print($_SESSION['erroresplato']['nombre']);
+            print($_SESSION['errorescomida']['nombre']);
         } ?>
             </div>
             <label>Link del plato:</label>
             <div class="form-group">
-                <input type="text" class="form-control" name="link" placeholder="Link del plato" value="<?php if (isset($_SESSION['insertplato']['link'])) {
-            print($_SESSION['insertplato']['link']);
-        } ?>" /><?php if (isset($_SESSION['erroresplato']['link'])) {
-            print($_SESSION['erroresplato']['link']);
+                
+                
+                <!-- AQUI VA UN SELECT MULTIPLE -->
+                
+                <?php if (isset($_SESSION['errorescomida']['platos'])) {
+            print($_SESSION['errorescomida']['platos']);
         } ?>
             </div>
 
             <br>
             <div class="form-group">
-                <input type="submit" class="btnSubmit" value="Insertar plato" />
+                <input type="submit" class="btnSubmit" value="Signup" />
             </div>
             
-            <input type="hidden" class="form-control" name="option"  value="plato" />
+            <input type="hidden" class="form-control" name="option"  value="comida" />
         </form>
-        
-        <?php if(isset($_SESSION['erroresplato'])){unset($_SESSION['erroresplato']);}?>
     </body>
 </html>

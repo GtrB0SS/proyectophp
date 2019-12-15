@@ -249,10 +249,10 @@ function insertPlan($dni, $tipoplan, $dispo, $observaciones){
     
 }
 
-function insertPlato($codigoplato, $nombre, $link){
+function insertPlato($nombre, $link){
     $conex = getConnection();
     
-    $query = "INSERT INTO `plato` (`codplato`, `nombre`, `link`) VALUES ('$codigoplato', '$nombre', '$link')";
+    $query = "INSERT INTO `plato` (`codplato`, `nombre`, `link`) VALUES (NULL, '$nombre', '$link')";
     
     $result = mysqli_query($conex, $query)
             or die(mysqli_error($conex));
