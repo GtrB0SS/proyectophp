@@ -82,6 +82,9 @@ and open the template in the editor.
                                 print("<option value='$clave'>$valor</option>");
                             }
                         }
+                        if(isset($_SESSION['insertcomida']['platos'])){
+                            unset($_SESSION['insertcomida']['platos']);
+                        }
                     
                     ?>
                 </select>

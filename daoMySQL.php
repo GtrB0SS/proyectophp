@@ -278,6 +278,30 @@ function getPlatos(){
     
 }
 
+function insertComida($nombre){
+    
+    
+    $conex = getConnection();
+    
+    $query = "INSERT INTO `comida` (`codcomida`, `nombre`) VALUES (NULL, '$nombre') ";
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    
+    $id = mysqli_insert_id($conex);
+    
+    return $id;
+}
+
+function bindComidaPlato($idComida, $idPlato){
+    
+    $conex = getConnection();
+    
+    $query = "INSERT INTO `lineacomida` (`codcomida`, `codplato`) VALUES ('$idComida', '$idPlato')  ";
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    return $result;
+}
+
 /*
 function insertDieta($codcomida, $nombre){
     $conex = getConnection();

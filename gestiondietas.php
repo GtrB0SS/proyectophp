@@ -35,33 +35,51 @@ if ($option == "plato") {
     } else {
         unset($_SESSION['insertplato']);
         unset($_SESSION['erroresplato']);
-        
+
         if (!insertPlato($nombre, $link)) {
             headder('location: error.html');
         } else {
             header("location: admin.php");
         }
     }
-}
-else if ($option == "comida") {
+} else if ($option == "comida") {
+
     $nombre = $_POST['nombre'];
     if (trim($nombre) == "") {
         $_SESSION['errorescomida']['nombre'] = "Nombre Incorrecto";
     } else {
         $_SESSION['insertcomida']['nombre'] = $nombre;
     }
+
+    $platos = $_POST['plato'];
+
     
-    if (isset($_SESSION['erroresplato'])) {
-        header('location: formNuevoPlato.php');
+    if(count($platos) == 0){
+        $_SESSION['errorescomida']['platos'] = "Seleccione al menos un plato";
+    }
+    else{
+        foreach ($platos as $clave => $valor) {
+            $_SESSION['insertcomida']['platos'][$valor] = "1";
+        }
+    }
+
+    if (isset($_SESSION['errorescomida'])) {
+        header('location: formNuevaComida.php');
     } else {
         unset($_SESSION['insertcomida']);
         unset($_SESSION['erroresplato']);
-        
-//        if (!insertPlato($nombre, $link)) {
-//            headder('location: error.html');
-//        } else {
-//            header("location: admin.php");
-//        }
+
+        $id = insertComida($nombre);
+        if ($id==0) {
+            headder('location: error.html');
+        } else {
+            
+            foreach ($platos as $clave => $valor) {
+                if(!bindComidaPlato($id, $valor)){
+                    headder('location: error.html');
+                }
+            }
+            header("location: admin.php");
+        }
     }
-    
 }
