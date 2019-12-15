@@ -318,6 +318,72 @@ function getComidas(){
     return $comidas;
     
 }
+
+function insertDia($calorias, $macros, $dia){
+    
+    
+    $conex = getConnection();
+    
+    $query = "INSERT INTO `diadieta` (`coddia`, `calorias`, `macronutrientes`, `dia`) "
+            . "VALUES (NULL, '$calorias', '$macros', '$dia') ";
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    
+    $id = mysqli_insert_id($conex);
+    
+    return $id;
+}
+
+function bindDiaComida($idDia, $idComida){
+    
+    $conex = getConnection();
+    
+    $query = "INSERT INTO `lineadia` (`coddia`, `codcomida`) VALUES ('$idDia', '$idComida') ";
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    return $result;
+}
+
+function getDias(){
+    
+    $conex = getConnection();
+    
+    $query = "SELECT * FROM `diadieta` ";
+    
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    while ($fila = mysqli_fetch_array($result)) {
+        
+        $dias[$fila['coddia']] = "Codigo: " .$fila['coddia']. " - " .$fila['dia'];
+    }
+    
+    return $dias;
+}
+
+function insertDieta($semana){
+    
+    
+    $conex = getConnection();
+    
+    $query = "INSERT INTO `dieta` (`coddieta`, `semana`) VALUES (NULL, '$semana') ";
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    
+    $id = mysqli_insert_id($conex);
+    
+    return $id;
+}
+
+function bindDietaComida($idDieta, $idDia){
+    
+    $conex = getConnection();
+    
+    $query = "INSERT INTO `lineadieta` (`coddieta`, `coddia`) VALUES ('$idDieta', '$idDia') ";
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    return $result;
+}
+
 /*
 function insertDieta($codcomida, $nombre){
     $conex = getConnection();

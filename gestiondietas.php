@@ -111,7 +111,17 @@ if ($option == "plato") {
         $_SESSION['insertdia']['macros'] = $macros;
     }
     
+    $comidas = $_POST['comida'];
+
     
+    if(count($comidas) == 0){
+        $_SESSION['erroresdia']['comidas'] = "Seleccione al menos un plato";
+    }
+    else{
+        foreach ($comidas as $clave => $valor) {
+            $_SESSION['insertdia']['comidas'][$valor] = "1";
+        }
+    }
     //Select verificacion
     
     
@@ -120,18 +130,59 @@ if ($option == "plato") {
     } else {
         unset($_SESSION['insertdia']);
         unset($_SESSION['erroresdia']);
-        print("HOLÑA");
-//        $id = insertComida($nombre);
-//        if ($id==0) {
-//            headder('location: error.html');
-//        } else {
-//            
-//            foreach ($platos as $clave => $valor) {
-//                if(!bindComidaPlato($id, $valor)){
-//                    headder('location: error.html');
-//                }
-//            }
-//            header("location: admin.php");
-//        }
+        $id = insertDia($calorias, $macros, $dia);
+        if ($id==0) {
+            headder('location: error.html');
+        } else {
+            
+            foreach ($comidas as $clave => $valor) {
+                if(!bindDiaComida($id, $valor)){
+                    headder('location: error.html');
+                }
+            }
+            header("location: admin.php");
+        }
     }
+}else if ($option == "dieta") {
+    $semana = $_POST['semana'];
+    
+    if(trim($semana) == "" ){
+        
+        $_SESSION['erroresdieta']['semana'] = "Semana erronea";
+    }
+    else {
+        $_SESSION['insertdieta']['semana'] = $macros;
+    }
+    
+    $dias = $_POST['dia'];
+
+    
+    if(count($dias) != 7 ){
+        $_SESSION['erroresdieta']['dias'] = "Seleccione 7 dias";
+    }
+    foreach ($dias as $clave => $valor) {
+        $_SESSION['insertdieta']['dias'][$valor] = "1";
+    }
+    
+    if (isset($_SESSION['erroresdieta'])) {
+        header('location: formNuevaDieta.php');
+    } else {
+        unset($_SESSION['insertdieta']);
+        unset($_SESSION['erroresdieta']);
+        print("Hola");
+        $id = insertDieta($semana);
+        if ($id==0) {
+            headder('location: error.html');
+        } else {
+            
+            foreach ($dias as $clave => $valor) {
+                if(!bindDietaComida($id, $valor)){
+                    headder('location: error.html');
+                }
+            }
+            header("location: admin.php");
+        }
+    }
+    
+    
 }
