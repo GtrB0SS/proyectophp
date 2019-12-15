@@ -144,6 +144,63 @@ if ($option == "ejercicio") {
         unset($_SESSION['inserttabla']);
         unset($_SESSION['errorestabla']);
         
+        if($tipo == "1"){$tipo = "Cardio";}
+        else{$tipo = "Musculacion";}
+        
+        $id = insertTabla($fecha, $tipo);
+        
+        if($id == 0){
+            header("location: error.html");
+        }
+        else{
+            foreach ($sesiones as $clave => $valor) {
+                if (!bindSesionesTabla($id, $valor)) {
+                    headder('location: ../error.html');
+                }
+            }
+            
+            header("location: admin.php");
+        }
+        
+    }
+}else if ($option == "asignar") {
+    $cliente = $_POST['cliente'];
+    
+    if($cliente == "0" || !isset($_POST['cliente'])){
+        
+        $_SESSION['erroresasignar']['cliente'] = "Seleccione un cliente";
+        
+    }
+    else{
+        $_SESSION['asignar']['cliente'][$cliente] = "1";
+        
+        
+    }
+    $tabla = $_POST['tabla'];
+    
+    if($tabla == "0" || !isset($_POST['tabla'])){
+        
+        $_SESSION['erroresasignar']['tablas'] = "Seleccione una tabla";
+        
+    }
+    else{
+        $_SESSION['asignar']['tabla'][$tabla] = "1";
+        
+        
+    }
+    
+    if (isset($_SESSION['erroresasignar'])) {
+        header('location: formAsignarTabla.php');
+    } else {
+        unset($_SESSION['asignar']);
+        unset($_SESSION['erroresasignar']);
+
+        if(!bindTablaCliente($cliente, $tabla)){
+            headder('location: error.html');
+        }
+        else{
+            header("location: admin.php");
+        }
     }
 }
 

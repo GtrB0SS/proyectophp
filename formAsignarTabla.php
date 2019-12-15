@@ -20,7 +20,7 @@ and open the template in the editor.
             <?php
             // put your code here
             session_start();
-            include "../daoMySQL.php";
+            include "daoMySQL.php";
 
 
             //$_SESSION['dni'] = $_POST['user'];
@@ -52,7 +52,7 @@ and open the template in the editor.
         </nav>
 
         <h3>Nueva dieta</h3>
-        <form action="gestiondietas.php" method="post">
+        <form action="gestiontablas.php" method="post">
             <label>Tus clientes asignados:</label>
             <div class="form-group">
                 <select class="form-control" id="exampleFormControlSelect2" name="cliente" >
@@ -86,20 +86,21 @@ and open the template in the editor.
                     ?>
             </div>
             
-            <label>Dietas disponibles:</label>
+            <label>Tablas disponibles:</label>
             <div class="form-group">
-                <select class="form-control" id="exampleFormControlSelect2" name="dieta">
+                <select class="form-control" id="exampleFormControlSelect2" name="tabla">
                     <?php
                     
-                    $dietas = getTodasDietas();
-                    if (isset($_SESSION['asignar']['dieta']["0"])) {
+                    $tablas = getTodasTablas();
+                    
+                    if (isset($_SESSION['asignar']['tablas']["0"])) {
                         print("<option value='0' disabled>Seleccione una dieta</option>");
                     } else {
                         print("<option value='0' disabled selected>Seleccione una dieta</option>");
                     }
                     
-                    foreach ($dietas as $clave => $valor) {
-                        if (isset($_SESSION['asignar']['dieta'][$clave])) {
+                    foreach ($tablas as $clave => $valor) {
+                        if (isset($_SESSION['asignar']['tablas'][$clave])) {
                             print("<option value='$clave' selected>$valor</option>");
                         } else {
                             print("<option value='$clave'>$valor</option>");
@@ -107,15 +108,15 @@ and open the template in the editor.
                     }
 
 
-                    if (isset($_SESSION['asignar']['dieta'])) {
-                        unset($_SESSION['asignar']['dieta']);
+                    if (isset($_SESSION['asignar']['tablas'])) {
+                        unset($_SESSION['asignar']['tablas']);
                     }
                     ?>
                 </select>
 
                     <?php
-                    if (isset($_SESSION['erroresasignar']['dieta'])) {
-                        print($_SESSION['erroresasignar']['dieta']);
+                    if (isset($_SESSION['erroresasignar']['tablas'])) {
+                        print($_SESSION['erroresasignar']['tablas']);
                     }
                     ?>
             </div>
@@ -123,7 +124,7 @@ and open the template in the editor.
 
             <br>
             <div class="form-group">
-                <input type="submit" class="btnSubmit" value="Asignar dieta" />
+                <input type="submit" class="btnSubmit" value="Asignar tabla" />
             </div>
 
             <input type="hidden" class="form-control" name="option"  value="asignar" />

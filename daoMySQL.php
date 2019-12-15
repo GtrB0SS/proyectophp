@@ -607,3 +607,51 @@ function getSesiones(){
     return $sesiones;
     
 }
+
+function bindSesionesTabla($idTabla, $idSesion){
+    $conex = getConnection();
+    
+    $query = "INSERT INTO `lineatabla` (`codtabla`, `codsesion`)"
+            . " VALUES ('$idTabla', '$idSesion') ";
+    
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    
+    mysqli_close($conex);
+    
+    return $result;
+    
+}
+
+function getTodasTablas(){
+    
+    $conex = getConnection();
+
+    $query = "SELECT * FROM `tablaejercicios` ";
+
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+
+    while ($fila = mysqli_fetch_array($result)) {
+
+        $tablas[$fila['codtabla']] = "Codigo: " . $fila['codtabla'] . " Fecha: " . $fila['fecha'] . " Tipo: " . $fila['tipo'];
+    }
+
+    return $tablas;
+    
+}
+
+function bindTablaCliente($dni, $tabla){
+    
+    $conex = getConnection();
+    
+    $query = "UPDATE `cliente` SET `codtabla` = '$tabla' "
+            . "WHERE `cliente`.`dni` = '$dni' ";
+    
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    
+    mysqli_close($conex);
+    
+    return $result;
+}
