@@ -9,3 +9,19 @@
 session_start();
 include "daoMySQL.php";
 
+$option = $_REQUEST['option'];
+
+if ($option == "ejercicios") {
+    $ejercicios = $_POST['listaEjercicios'];
+    
+    if(count($ejercicios) == 0){
+        print("<p>Error no hay ejercicios</p>");
+    }
+    else{
+        foreach ($ejercicios as $clave => $valor) {
+            print("<p>$clave -> $valor</p>");
+        }
+    }
+    
+    
+}

@@ -55,7 +55,7 @@ and open the template in the editor.
             <label>Fecha:</label>
             
             <label>Ejercicios:</label>
-            <select multiple class="form-control" id="exampleFormControlSelect2" name="ejercicio[]">
+            <select multiple class="form-control" id="exampleFormControlSelect2" name="listaEjercicios[]">
                 <?php 
                         $ejercicios = getEjercicios();
                     
@@ -67,6 +67,7 @@ and open the template in the editor.
                 <div class="form-group">
                     <input type="submit" class="btnSubmit" value="Continuar" />
                 </div>
+                <input type="hidden" class="form-control" name="option"  value="ejercicios" />
             </select>
             
         </form>
