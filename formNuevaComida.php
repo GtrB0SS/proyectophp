@@ -84,7 +84,20 @@ and open the template in the editor.
                     ?>
                 </select>
                 <!-- AQUI VA UN SELECT MULTIPLE -->
-
+<?php 
+                        $platos = getPlatos();
+                    print($platos);
+//                        foreach($platos as $clave => $valor){
+//                            if (isset($_SESSION['insertcomida']['platos'][$clave])) {
+//                                print($clave.$valor."seleccion");
+//                                
+//                            }
+//                            else{
+//                                print($clave.$valor);
+//                            }
+//                        }
+                    
+                    ?>
                 <?php
                 if (isset($_SESSION['errorescomida']['platos'])) {
                     print($_SESSION['errorescomida']['platos']);

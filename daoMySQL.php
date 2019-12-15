@@ -269,7 +269,6 @@ function getPlatos(){
     
     $result = mysqli_query($conex, $query)
             or die(mysqli_error($conex));
-    $platos = "";
     while ($fila = mysqli_fetch_array($result)) {
         
         $platos[$fila['codplato']] = $fila['nombre'];
