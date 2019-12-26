@@ -28,7 +28,7 @@ and open the template in the editor.
 
                         $plan = getPlan($_POST['user']);
 
-                        if ($plan != null && ($plan = "pro" || $plan = "entrenamiento")) {
+                        if ($plan != null && ($plan == "pro" || $plan == "entrenamiento")) {
 
                             $linktabla = "tablas.php";
                         } else {
@@ -45,7 +45,8 @@ and open the template in the editor.
 
                             print("<a class='navbar-brand' href='admin.php'>Administracion</a>");
                         }
-                        print("<a class='navbar-brand' href='logout.php'>Logout</a>");
+                        print("<a class='navbar-brand' href='ampliarplan.php'>Ampliar plan</a>"
+                        . "<a class='navbar-brand' href='logout.php'>Logout</a>");
                     }
                 } else if (isset($_SESSION['dni'])) {
                     if ($_SESSION['resLogin'] == "cliente" || $_SESSION['resLogin'] == "empleado") {
@@ -88,13 +89,13 @@ and open the template in the editor.
                 <label>Seleccione el plan que desea: </label>
                 <select name="plan" class="form-control" id="exampleFormControlSelect1">
                     <option value="" disabled selected>Seleccione un plan</option>
-                    <option value="nutricion" <?php if (isset($_SESSION['ampliar']['plan']) && $_SESSION['ampliar']['plan'] == "nutricion") {
+                    <option value="1" <?php if (isset($_SESSION['ampliar']['plan']) && $_SESSION['ampliar']['plan'] == "nutricion") {
                     print('selected');
                 } ?>>Nutricion</option>
-                    <option value="entrenamiento" <?php if (isset($_SESSION['ampliar']['plan']) && $_SESSION['ampliar']['plan'] == "entrenamiento") {
+                    <option value="2" <?php if (isset($_SESSION['ampliar']['plan']) && $_SESSION['ampliar']['plan'] == "entrenamiento") {
                     print('selected');
                 } ?>>Nutricion+Entrenamiento</option>
-                    <option value="pro" <?php if (isset($_SESSION['ampliar']['plan']) && $_SESSION['ampliar']['plan'] == "pro") {
+                    <option value="3" <?php if (isset($_SESSION['ampliar']['plan']) && $_SESSION['ampliar']['plan'] == "pro") {
                     print('selected');
                 } ?>>Pro</option>
                 </select>

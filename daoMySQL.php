@@ -54,8 +54,8 @@ function getPlan($user) {
     $conex = getConnection();
 
 
-    $query = "SELECT tipoplan
-            FROM plan 
+    $query = "SELECT codplan
+            FROM cliente 
             WHERE (dni LIKE '$user')";
 
     $res_valid = mysqli_query($conex, $query)
@@ -63,7 +63,16 @@ function getPlan($user) {
     if ((mysqli_num_rows($res_valid) != 0)) {
         $plan = mysqli_fetch_array($res_valid);
         mysqli_close($conex);
-        return $plan['tipoplan'];
+        
+        if($plan['codplan'] == '1'){
+            $planuser = 'nutricion';
+        }else if($plan['codplan'] == '2'){
+            $planuser = 'entrenamiento';
+        }else if($plan['codplan'] == '3'){
+            $planuser = 'pro';
+        }
+        
+        return $planuser;
     } else {
         mysqli_close($conex);
         return null;
@@ -245,8 +254,8 @@ function insertPlan($dni, $tipoplan, $dispo, $observaciones) {
     $fecha = date("Y-m-d", strtotime($fecha_actual . "+ 1 month"));
 
     $conex = getConnection();
-    $query = "INSERT INTO `plan` (`codPlan`, `tipoplan`, `descripcion`, `disponibilidad`, `observaciones`, `vencimiento`, `dni`)
-                VALUES (NULL, '$tipoplan', '$tipoplan', '$dispo', '$observaciones', '$fecha', '$dni') ";
+    $query = "UPDATE `cliente` "
+            . "SET `disponibilidad` = '$dispo', `observaciones` = '$observaciones', `vencimiento` = '$fecha' WHERE `cliente`.`dni` = '$dni' ";
     $result = mysqli_query($conex, $query)
             or die(mysqli_error($conex));
     mysqli_close($conex);
@@ -429,20 +438,6 @@ function bindDietaCliente($cliente, $dieta) {
     return $result;
 }
 
-/*
-  function insertDieta($codcomida, $nombre){
-  $conex = getConnection();
-
-  $query = "INSERT INTO `comida` (`codcomida`, `nombre`) VALUES ('$codcomida', '$nombre')";
-
-  $result = mysqli_query($conex, $query)
-  or die(mysqli_error($conex));
-  mysqli_close($conex);
-
-  return $result;
-  }
-
- */
 
 function getTablas($dni) {
 
@@ -659,9 +654,9 @@ function bindTablaCliente($dni, $tabla){
 function modificarPlan($dni, $plan){
     $conex = getConnection();
     
-    $query = "UPDATE `plan`"
-            . " SET `tipoplan` = '$plan', `descripcion` = '$plan'"
-            . " WHERE `plan`.`dni` = '$dni' ";
+    $query = "UPDATE `cliente`"
+            . " SET codplan = '$plan'"
+            . " WHERE `dni` = '$dni' ";
     
     $result = mysqli_query($conex, $query)
             or die(mysqli_error($conex));

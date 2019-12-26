@@ -28,7 +28,7 @@ and open the template in the editor.
 
                 $plan = getPlan($_SESSION['dni']);
 
-                if ($plan != null && ($plan = "pro" || $plan = "entrenamiento")) {
+                if ($plan != null && ($plan == "pro" || $plan == "entrenamiento")) {
 
                     $linktabla = "../tablas.php";
                 } else {
@@ -45,7 +45,8 @@ and open the template in the editor.
 
                     print("<a class='navbar-brand' href='../admin.php'>Administracion</a>");
                 }
-                print("<a class='navbar-brand' href='../logout.php'>Logout</a>");
+                print("<a class='navbar-brand' href='../ampliarplan.php'>Ampliar plan</a>"
+                        . "<a class='navbar-brand' href='../logout.php'>Logout</a>");
             }
             ?>
         </nav>
