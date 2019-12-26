@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-12-2019 a las 20:46:34
+-- Tiempo de generación: 26-12-2019 a las 13:37:55
 -- Versión del servidor: 10.4.8-MariaDB
 -- Versión de PHP: 7.3.11
 
@@ -39,16 +39,20 @@ CREATE TABLE `cliente` (
   `objetivo` text COLLATE latin1_spanish_ci NOT NULL,
   `clave` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
   `coddieta` int(10) DEFAULT NULL,
-  `codtabla` int(10) DEFAULT NULL
+  `codtabla` int(10) DEFAULT NULL,
+  `codplan` varchar(10) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `disponibilidad` varchar(30) COLLATE latin1_spanish_ci NOT NULL,
+  `observaciones` text COLLATE latin1_spanish_ci NOT NULL,
+  `vencimiento` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `cliente`
 --
 
-INSERT INTO `cliente` (`dni`, `nombre`, `email`, `direccion`, `telefono`, `objetivo`, `clave`, `coddieta`, `codtabla`) VALUES
-('32323223A', 'asdas', 'ad@sda.hjh', 'adas', '678678678', 'sfgsdf', '2', 2, 6),
-('99999999E', 'PEPEPEPEE', 'asdasd@fas.dsa', 'adasdadasd', '666666666', 'adadas', '1', 2, 1);
+INSERT INTO `cliente` (`dni`, `nombre`, `email`, `direccion`, `telefono`, `objetivo`, `clave`, `coddieta`, `codtabla`, `codplan`, `disponibilidad`, `observaciones`, `vencimiento`) VALUES
+('32323223A', 'asdas', 'ad@sda.hjh', 'adas', '678678678', 'sfgsdf', '2', 2, 6, '3', '3 dias', 'soy alergico a la coliflor', '2020-01-08'),
+('99999999E', 'PEPEPEPEE', 'asdasd@fas.dsa', 'adasdadasd', '666666666', 'adadas', '1', 2, 1, '1', '4 dias', 'Nada', '2020-02-07');
 
 -- --------------------------------------------------------
 
@@ -320,22 +324,19 @@ INSERT INTO `lineatabla` (`codtabla`, `codsesion`) VALUES
 --
 
 CREATE TABLE `plan` (
-  `codPlan` int(10) NOT NULL,
+  `codPlan` varchar(10) COLLATE latin1_spanish_ci NOT NULL,
   `tipoplan` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
-  `descripcion` text COLLATE latin1_spanish_ci NOT NULL,
-  `disponibilidad` varchar(50) COLLATE latin1_spanish_ci DEFAULT NULL,
-  `observaciones` text COLLATE latin1_spanish_ci DEFAULT NULL,
-  `vencimiento` date NOT NULL,
-  `dni` varchar(9) COLLATE latin1_spanish_ci NOT NULL
+  `descripcion` text COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `plan`
 --
 
-INSERT INTO `plan` (`codPlan`, `tipoplan`, `descripcion`, `disponibilidad`, `observaciones`, `vencimiento`, `dni`) VALUES
-(2, 'pro', 'pro', 'sf', 'sdf', '0000-00-00', '32323223A'),
-(8, 'nutricion', 'nutricion', '12', 'asdas', '2020-01-15', '99999999E');
+INSERT INTO `plan` (`codPlan`, `tipoplan`, `descripcion`) VALUES
+('1', 'Nutricion', 'Plan en el que asesoramos nutricionalmente'),
+('2', 'Entrenamiento', 'Plan en el que asesoramos tanto nutricional como deportivamente'),
+('3', 'Pro', 'Plan en el que asesoramos tanto nutricional como deportivamente de una forma mas personalizada');
 
 -- --------------------------------------------------------
 
@@ -382,7 +383,8 @@ CREATE TABLE `progreso` (
 --
 
 INSERT INTO `progreso` (`codProgreso`, `imagen`, `peso`, `medidas`, `fecha`, `dni`) VALUES
-(6, 'img/img.jpg', 123, '123/23/123', '2019-12-14', '99999999E');
+(6, 'img/img.jpg', 123, '123/23/123', '2019-12-14', '99999999E'),
+(8, 'img/1577363274-cc60uQq.jpg', 100, '23/23/231', '2019-12-26', '32323223A');
 
 -- --------------------------------------------------------
 
@@ -436,7 +438,8 @@ INSERT INTO `tablaejercicios` (`codtabla`, `fecha`, `tipo`) VALUES
 ALTER TABLE `cliente`
   ADD PRIMARY KEY (`dni`),
   ADD KEY `coddietacli` (`coddieta`),
-  ADD KEY `aaass` (`codtabla`);
+  ADD KEY `codtablacli` (`codtabla`),
+  ADD KEY `codplan` (`codplan`);
 
 --
 -- Indices de la tabla `comida`
@@ -518,8 +521,7 @@ ALTER TABLE `lineatabla`
 -- Indices de la tabla `plan`
 --
 ALTER TABLE `plan`
-  ADD PRIMARY KEY (`codPlan`,`dni`),
-  ADD KEY `dniplan` (`dni`);
+  ADD PRIMARY KEY (`codPlan`) USING BTREE;
 
 --
 -- Indices de la tabla `plato`
@@ -575,12 +577,6 @@ ALTER TABLE `ejercicio`
   MODIFY `codejercicio` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT de la tabla `plan`
---
-ALTER TABLE `plan`
-  MODIFY `codPlan` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
 -- AUTO_INCREMENT de la tabla `plato`
 --
 ALTER TABLE `plato`
@@ -590,7 +586,7 @@ ALTER TABLE `plato`
 -- AUTO_INCREMENT de la tabla `progreso`
 --
 ALTER TABLE `progreso`
-  MODIFY `codProgreso` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `codProgreso` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `sesion`
@@ -612,8 +608,9 @@ ALTER TABLE `tablaejercicios`
 -- Filtros para la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  ADD CONSTRAINT `aaass` FOREIGN KEY (`codtabla`) REFERENCES `tablaejercicios` (`codtabla`),
-  ADD CONSTRAINT `coddietacli` FOREIGN KEY (`coddieta`) REFERENCES `dieta` (`coddieta`);
+  ADD CONSTRAINT `coddietacli` FOREIGN KEY (`coddieta`) REFERENCES `dieta` (`coddieta`),
+  ADD CONSTRAINT `codplanclientes` FOREIGN KEY (`codplan`) REFERENCES `plan` (`codPlan`),
+  ADD CONSTRAINT `codtablacli` FOREIGN KEY (`codtabla`) REFERENCES `tablaejercicios` (`codtabla`);
 
 --
 -- Filtros para la tabla `entrenamiento`
@@ -656,12 +653,6 @@ ALTER TABLE `lineaempleado`
 ALTER TABLE `lineatabla`
   ADD CONSTRAINT `codsesion` FOREIGN KEY (`codsesion`) REFERENCES `sesion` (`codsesion`),
   ADD CONSTRAINT `codtabla` FOREIGN KEY (`codtabla`) REFERENCES `tablaejercicios` (`codtabla`);
-
---
--- Filtros para la tabla `plan`
---
-ALTER TABLE `plan`
-  ADD CONSTRAINT `dniplan` FOREIGN KEY (`dni`) REFERENCES `cliente` (`dni`);
 
 --
 -- Filtros para la tabla `progreso`
