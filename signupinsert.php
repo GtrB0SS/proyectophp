@@ -28,7 +28,7 @@ if (strlen($dni) != 9 || preg_match('/^[XYZ]?([0-9]{7,8})([A-Z])$/i', $dni) !== 
     $_SESSION['signup']['dni'] = $dni;
 }
 
-if (trim($nombre) == "") {
+if (!preg_match('/^[a-zA-Z]+$/', $nombre) || trim($nombre) == "") {
     $_SESSION['erroressign']['nombre'] = "Nombre Incorrecto";
 } else {
     $_SESSION['signup']['nombre'] = $nombre;
@@ -102,17 +102,38 @@ if (isset($_SESSION['erroressign'])) {
     }
 
 
-    $preparador = selectpreparador($especialidad);
-
-    if (!insertCliente($dni, $nombre, $email, $direccion, $telef, $objetivo, $pwd)) {
-        print("Error insert");
-//header('location: error.html');
+    if ($especialidad == "1") {
+        $preparador1 = selectpreparador(1);
+    }
+    if ($especialidad == "2" || $especialidad == "3") {
+        $preparador1 = selectpreparador(1);
+        $preparador2 = selectpreparador(2);
+        
+        if(getEspecialidad($preparador1) == "3"){
+            unset($preparador2);
+        }
+        else if(getEspecialidad($preparador2) == "3"){
+            $preparador1 = $preparador2;
+            unset($preparador2);
+        }
     }
 
-    if (asignarprep($dni, $preparador)) {
+    if (!insertCliente($dni, $nombre, $email, $direccion, $telef, $objetivo, $pwd)) {
+        header('location: error.html');
+    }
 
-        print("Error insert asignar");
-//header('location: error.html');
+    if (isset($preparador2) && $preparador1 != $preparador2) {
+        if (asignarprep($dni, $preparador1)) {
+
+            header('location: error.html');
+        }
+        if (asignarprep($dni, $preparador2)) {
+
+            header('location: error.html');
+        }
+    } else if (asignarprep($dni, $preparador1)) {
+
+        header('location: error.html');
     }
 
     if (insertPlan($dni, $plan, $dispo, $observaciones, $especialidad)) {

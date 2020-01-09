@@ -102,7 +102,7 @@ and open the template in the editor.
                     print(getProgreso($cliente));
 
 
-                    print("</tbody>");
+                    print("</tbody></table>");
                 }
             }
             ?>
