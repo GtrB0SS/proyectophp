@@ -10,7 +10,6 @@ session_start();
 include "daoMySQL.php";
 
 //Atributos
-$nemp = $_POST['nemp']; //Comprobar si existe
 $esp = $_POST['esp']; //Verificado
 $nombre = $_POST['nombre']; //Verificado
 $dni = $_POST['dni']; //Verificado
@@ -21,6 +20,12 @@ $pwd = $_POST['pwd']; //Verificado
 $pwdrep = $_POST['pwdrep']; //Verificado
 $privilegios = $_POST['privilegios']; //Verificado
 
+
+if($esp == ""){
+    $_SESSION['erroresemp']['esp'] = "Debes seleccionar una especialidad";
+}else{
+    $_SESSION['insertemp']['esp'] = $esp;
+}
 
 if (strlen($dni) != 9 || preg_match('/^[XYZ]?([0-9]{7,8})([A-Z])$/i', $dni) !== 1) {
 
@@ -70,12 +75,22 @@ if (trim($pwdrep) == "" || $pwdrep != $pwd) {
 
 
 $_SESSION['insertemp']['privilegios'] = $privilegios;
-$_SESSION['insertemp']['esp'] = $esp;
+
+if($privilegios != "1"){
+    $privilegios = "0";
+}
+
 
 if (isset($_SESSION['erroresemp'])) {
     header('location: formNuevoEmpleado.php');
 } else {
 
-    //Hacer aqui insercion
+    if(!insertEmpleado($esp, $nombre, $dni, $telef, $email, $direccion, $pwd, $privilegios)){
+        header("location: error.html");
+    }
+    $_SESSION['nempinsertado'] = true;
+    unset($_SESSION['insertemp']);
+    unset($_SESSION['erroresemp']);
     
+    header("location: admin.php");
 }

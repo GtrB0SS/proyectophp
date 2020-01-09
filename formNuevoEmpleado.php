@@ -41,44 +41,6 @@ and open the template in the editor.
                 <div class="col-md-6 login-form-1">
                     <h3>Insertar un empleado</h3>
                     <form action="insertaremp.php" method="post">
-                        <label>Numero de empleado:</label>
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="nemp" placeholder="Numero del empleado" value="<?php
-                            if (isset($_SESSION['insertemp']['nemp'])) {
-                                print($_SESSION['insertemp']['nemp']);
-                            }
-                            ?>" /><p style='color: #FF0000;'><?php
-                                   if (isset($_SESSION['erroresemp']['nemp'])) {
-                                       print($_SESSION['erroresemp']['nemp']);
-                                   }
-                                   ?></p>
-                        </div>
-
-                        <label>Especialidad del empleado:</label>
-                        <select name="esp" class="form-control" id="exampleFormControlSelect1">
-                            <option value="" disabled selected>Seleccione un plan</option>
-                            <option value="nutricion" <?php
-                            if (isset($_SESSION['insertemp']['esp']) && $_SESSION['insertemp']['esp'] == "nutricion") {
-                                print('selected');
-                            }
-                            ?>>Preparador nutricional</option>
-                            <option value="entrenamiento" <?php
-                            if (isset($_SESSION['insertemp']['esp']) && $_SESSION['insertemp']['esp'] == "entrenamiento") {
-                                print('selected');
-                            }
-                            ?>>Preparador fisico</option>
-                            <option value="ambas" <?php
-                            if (isset($_SESSION['insertemp']['esp']) && $_SESSION['insertemp']['esp'] == "ambas") {
-                                print('selected');
-                            }
-                            ?>>Ambas</option>
-                        </select>
-                        <p style='color: #FF0000;'><?php
-                            if (isset($_SESSION['erroresemp']['esp'])) {
-                                print($_SESSION['erroresemp']['esp']);
-                            }
-                            ?></p>
-
                         <label>Nombre del empleado:</label>
                         <div class="form-group">
                             <input type="text" class="form-control" name="nombre" placeholder="Nombre del empleado" value="<?php
@@ -91,6 +53,34 @@ and open the template in the editor.
                                    }
                                    ?></p>
                         </div>
+
+
+                        <label>Especialidad del empleado:</label>
+                        <select name="esp" class="form-control" id="exampleFormControlSelect1">
+                            <option value="" disabled selected>Seleccione un plan</option>
+                            <option value="1" <?php
+                            if (isset($_SESSION['insertemp']['esp']) && $_SESSION['insertemp']['esp'] == "nutricion") {
+                                print('selected');
+                            }
+                            ?>>Preparador nutricional</option>
+                            <option value="2" <?php
+                            if (isset($_SESSION['insertemp']['esp']) && $_SESSION['insertemp']['esp'] == "entrenamiento") {
+                                print('selected');
+                            }
+                            ?>>Preparador fisico</option>
+                            <option value="3" <?php
+                            if (isset($_SESSION['insertemp']['esp']) && $_SESSION['insertemp']['esp'] == "ambas") {
+                                print('selected');
+                            }
+                            ?>>Ambas</option>
+                        </select>
+                        <p style='color: #FF0000;'><?php
+                            if (isset($_SESSION['erroresemp']['esp'])) {
+                                print($_SESSION['erroresemp']['esp']);
+                            }
+                            ?></p>
+
+
 
                         <label>DNI del empleado:</label>
                         <div class="form-group">
@@ -135,7 +125,7 @@ and open the template in the editor.
 
                         <label>Direccion del empleado:</label>
                         <div class="form-group">
-                            <input type="email" class="form-control" name="dir" placeholder="Direccion del empleado" value="<?php
+                            <input type="text" class="form-control" name="dir" placeholder="Direccion del empleado" value="<?php
                             if (isset($_SESSION['insertemp']['dir'])) {
                                 print($_SESSION['insertemp']['dir']);
                             }
@@ -177,8 +167,8 @@ and open the template in the editor.
 
                         <label>Privilegios del empleado:</label>
                         <div class="checkbox">
-                            <label><input type="checkbox" value="" name="privilegios" <?php
-                                if (isset($_SESSION['insertemp']['privilegios']) && $_SESSION['insertemp']['privilegios'] == '1') {
+                            <label><input type="checkbox" value="1" name="privilegios" <?php
+                                if (isset($_SESSION['insertemp']['privilegios']) && $_SESSION['insertemp']['privilegios'] == "1") {
                                     print("checked");
                                 }
                                 ?>> Conceder privilegios de administrador del sistema (Podrá añadir a nuevos empleados)</label>

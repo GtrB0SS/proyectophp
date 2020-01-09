@@ -97,15 +97,16 @@ function getPreparadores($dni){
     return $preparador;
 }
 
-function insertEmpleado($nEmp, $esp, $name, $dni, $telef, $email, $dir, $clave, $privilegios){
+function insertEmpleado($esp, $name, $dni, $telef, $email, $dir, $clave, $privilegios){
     $conex = getConnection();
-    $query = "INSERT INTO `empleado` (`numeroempleado`, `especialidad`, `nombre`, `dni`, `telefono`, `email`, `direccion`, `clave`, `privilegios`) VALUES ('$nEmp', '$esp', '$name', '$dni', '$telef', '$email', '$dir', '$clave', '$privilegios') ";
+    $query = "INSERT INTO `empleado` (`especialidad`, `nombre`, `dni`, `telefono`, `email`, `direccion`, `clave`, `privilegios`) VALUES ('$esp', '$name', '$dni', '$telef', '$email', '$dir', '$clave', '$privilegios') ";
     
     $res_valid = mysqli_query($conex, $query)
             or die(mysqli_error($conex));
     mysqli_close($conex);
     return $res_valid;
 }
+
 
 function getPrivilegios($numEmp){
     $conex = getConnection();

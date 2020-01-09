@@ -16,11 +16,16 @@ and open the template in the editor.
         <div class="container">
             <nav class='navbar navbar-light bg-light row'>
             <?php
+            
+            
             // put your code here
             session_start();
             include "daoMySQL.php";
 
 
+            if(isset($_SESSION['nempinsertado']) && $_SESSION['nempinsertado']){
+                print("<script type='text/javascript'>alert('Empleado insertado con exito');</script>");
+            }
 
             if($_SESSION['resLogin'] == "cliente" || $_SESSION['resLogin'] == "empleado"){
 
