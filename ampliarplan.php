@@ -30,42 +30,48 @@ and open the template in the editor.
 
                         if ($plan != null && ($plan == "pro" || $plan == "entrenamiento")) {
 
-                            $linktabla = "tablas.php";
+                            $linktabla = "<a class='navbar-brand' href='tablas.php'>Tabla de ejercicios</a>";
                         } else {
-                            $linktabla = "ampliarplan.php";
+                            $linktabla = "";
                         }
 
                         print(" 
                                 <a class='navbar-brand' href='progreso.php'>Progreso</a>
                                 <a class='navbar-brand' href='resumen.php'>Resumen</a>
                                 <a class='navbar-brand' href='dietas.php'>Dietas</a>
-                                <a class='navbar-brand' href='$linktabla'>Tabla de ejercicios</a>
+                                $linktabla
                             ");
                         if ($_SESSION['resLogin'] == "empleado") {
 
                             print("<a class='navbar-brand' href='admin.php'>Administracion</a>");
                         }
                         print("<a class='navbar-brand' href='ampliarplan.php'>Ampliar plan</a>"
-                        . "<a class='navbar-brand' href='logout.php'>Logout</a>");
+                                . "<a class='navbar-brand' href='logout.php'>Logout</a>");
                     }
                 } else if (isset($_SESSION['dni'])) {
                     if ($_SESSION['resLogin'] == "cliente" || $_SESSION['resLogin'] == "empleado") {
 
                         $plan = getPlan($_SESSION['dni']);
 
-                        if ($plan != null && ($plan = "pro" || $plan = "entrenamiento")) {
+                        if ($plan != null && ($plan == "pro" || $plan == "entrenamiento")) {
 
-                            $linktabla = "tablas.php";
+                            $linktabla = "<a class='navbar-brand' href='tablas.php'>Tabla de ejercicios</a>";
                         } else {
-                            $linktabla = "ampliarplan.php";
+                            $linktabla = "";
                         }
 
+                        if ($_SESSION['resLogin'] == "cliente") {
+                            print("<a class='navbar-brand' href='progreso.php'>Progreso</a>");
+                        }
                         print(" 
-                            <a class='navbar-brand' href='progreso.php'>Progreso</a>
-                            <a class='navbar-brand' href='resumen.php'>Resumen</a>
-                            <a class='navbar-brand' href='dietas.php'>Dietas</a>
-                            <a class='navbar-brand' href='$linktabla'>Tabla de ejercicios</a>
-                        ");
+                                
+                                <a class='navbar-brand' href='resumen.php'>Resumen</a>");
+                        if ($_SESSION['resLogin'] == "cliente") {
+                            print(" <a class='navbar-brand' href='dietas.php'>Dietas</a>");
+                        }
+                        print("
+                                $linktabla
+                            ");
                         if ($_SESSION['resLogin'] == "empleado") {
 
                             print("<a class='navbar-brand' href='admin.php'>Administracion</a>");
@@ -89,19 +95,27 @@ and open the template in the editor.
                 <label>Seleccione el plan que desea: </label>
                 <select name="plan" class="form-control" id="exampleFormControlSelect1">
                     <option value="" disabled selected>Seleccione un plan</option>
-                    <option value="1" <?php if (isset($_SESSION['ampliar']['plan']) && $_SESSION['ampliar']['plan'] == "nutricion") {
+                    <option value="1" <?php
+                    if (isset($_SESSION['ampliar']['plan']) && $_SESSION['ampliar']['plan'] == "nutricion") {
+                        print('selected');
+                    }
+                    ?>>Nutricion</option>
+                    <option value="2" <?php
+                    if (isset($_SESSION['ampliar']['plan']) && $_SESSION['ampliar']['plan'] == "entrenamiento") {
+                        print('selected');
+                    }
+                    ?>>Nutricion+Entrenamiento</option>
+                    <option value="3" <?php
+                if (isset($_SESSION['ampliar']['plan']) && $_SESSION['ampliar']['plan'] == "pro") {
                     print('selected');
-                } ?>>Nutricion</option>
-                    <option value="2" <?php if (isset($_SESSION['ampliar']['plan']) && $_SESSION['ampliar']['plan'] == "entrenamiento") {
-                    print('selected');
-                } ?>>Nutricion+Entrenamiento</option>
-                    <option value="3" <?php if (isset($_SESSION['ampliar']['plan']) && $_SESSION['ampliar']['plan'] == "pro") {
-                    print('selected');
-                } ?>>Pro</option>
+                }
+                ?>>Pro</option>
                 </select>
-                <?php if (isset($_SESSION['erroresampliar']['plan'])) {
-                    print($_SESSION['erroresampliar']['plan']);
-                } ?>
+<p style='color: #FF0000;'><?php
+if (isset($_SESSION['erroresampliar']['plan'])) {
+    print($_SESSION['erroresampliar']['plan']);
+}
+?></p>
                 <br>
                 <div class="form-group">
                     <input type="submit" class="btnSubmit" value="Insertar sesion" />

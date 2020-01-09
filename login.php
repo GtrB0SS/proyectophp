@@ -21,8 +21,7 @@ session_unset();
                 include "daoMySQL.php";
 
                 
-                    print(" <a class='navbar-brand' href='login.php'>Progreso</a>
-                        <a class='navbar-brand' href='login.php'>Resumen</a>
+                    print(" 
                         <a class='navbar-brand' href='login.php'>LogIn</a>
                         <a class='navbar-brand' href='signupform.php'>SignUp</a>
                 ");
@@ -46,11 +45,11 @@ session_unset();
                         <div class="form-group">
                             <a href="#" class="ForgetPwd">Forget Password?</a>
                         </div>
-<?php
+<p style='color: #FF0000;'><?php
 if (isset($_SESSION['resLogin']) && $_SESSION['resLogin'] == "Usuario o clave incorrectos") {
     print("Usuario o clave incorrectos");
 }
-?>
+?></p>
 
                     </form>
                 </div>

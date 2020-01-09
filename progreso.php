@@ -24,41 +24,50 @@ and open the template in the editor.
 
                     if ($plan != null && ($plan == "pro" || $plan == "entrenamiento")) {
 
-                        $linktabla = "tablas.php";
+                        $linktabla = "<a class='navbar-brand' href='tablas.php'>Tabla de ejercicios</a>";
                     } else {
-                        $linktabla = "ampliarplan.php";
+                        $linktabla = "";
                     }
+
+
 
                     print(" 
                             <a class='navbar-brand' href='index.php'>Inicio</a>
-                            <a class='navbar-brand' href='resumen.php'>Resumen</a>
-                            <a class='navbar-brand' href='dietas.php'>Dieta</a>
-                            <a class='navbar-brand' href='$linktabla'>Tabla de ejercicios</a>
+                            <a class='navbar-brand' href='resumen.php'>Resumen</a>");
+                        if ($_SESSION['resLogin'] == "cliente") {
+                            print("<a class='navbar-brand' href='dietas.php'>Dietas</a>");
+                        }
+                            
+                           print(" $linktabla
                         ");
                     if ($_SESSION['resLogin'] == "empleado") {
 
                         print("<a class='navbar-brand' href='admin.php'>Administracion</a>");
                     }
-                    print("<a class='navbar-brand' href='ampliarplan.php'>Ampliar plan</a>"
-                        . "<a class='navbar-brand' href='logout.php'>Logout</a>");
+                    if ($_SESSION['resLogin'] == "cliente") {
+                        print("<a class='navbar-brand' href='ampliarplan.php'>Ampliar plan</a>"
+                                . "<a class='navbar-brand' href='logout.php'>Logout</a>");
+                    } else {
+                        print("<a class='navbar-brand' href='logout.php'>Logout</a>");
+                    }
                 }
                 ?>
             </nav>
-                <?php
-                if (isset($_SESSION['resProgreso']) && $_SESSION['resProgreso'] == "Error en la insercion") {
-                    print("Error en la insercion");
-                }
-                ?>
- 
+            <?php
+            if (isset($_SESSION['resProgreso']) && $_SESSION['resProgreso'] == "Error en la insercion") {
+                print("Error en la insercion");
+            }
+            ?>
+
             <div class="row">
                 <div class="col-md-6 login-form-1">
                     <h3>Inserte progreso</h3>
                     <form action="insertprogreso.php" method="post" enctype="multipart/form-data">
                         <div class="form-group">
-                            <input type="number" class="form-control" name="peso" placeholder="Tu peso" value="" /><?php if(isset($_SESSION['erroresProgreso']['peso']) ) print("<p>".$_SESSION['erroresProgreso']['peso']."</p>");?>
+                            <input type="number" class="form-control" name="peso" placeholder="Tu peso" value="" /><?php if (isset($_SESSION['erroresProgreso']['peso'])) print("<p style='color: #FF0000;'>" . $_SESSION['erroresProgreso']['peso'] . "</p>"); ?>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="medidas" placeholder="Tus medidas" value="" /><?php if(isset($_SESSION['erroresProgreso']['medidas']) ) print("<p>".$_SESSION['erroresProgreso']['medidas']."</p>");?>
+                            <input type="text" class="form-control" name="medidas" placeholder="Tus medidas Cuello/Cadera/Cintura" value="" /><?php if (isset($_SESSION['erroresProgreso']['medidas'])) print("<p style='color: #FF0000;'>" . $_SESSION['erroresProgreso']['medidas'] . "</p>"); ?>
                         </div>
                         <div class="form-group">
                             <input type="file" class="form-control" name="img" value="" />
@@ -71,9 +80,9 @@ and open the template in the editor.
                 </div>
             </div>
             <?php
-                if(isset($_SESSION['erroresProgreso'])){
-                    unset($_SESSION['erroresProgreso']);
-                }
+            if (isset($_SESSION['erroresProgreso'])) {
+                unset($_SESSION['erroresProgreso']);
+            }
             ?>
         </div>
     </body>

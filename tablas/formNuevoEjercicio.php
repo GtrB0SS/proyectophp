@@ -31,23 +31,21 @@ and open the template in the editor.
 
                 if ($plan != null && ($plan == "pro" || $plan == "entrenamiento")) {
 
-                    $linktabla = "../tablas.php";
-                } else {
-                    $linktabla = "../ampliarplan.php";
-                }
+                            $linktabla = "<a class='navbar-brand' href='../tablas.php'>Tabla de ejercicios</a>";
+                        } else {
+                            $linktabla = "";
+                        }
 
                 print(" 
                             <a class='navbar-brand' href='../index.php'>Inicio</a>
-                            <a class='navbar-brand' href='../progreso.php'>Progreso</a>
-                            <a class='navbar-brand' href='../dietas.php'>Dietas</a>
-                            <a class='navbar-brand' href='$linktabla'>Tabla de ejercicios</a>
+                            
+                             $linktabla 
                         ");
                 if ($_SESSION['resLogin'] == "empleado") {
 
                     print("<a class='navbar-brand' href='../admin.php'>Administracion</a>");
                 }
-                print("<a class='navbar-brand' href='../ampliarplan.php'>Ampliar plan</a>"
-                        . "<a class='navbar-brand' href='../logout.php'>Logout</a>");
+                print("<a class='navbar-brand' href='../logout.php'>Logout</a>");
             }
             ?>
         </nav>

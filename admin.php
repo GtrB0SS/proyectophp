@@ -21,39 +21,28 @@ and open the template in the editor.
             include "daoMySQL.php";
 
 
-            //$_SESSION['dni'] = $_POST['user'];
 
             if($_SESSION['resLogin'] == "cliente" || $_SESSION['resLogin'] == "empleado"){
 
-                $plan = getPlan($_SESSION['dni']);
+               
 
-                if($plan != null && ($plan == "pro" || $plan == "entrenamiento")){
-
-                    $linktabla = "tablas.php";
-
-                }
-                else{$linktabla = "ampliarplan.php";}
-
-                print(" <a class='navbar-brand' href='progreso.php'>Progreso</a>
+                print("
                             <a class='navbar-brand' href='resumen.php'>Resumen</a>
                             
-                            <a class='navbar-brand' href='dietas.php'>Dietas</a>
-                            <a class='navbar-brand' href='$linktabla'>Tabla de ejercicios</a>
                         ");
                 if($_SESSION['resLogin'] == "empleado"){
 
                     print("<a class='navbar-brand' href='index.php'>Inicio</a>");
 
                 }
-                print("<a class='navbar-brand' href='ampliarplan.php'>Ampliar plan</a>"
-                        . "<a class='navbar-brand' href='logout.php'>Logout</a>");
+                print("<a class='navbar-brand' href='logout.php'>Logout</a>");
  
             }
             ?>
             </nav>
         <?php
         
-        // Añadir dieta si es nutricionista
+        // Añadir dieta si es nutricionista CAMBIAR
         if($_SESSION["especialidad"] == "1" || $_SESSION["especialidad"] == "3"){
             print("<h2>Sección nutricionista:</h2>");
             print("<p><a href='dietas/formAsignarDieta.php'>Asignar Dieta a cliente</a></p>");
@@ -66,7 +55,7 @@ and open the template in the editor.
 
         }
         
-        // Añadir entrenamiento si es entrenador
+        // Añadir entrenamiento si es entrenador CAMBIAR
         if($_SESSION["especialidad"] == "2" || $_SESSION["especialidad"] == "3"){
             print("<h2>Sección entrenador:</h2>");
             print("<p><a href='tablas/formAsignarTabla.php'>Asignar tabla a cliente</a></p>");
@@ -83,11 +72,18 @@ and open the template in the editor.
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
             </form>
         
-            <div class="row">
+            
         <?php
         if(isset($_POST["dniInsertado"])){
             $dni = $_POST["dniInsertado"];
             $dietas = getDietas($dni);
+            $observaciones = getObservaciones($dni);
+            
+            print("$observaciones");
+            
+            ?>
+            <div class="row">
+            <?php
             if($dietas != ""){
                 print("<div class='col-xl-6 col-xs-6'><h2>Dietas de $dni</h2>");
                 print($dietas."</div>");

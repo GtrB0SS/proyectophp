@@ -249,13 +249,15 @@ function nuevoEjercicio($nombre, $series, $repeticiones, $peso, $link) {
     return $result;
 }
 
-function insertPlan($dni, $tipoplan, $dispo, $observaciones) {
+function insertPlan($dni, $tipoplan, $dispo, $observaciones, $plan) {
 
+    $fecha_actual = date('Y-m-d');
     $fecha = date("Y-m-d", strtotime($fecha_actual . "+ 1 month"));
 
+    print("$plan");
     $conex = getConnection();
     $query = "UPDATE `cliente` "
-            . "SET `disponibilidad` = '$dispo', `observaciones` = '$observaciones', `vencimiento` = '$fecha' WHERE `cliente`.`dni` = '$dni' ";
+            . "SET `disponibilidad` = '$dispo', `observaciones` = '$observaciones', `vencimiento` = '$fecha', `codplan` = '$plan' WHERE `cliente`.`dni` = '$dni' ";
     $result = mysqli_query($conex, $query)
             or die(mysqli_error($conex));
     mysqli_close($conex);
@@ -438,6 +440,21 @@ function bindDietaCliente($cliente, $dieta) {
     return $result;
 }
 
+function getObservaciones($dni){
+    
+    $conex = getConnection();
+    
+    $query = "SELECT `disponibilidad`, `observaciones` FROM `cliente` WHERE dni = '$dni'";
+    
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    
+    if($fila = mysqli_fetch_array($result)){
+        $resultado ="<p>Observaciones del cliente $dni: ". $fila['observaciones'] . "</p><p>Disponibilidad del cliente $dni: " . $fila['disponibilidad'] . " </p>";
+    }
+    
+    return $resultado;
+}
 
 function getTablas($dni) {
 
@@ -447,7 +464,7 @@ function getTablas($dni) {
     $conex = getConnection();
 
 
-    $query = "SELECT *
+    $query = "SELECT ej.nombre, ej.series, ej.repeticiones, ej.link, t.tipo, s.dia
             FROM tablaejercicios t, lineatabla lt, sesion s, entrenamiento e, ejercicio ej, cliente c
             WHERE c.dni = '$dni'
             AND   c.codtabla = t.codtabla
