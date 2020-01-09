@@ -12,16 +12,20 @@ include "daoMySQL.php";
 $peso = $_POST['peso'];
 $medidas = $_POST['medidas'];
 $fecha = date("Y-m-d");
-
-if (!isset($peso) || trim($peso) == "") {
+//
+if (!isset($peso) || trim($peso) == "" || $peso<=10 || $peso >=400) {
 
     $_SESSION['erroresProgreso']['peso'] = "El peso no es correcto";
+}else{
+    $_SESSION['insertProgreso']['peso'] = $medidas;
 }
 
 
-if (!isset($medidas) || trim($medidas) == "") {
+if (!isset($medidas) || trim($medidas) == "" || !preg_match('/^[0-9][0-9][0-9]?\/[0-9][0-9][0-9]?(\/[0-9][0-9]?[0-9]?)?$/', $medidas)) {
 
     $_SESSION['erroresProgreso']['medidas'] = "Las medidas no son correctas";
+}else{
+    $_SESSION['insertProgreso']['medidas'] = $medidas;
 }
 
 if (isset($_SESSION['erroresProgreso']))

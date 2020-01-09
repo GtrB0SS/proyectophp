@@ -34,11 +34,11 @@ and open the template in the editor.
                     print(" 
                             <a class='navbar-brand' href='index.php'>Inicio</a>
                             <a class='navbar-brand' href='resumen.php'>Resumen</a>");
-                        if ($_SESSION['resLogin'] == "cliente") {
-                            print("<a class='navbar-brand' href='dietas.php'>Dietas</a>");
-                        }
-                            
-                           print(" $linktabla
+                    if ($_SESSION['resLogin'] == "cliente") {
+                        print("<a class='navbar-brand' href='dietas.php'>Dietas</a>");
+                    }
+
+                    print(" $linktabla
                         ");
                     if ($_SESSION['resLogin'] == "empleado") {
 
@@ -63,12 +63,25 @@ and open the template in the editor.
                 <div class="col-md-6 login-form-1">
                     <h3>Inserte progreso</h3>
                     <form action="insertprogreso.php" method="post" enctype="multipart/form-data">
+                        <label>Tu peso actual:</label>
                         <div class="form-group">
-                            <input type="number" class="form-control" name="peso" placeholder="Tu peso" value="" /><?php if (isset($_SESSION['erroresProgreso']['peso'])) print("<p style='color: #FF0000;'>" . $_SESSION['erroresProgreso']['peso'] . "</p>"); ?>
+                            <input type="number" class="form-control" name="peso" placeholder="Tu peso" value="<?php
+                            if (isset($_SESSION['insertProgreso']['peso'])) {
+                                print($_SESSION['insertProgreso']['peso']);
+                            }
+                            ?>" /><?php if (isset($_SESSION['erroresProgreso']['peso'])) print("<p style='color: #FF0000;'>" . $_SESSION['erroresProgreso']['peso'] . "</p>"); ?>
                         </div>
+                        
+                        <label>Tus medidas actuales:</label>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="medidas" placeholder="Tus medidas Cuello/Cadera/Cintura" value="" /><?php if (isset($_SESSION['erroresProgreso']['medidas'])) print("<p style='color: #FF0000;'>" . $_SESSION['erroresProgreso']['medidas'] . "</p>"); ?>
+                            <input type="text" class="form-control" name="medidas" placeholder="Tus medidas Cuello/Cintura/Cadera" value="<?php
+                            if (isset($_SESSION['insertProgreso']['medidas'])) {
+                                print($_SESSION['insertProgreso']['medidas']);
+                            }
+                            ?>" /><?php if (isset($_SESSION['erroresProgreso']['medidas'])) print("<p style='color: #FF0000;'>" . $_SESSION['erroresProgreso']['medidas'] . "</p>"); ?>
                         </div>
+                        
+                        <label>Foto de tu progreso fisico:</label>
                         <div class="form-group">
                             <input type="file" class="form-control" name="img" value="" />
                         </div>

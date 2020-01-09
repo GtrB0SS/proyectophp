@@ -21,6 +21,18 @@ $plan = $_POST['plan'];
 $dispo = $_POST['dispo'];
 $observaciones = $_POST['observaciones'];
 
+
+if (trim($dispo) == "") {
+    $_SESSION['erroressign']['dispo'] = "Disponibilidad Incorrecta";
+} else {
+    if ($dispo <= 0 || $dispo > 7) {
+        $_SESSION['erroressign']['dispo'] = "Disponibilidad Incorrecta";
+    } else {
+        $_SESSION['signup']['dispo'] = $dispo;
+    }
+}
+
+
 if (strlen($dni) != 9 || preg_match('/^[XYZ]?([0-9]{7,8})([A-Z])$/i', $dni) !== 1) {
 
     $_SESSION['erroressign']['dni'] = "DNI Incorrecto";
@@ -79,11 +91,7 @@ if (trim($plan) == "") {
     $_SESSION['signup']['plan'] = $plan;
 }
 
-if (trim($dispo) == "") {
-    $_SESSION['erroressign']['dispo'] = "Disponibilidad Incorrecta";
-} else {
-    $_SESSION['signup']['dispo'] = $dispo;
-}
+
 
 
 $_SESSION['signup']['observaciones'] = $observaciones;
@@ -108,11 +116,10 @@ if (isset($_SESSION['erroressign'])) {
     if ($especialidad == "2" || $especialidad == "3") {
         $preparador1 = selectpreparador(1);
         $preparador2 = selectpreparador(2);
-        
-        if(getEspecialidad($preparador1) == "3"){
+
+        if (getEspecialidad($preparador1) == "3") {
             unset($preparador2);
-        }
-        else if(getEspecialidad($preparador2) == "3"){
+        } else if (getEspecialidad($preparador2) == "3") {
             $preparador1 = $preparador2;
             unset($preparador2);
         }

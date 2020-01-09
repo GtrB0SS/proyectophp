@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-12-2019 a las 13:37:55
+-- Tiempo de generación: 09-01-2020 a las 19:13:41
 -- Versión del servidor: 10.4.8-MariaDB
 -- Versión de PHP: 7.3.11
 
@@ -21,6 +21,9 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `motofitness`
 --
+
+DROP DATABASE motofitness;
+
 CREATE DATABASE IF NOT EXISTS `motofitness` DEFAULT CHARACTER SET latin1 COLLATE latin1_spanish_ci;
 USE `motofitness`;
 
@@ -51,8 +54,12 @@ CREATE TABLE `cliente` (
 --
 
 INSERT INTO `cliente` (`dni`, `nombre`, `email`, `direccion`, `telefono`, `objetivo`, `clave`, `coddieta`, `codtabla`, `codplan`, `disponibilidad`, `observaciones`, `vencimiento`) VALUES
-('32323223A', 'asdas', 'ad@sda.hjh', 'adas', '678678678', 'sfgsdf', '2', 2, 6, '3', '3 dias', 'soy alergico a la coliflor', '2020-01-08'),
-('99999999E', 'PEPEPEPEE', 'asdasd@fas.dsa', 'adasdadasd', '666666666', 'adadas', '1', 2, 1, '1', '4 dias', 'Nada', '2020-02-07');
+('11111111L', 'asd', 'asdas@gmail.cos', 'adas', '666666666', 'dsad', '1', NULL, NULL, '3', '4', '', '2020-02-09'),
+('32323223A', 'asdas', 'ad@sda.hjh', 'adas', '678678678', 'sfgsdf', '2', 2, 6, '3', '3', 'soy alergico a la coliflor', '2020-01-08'),
+('55555555F', 'sdada', 'sada@m.es', 'asdasd', '777777777', 'sdfsdf', '1', NULL, NULL, '3', '4', '', '2020-02-09'),
+('56565656D', 'sdas', 'asdas@gmas.es', 'asdsa', '666666666', 'adsa', '1', NULL, NULL, '2', '1', '', '2020-02-09'),
+('99999999E', 'PEPEPEPEE', 'asdasd@fas.dsa', 'adasdadasd', '666666666', 'adadas', '1', 2, 1, '1', '4', 'Nada', '2020-02-07'),
+('99999999P', 'adfad', 'asdsad@gamasd.es', 'asdasd', '666666666', 'dfasd', '1', NULL, NULL, '3', '4', '', '2020-02-09');
 
 -- --------------------------------------------------------
 
@@ -153,23 +160,26 @@ INSERT INTO `ejercicio` (`codejercicio`, `nombre`, `series`, `repeticiones`, `pe
 --
 
 CREATE TABLE `empleado` (
-  `numeroempleado` varchar(10) COLLATE latin1_spanish_ci NOT NULL,
+  `numeroempleado` int(10) NOT NULL,
   `especialidad` int(1) NOT NULL,
   `nombre` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
   `dni` varchar(9) COLLATE latin1_spanish_ci NOT NULL,
   `telefono` varchar(9) COLLATE latin1_spanish_ci NOT NULL,
   `email` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
   `direccion` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
-  `clave` varchar(20) COLLATE latin1_spanish_ci NOT NULL
+  `clave` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
+  `privilegios` int(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `empleado`
 --
 
-INSERT INTO `empleado` (`numeroempleado`, `especialidad`, `nombre`, `dni`, `telefono`, `email`, `direccion`, `clave`) VALUES
-('1', 3, 'pepe', '123', 'asd', 'asd', 'asd', '1'),
-('2', 1, 'Pedro', '21312', '1231', 'asda@sad.es', 'adas', '1');
+INSERT INTO `empleado` (`numeroempleado`, `especialidad`, `nombre`, `dni`, `telefono`, `email`, `direccion`, `clave`, `privilegios`) VALUES
+(1, 3, 'pepe', '123', 'asd', 'asd', 'asd', '1', 0),
+(2, 1, 'Pedro', '21312', '1231', 'asda@sad.es', 'adas', '1', 1),
+(3, 2, 'PEPEJUAN', '666666', '666666666', 'sdad', 'asdasd', '1', 0),
+(13, 3, 'Pedro', '99999987K', '666666663', 'Email@gmail.ew', 'asdas', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -283,7 +293,7 @@ INSERT INTO `lineadieta` (`coddieta`, `coddia`) VALUES
 --
 
 CREATE TABLE `lineaempleado` (
-  `numeroempleado` varchar(10) COLLATE latin1_spanish_ci NOT NULL,
+  `numeroempleado` int(10) NOT NULL,
   `dni` varchar(9) COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
@@ -292,8 +302,14 @@ CREATE TABLE `lineaempleado` (
 --
 
 INSERT INTO `lineaempleado` (`numeroempleado`, `dni`) VALUES
-('1', '32323223A'),
-('2', '99999999E');
+(1, '11111111L'),
+(1, '55555555F'),
+(1, '99999999P'),
+(2, '32323223A'),
+(2, '56565656D'),
+(2, '99999999E'),
+(3, '32323223A'),
+(3, '56565656D');
 
 -- --------------------------------------------------------
 
@@ -384,7 +400,8 @@ CREATE TABLE `progreso` (
 
 INSERT INTO `progreso` (`codProgreso`, `imagen`, `peso`, `medidas`, `fecha`, `dni`) VALUES
 (6, 'img/img.jpg', 123, '123/23/123', '2019-12-14', '99999999E'),
-(8, 'img/1577363274-cc60uQq.jpg', 100, '23/23/231', '2019-12-26', '32323223A');
+(8, 'img/1577363274-cc60uQq.jpg', 100, '23/23/231', '2019-12-26', '32323223A'),
+(9, 'img/img.jpg', 300, '99/999', '2020-01-09', '11111111L');
 
 -- --------------------------------------------------------
 
@@ -577,6 +594,12 @@ ALTER TABLE `ejercicio`
   MODIFY `codejercicio` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT de la tabla `empleado`
+--
+ALTER TABLE `empleado`
+  MODIFY `numeroempleado` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
 -- AUTO_INCREMENT de la tabla `plato`
 --
 ALTER TABLE `plato`
@@ -586,7 +609,7 @@ ALTER TABLE `plato`
 -- AUTO_INCREMENT de la tabla `progreso`
 --
 ALTER TABLE `progreso`
-  MODIFY `codProgreso` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `codProgreso` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `sesion`
@@ -644,8 +667,8 @@ ALTER TABLE `lineadieta`
 -- Filtros para la tabla `lineaempleado`
 --
 ALTER TABLE `lineaempleado`
-  ADD CONSTRAINT `codempleado` FOREIGN KEY (`numeroempleado`) REFERENCES `empleado` (`numeroempleado`),
-  ADD CONSTRAINT `dniclienteemp` FOREIGN KEY (`dni`) REFERENCES `cliente` (`dni`);
+  ADD CONSTRAINT `dniclienteemp` FOREIGN KEY (`dni`) REFERENCES `cliente` (`dni`),
+  ADD CONSTRAINT `nempleadoconclie` FOREIGN KEY (`numeroempleado`) REFERENCES `empleado` (`numeroempleado`);
 
 --
 -- Filtros para la tabla `lineatabla`

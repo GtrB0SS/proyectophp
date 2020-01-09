@@ -157,7 +157,7 @@ and open the template in the editor.
                         <br>
                         <label>Disponibilidad:</label>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="dispo" placeholder="Numero de dias disponibles" value="<?php
+                            <input type="number" class="form-control" name="dispo" placeholder="Numero de dias disponibles" value="<?php
         if (isset($_SESSION['signup']['dispo'])) {
             print($_SESSION['signup']['dispo']);
         }
