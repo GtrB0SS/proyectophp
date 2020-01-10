@@ -61,7 +61,7 @@ function getDatosEmp($nEmp){
     $datos = "";
     if($reg_usuario = mysqli_fetch_array($res_valid)){
         
-        $datos = $reg_usuario['nombre'] . ", Su informacion de contacto es: Email (" . $reg_usuario['email'] . ") Telefono(" . $reg_usuario['telefono'] . ")";
+        $datos = $reg_usuario['nombre'] . ", Su informacion email es: " . $reg_usuario['email'];
     }
     
     mysqli_close($conex);

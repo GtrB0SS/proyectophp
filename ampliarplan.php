@@ -76,7 +76,7 @@ and open the template in the editor.
 
                             print("<a class='navbar-brand' href='admin.php'>Administracion</a>");
                         }
-
+                        print("<a class='navbar-brand' href='index.php'>Inicio</a>");
                         print("<a class='navbar-brand' href='logout.php'>Logout</a>");
                     }
                 } else {
@@ -106,19 +106,19 @@ and open the template in the editor.
                     }
                     ?>>Nutricion+Entrenamiento</option>
                     <option value="3" <?php
-                if (isset($_SESSION['ampliar']['plan']) && $_SESSION['ampliar']['plan'] == "pro") {
-                    print('selected');
-                }
-                ?>>Pro</option>
+                    if (isset($_SESSION['ampliar']['plan']) && $_SESSION['ampliar']['plan'] == "pro") {
+                        print('selected');
+                    }
+                    ?>>Pro</option>
                 </select>
-<p style='color: #FF0000;'><?php
-if (isset($_SESSION['erroresampliar']['plan'])) {
-    print($_SESSION['erroresampliar']['plan']);
-}
-?></p>
+                <p style='color: #FF0000;'><?php
+                    if (isset($_SESSION['erroresampliar']['plan'])) {
+                        print($_SESSION['erroresampliar']['plan']);
+                    }
+                    ?></p>
                 <br>
                 <div class="form-group">
-                    <input type="submit" class="btnSubmit" value="Insertar sesion" />
+                    <input type="submit" class="btnSubmit" value="Cambiar plan" />
                 </div>
 
                 <input type="hidden" class="form-control" name="option"  value="sesion" />

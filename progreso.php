@@ -73,6 +73,7 @@ and open the template in the editor.
                         </div>
                         
                         <label>Tus medidas actuales:</label>
+                        <label>¿No sabes como medirte? <a href="https://es.wikihow.com/calcular-la-grasa-corporal-con-una-cinta-m%C3%A9trica" target="_blank">Aqui tienes una guia de como hacerlo</a></label>
                         <div class="form-group">
                             <input type="text" class="form-control" name="medidas" placeholder="Tus medidas Cuello/Cintura/Cadera" value="<?php
                             if (isset($_SESSION['insertProgreso']['medidas'])) {

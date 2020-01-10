@@ -109,15 +109,15 @@ and open the template in the editor.
 
                 <?php
                 if (isset($_SESSION['dni'])) {
-                    if ($_SESSION['resLogin'] == "cliente") {
+                    if($_SESSION['resLogin'] == "cliente") {
                         $preparadores = getPreparadores($_SESSION['dni']);
                         if ($preparadores['fisico'] == $preparadores['nutricional']) {
-                            print("<h4>Tu preparador es: " . getDatosEmp($preparadores['fisico']) . "</h4>");
-                        } else if (getPlan($_SESSION['dni']) == '2' || getPlan($_SESSION['dni']) == '3') {
-                            print("<h4>Tu preparador fisico es: " . getDatosEmp($preparadores['fisico']) . "</h4>");
+                            print("<h4>Tu preparador es " . getDatosEmp($preparadores['fisico']) . "</h4>");
+                        } else if (getPlan($_SESSION['dni']) == 'entrenamiento' || getPlan($_SESSION['dni']) == 'pro') {
+                            print("<h4>Tu preparador fisico es " . getDatosEmp($preparadores['fisico']) . "</h4>");
                         }
                         if ($preparadores['fisico'] != $preparadores['nutricional']) {
-                            print("<h4>Tu preparador nutricional es: " . getDatosEmp($preparadores['nutricional']) . "</h4>");
+                            print("<h4>Tu preparador nutricional es " . getDatosEmp($preparadores['nutricional']) . "</h4>");
                         }
                     }
                 }

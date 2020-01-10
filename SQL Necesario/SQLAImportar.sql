@@ -22,7 +22,7 @@ SET time_zone = "+00:00";
 -- Base de datos: `motofitness`
 --
 
-DROP DATABASE motofitness;
+DROP DATABASE IF EXISTS motofitness;
 
 CREATE DATABASE IF NOT EXISTS `motofitness` DEFAULT CHARACTER SET latin1 COLLATE latin1_spanish_ci;
 USE `motofitness`;

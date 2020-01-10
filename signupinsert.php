@@ -26,7 +26,7 @@ if (trim($dispo) == "") {
     $_SESSION['erroressign']['dispo'] = "Disponibilidad Incorrecta";
 } else {
     if ($dispo <= 0 || $dispo > 7) {
-        $_SESSION['erroressign']['dispo'] = "Disponibilidad Incorrecta";
+        $_SESSION['erroressign']['dispo'] = "La disponibilidad tiene que estar entre 0 y 7";
     } else {
         $_SESSION['signup']['dispo'] = $dispo;
     }
