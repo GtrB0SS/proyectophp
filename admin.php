@@ -28,11 +28,13 @@ and open the template in the editor.
             }
 
             if($_SESSION['resLogin'] == "cliente" || $_SESSION['resLogin'] == "empleado"){
-
-               
+                $resumen ="";
+               if($_SESSION['resLogin'] == "empleado"){
+                   $resumen = "de mis clientes";
+               }
 
                 print("
-                            <a class='navbar-brand' href='resumen.php'>Resumen</a>
+                            <a class='navbar-brand' href='resumen.php'>Resumen $resumen</a>
                             
                         ");
                 if($_SESSION['resLogin'] == "empleado"){
