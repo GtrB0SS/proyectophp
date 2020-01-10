@@ -28,7 +28,7 @@ and open the template in the editor.
             }
 
             if($_SESSION['resLogin'] == "cliente" || $_SESSION['resLogin'] == "empleado"){
-                $resumen ="";
+               $resumen ="";
                if($_SESSION['resLogin'] == "empleado"){
                    $resumen = "de mis clientes";
                }
