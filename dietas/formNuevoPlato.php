@@ -31,10 +31,10 @@ and open the template in the editor.
 
                 if ($plan != null && ($plan == "pro" || $plan == "entrenamiento")) {
 
-                            $linktabla = "<a class='navbar-brand' href='../tablas.php'>Tabla de ejercicios</a>";
-                        } else {
-                            $linktabla = "";
-                        }
+                    $linktabla = "<a class='navbar-brand' href='../tablas.php'>Tabla de ejercicios</a>";
+                } else {
+                    $linktabla = "";
+                }
 
                 print(" 
                             <a class='navbar-brand' href='../index.php'>Inicio</a>
@@ -45,38 +45,48 @@ and open the template in the editor.
 
                     print("<a class='navbar-brand' href='../admin.php'>Administracion</a>");
                 }
-               print("<a class='navbar-brand' href='../logout.php'>Logout</a>");
+                print("<a class='navbar-brand' href='../logout.php'>Logout</a>");
             }
             ?>
         </nav>
 
-        <h3>Nuevo Plato</h3>
+        <h3>Inserte el plato numero <?php print($_SESSION['nplatos'] + 1); ?></h3>
         <form action="gestiondietas.php" method="post">
             <label>Nombre del plato:</label>
             <div class="form-group">
-                <input type="text" class="form-control" name="nombre" placeholder="Nombre del plato" value="<?php if (isset($_SESSION['insertplato']['nombre'])) {
-            print($_SESSION['insertplato']['nombre']);
-        } ?>" /><?php if (isset($_SESSION['erroresplato']['nombre'])) {
-            print($_SESSION['erroresplato']['nombre']);
-        } ?>
+                <input type="text" class="form-control" name="nombre" placeholder="Nombre del plato" value="<?php
+                if (isset($_SESSION['insertplato']['nombre'])) {
+                    print($_SESSION['insertplato']['nombre']);
+                }
+                ?>" /><?php
+                       if (isset($_SESSION['erroresplato']['nombre'])) {
+                           print($_SESSION['erroresplato']['nombre']);
+                       }
+                ?>
             </div>
             <label>Link del plato:</label>
             <div class="form-group">
-                <input type="text" class="form-control" name="link" placeholder="Link del plato" value="<?php if (isset($_SESSION['insertplato']['link'])) {
-            print($_SESSION['insertplato']['link']);
-        } ?>" /><?php if (isset($_SESSION['erroresplato']['link'])) {
-            print($_SESSION['erroresplato']['link']);
-        } ?>
+                <input type="text" class="form-control" name="link" placeholder="Link del plato" value="<?php
+                       if (isset($_SESSION['insertplato']['link'])) {
+                           print($_SESSION['insertplato']['link']);
+                       }
+                ?>" /><?php
+                       if (isset($_SESSION['erroresplato']['link'])) {
+                           print($_SESSION['erroresplato']['link']);
+                       }
+                ?>
             </div>
 
             <br>
             <div class="form-group">
                 <input type="submit" class="btnSubmit" value="Insertar plato" />
             </div>
-            
+
             <input type="hidden" class="form-control" name="option"  value="plato" />
         </form>
-        
-        <?php if(isset($_SESSION['erroresplato'])){unset($_SESSION['erroresplato']);}?>
+
+<?php if (isset($_SESSION['erroresplato'])) {
+    unset($_SESSION['erroresplato']);
+} ?>
     </body>
 </html>

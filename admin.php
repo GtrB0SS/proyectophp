@@ -22,6 +22,10 @@ and open the template in the editor.
             session_start();
             include "daoMySQL.php";
 
+            //Seteo parametros dieta
+            $_SESSION['nplatos']=0;
+            $_SESSION['comida']="desayuno";
+            $_SESSION['diaDieta']="lunes";
 
             if(isset($_SESSION['nempinsertado']) && $_SESSION['nempinsertado']){
                 print("<script type='text/javascript'>alert('Empleado insertado con exito');</script>");

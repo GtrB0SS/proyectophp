@@ -36,7 +36,8 @@ if ($option == "plato") {
         unset($_SESSION['insertplato']);
         unset($_SESSION['erroresplato']);
 
-        if (!insertPlato($nombre, $link)) {
+        $platoInsertado =insertPlato($nombre, $link);
+        if ($platoInsertado == 0 || $platoInsertado == false) {
             headder('location: ../error.html');
         } else {
             header("location: ../admin.php");

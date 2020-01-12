@@ -447,9 +447,10 @@ function insertPlato($nombre, $link) {
 
     $result = mysqli_query($conex, $query)
             or die(mysqli_error($conex));
+    $id = mysqli_insert_id($conex);
     mysqli_close($conex);
 
-    return $result;
+    return $id;
 }
 
 function getPlatos() {
