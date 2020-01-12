@@ -50,6 +50,40 @@ function login($user, $pwd) {
     }
 }
 
+function getTodosDatosEmp($nEmp){
+    $conex = getConnection();
+    $query = "SELECT nombre, especialidad, dni, telefono, email, direccion, clave, privilegios
+                FROM `empleado` 
+                WHERE numeroempleado = '$nEmp' ";
+    $res_valid = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    
+    if($reg_usuario = mysqli_fetch_array($res_valid)){
+        
+        $datos['nombre'] = $reg_usuario['nombre'];
+        $datos['especialidad'] = $reg_usuario['especialidad'];
+        $datos['dni'] = $reg_usuario['dni'];
+        $datos['telefono'] = $reg_usuario['telefono'];
+        $datos['email'] = $reg_usuario['email'];
+        $datos['direccion'] = $reg_usuario['direccion'];
+        $datos['clave'] = $reg_usuario['clave'];
+        $datos['privilegios'] = $reg_usuario['privilegios'];
+    }
+    else{
+        $datos['nombre'] = "";
+        $datos['especialidad'] = "";
+        $datos['dni'] = "";
+        $datos['telefono'] = "";
+        $datos['email'] = "";
+        $datos['direccion'] = "";
+        $datos['clave'] = "";
+        $datos['privilegios'] = "";
+    }
+    mysqli_close($conex);
+    return $datos;
+    
+}
+
 function getDatosEmp($nEmp){
     
     $conex = getConnection();
@@ -97,9 +131,54 @@ function getPreparadores($dni){
     return $preparador;
 }
 
+function getEmpleados(){
+    $conex = getConnection();
+
+    $query = "SELECT numeroempleado, nombre
+        FROM empleado 
+        ORDER BY numeroempleado";
+    $res_valid = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    while($reg_usuario = mysqli_fetch_array($res_valid)){
+        $empleados[$reg_usuario['numeroempleado']]=$reg_usuario['numeroempleado'] . " - " . $reg_usuario['nombre'];
+    }
+
+    mysqli_close($conex);
+    return $empleados;
+}
+
 function insertEmpleado($esp, $name, $dni, $telef, $email, $dir, $clave, $privilegios){
     $conex = getConnection();
     $query = "INSERT INTO `empleado` (`especialidad`, `nombre`, `dni`, `telefono`, `email`, `direccion`, `clave`, `privilegios`) VALUES ('$esp', '$name', '$dni', '$telef', '$email', '$dir', '$clave', '$privilegios') ";
+    
+    $res_valid = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    mysqli_close($conex);
+    return $res_valid;
+}
+
+function updateEmpleado($nemp,$esp, $nombre, $dni, $telef, $email, $direccion, $pwd, $privilegios){
+    $conex = getConnection();
+    $query = "UPDATE `empleado` 
+             SET    `especialidad` = '$esp', 
+                    `nombre` = '$nombre', 
+                    `dni` = '$dni', 
+                    `telefono` = '$telef', 
+                    `email` = '$email', 
+                    `direccion` = '$direccion', 
+                    `clave` = '$pwd', 
+                    `privilegios` = '$privilegios' 
+             WHERE  `empleado`.`numeroempleado` = $nemp ";
+    
+    $res_valid = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    mysqli_close($conex);
+    return $res_valid;
+}
+
+function deleteEmp($nemp){
+    $conex = getConnection();
+    $query = "DELETE FROM `empleado` WHERE `empleado`.`numeroempleado` = $nemp ";
     
     $res_valid = mysqli_query($conex, $query)
             or die(mysqli_error($conex));
@@ -113,7 +192,7 @@ function getPrivilegios($numEmp){
 
     $query = "SELECT privilegios
         FROM empleado 
-        WHERE (numeroempleado LIKE '$numEmp')";
+        WHERE numeroempleado = '$numEmp'";
     $res_valid = mysqli_query($conex, $query)
             or die(mysqli_error($conex));
 

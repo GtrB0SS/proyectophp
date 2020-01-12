@@ -35,6 +35,48 @@ and open the template in the editor.
                     }
                     print("<a class='navbar-brand' href='logout.php'>Logout</a>");
                 }
+
+                if (isset($_POST['accionEmp'])) {
+                    $_SESSION['accionEmp'] = $_POST['accionEmp'];
+
+                    $nEmp = $_POST['nempleado'];
+
+                    if ($_SESSION['accionEmp'] == "eliminar") {
+                        
+                       
+                        if (!deleteEmp($nEmp)) {
+                            header("location: error.html");
+                        }
+                        
+                        if($nEmp == $_SESSION['dni']){
+                            header("location: logout.php");
+                        }
+                        
+                        $_SESSION['nempdel'] = true;
+                        unset($_SESSION['insertemp']);
+                        unset($_SESSION['erroresemp']);
+                        unset($_SESSION['accionEmp']);
+                    }
+
+                    $datos = getTodosDatosEmp($nEmp);
+
+                    unset($_SESSION['insertemp']);
+                    $_SESSION['insertemp']['nemp'] = $nEmp;
+                    $_SESSION['insertemp']['nombre'] = $datos['nombre'];
+                    $_SESSION['insertemp']['esp'] = $datos['especialidad'];
+                    $_SESSION['insertemp']['dni'] = $datos['dni'];
+                    $_SESSION['insertemp']['telef'] = $datos['telefono'];
+                    $_SESSION['insertemp']['email'] = $datos['email'];
+                    $_SESSION['insertemp']['dir'] = $datos['direccion'];
+                    $_SESSION['insertemp']['pwd'] = $datos['clave'];
+                    $_SESSION['insertemp']['pwdrep'] = $datos['clave'];
+                    $_SESSION['insertemp']['privilegios'] = $datos['privilegios'];
+
+
+                    //Recuperar datos user
+                } else {
+                    $_SESSION['accionEmp'] = "insertar";
+                }
                 ?>
             </nav>
             <div class="row">
@@ -59,17 +101,17 @@ and open the template in the editor.
                         <select name="esp" class="form-control" id="exampleFormControlSelect1">
                             <option value="" disabled selected>Seleccione un plan</option>
                             <option value="1" <?php
-                            if (isset($_SESSION['insertemp']['esp']) && $_SESSION['insertemp']['esp'] == "nutricion") {
+                            if (isset($_SESSION['insertemp']['esp']) && $_SESSION['insertemp']['esp'] == "1") {
                                 print('selected');
                             }
                             ?>>Preparador nutricional</option>
                             <option value="2" <?php
-                            if (isset($_SESSION['insertemp']['esp']) && $_SESSION['insertemp']['esp'] == "entrenamiento") {
+                            if (isset($_SESSION['insertemp']['esp']) && $_SESSION['insertemp']['esp'] == "2") {
                                 print('selected');
                             }
                             ?>>Preparador fisico</option>
                             <option value="3" <?php
-                            if (isset($_SESSION['insertemp']['esp']) && $_SESSION['insertemp']['esp'] == "ambas") {
+                            if (isset($_SESSION['insertemp']['esp']) && $_SESSION['insertemp']['esp'] == "3") {
                                 print('selected');
                             }
                             ?>>Ambas</option>

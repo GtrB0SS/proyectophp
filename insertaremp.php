@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -18,12 +18,16 @@ $email = $_POST['email']; //Verificado
 $direccion = $_POST['dir']; //Verificado
 $pwd = $_POST['pwd']; //Verificado
 $pwdrep = $_POST['pwdrep']; //Verificado
-$privilegios = $_POST['privilegios']; //Verificado
 
+if (isset($_POST['privilegios'])) {
+    $privilegios = $_POST['privilegios']; //Verificado
+} else {
+    $privilegios = "0";
+}
 
-if($esp == ""){
+if ($esp == "") {
     $_SESSION['erroresemp']['esp'] = "Debes seleccionar una especialidad";
-}else{
+} else {
     $_SESSION['insertemp']['esp'] = $esp;
 }
 
@@ -76,21 +80,41 @@ if (trim($pwdrep) == "" || $pwdrep != $pwd) {
 
 $_SESSION['insertemp']['privilegios'] = $privilegios;
 
-if($privilegios != "1"){
+if ($privilegios != "1") {
     $privilegios = "0";
 }
-
+if (isset($_SESSION['accionEmp'])) {
+    $accion = $_SESSION['accionEmp'];
+} else {
+    $accion = "insertar";
+}
 
 if (isset($_SESSION['erroresemp'])) {
     header('location: formNuevoEmpleado.php');
-} else {
+} else if ($accion == "insertar") {
 
-    if(!insertEmpleado($esp, $nombre, $dni, $telef, $email, $direccion, $pwd, $privilegios)){
+    if (!insertEmpleado($esp, $nombre, $dni, $telef, $email, $direccion, $pwd, $privilegios)) {
         header("location: error.html");
     }
     $_SESSION['nempinsertado'] = true;
     unset($_SESSION['insertemp']);
     unset($_SESSION['erroresemp']);
-    
+    unset($_SESSION['accionEmp']);
+
+    header("location: admin.php");
+} else {
+    //Aqui se ejecuta la modificacion
+    if ($accion == "mod") {
+        $nemp = $_SESSION['insertemp']['nemp'];
+        if (!updateEmpleado($nemp, $esp, $nombre, $dni, $telef, $email, $direccion, $pwd, $privilegios)) {
+            header("location: error.html");
+        }
+    } 
+
+    $_SESSION['nempmod'] = true;
+    unset($_SESSION['insertemp']);
+    unset($_SESSION['erroresemp']);
+    unset($_SESSION['accionEmp']);
+
     header("location: admin.php");
 }

@@ -71,6 +71,13 @@ and open the template in the editor.
             print("<p><a href='tablas/formNuevoEjercicio.php'>Nuevo ejercicio</a></p>");
         }
         
+        if(getPrivilegios($_SESSION['dni']) == '1'){
+           print("<h2>Administración de empleados:</h2>");
+           print("<p><a href='formNuevoEmpleado.php'>Añadir nuevo empleado</a></p>");
+           print("<p><a href='#'>Modificar empleado</a></p>");
+           print("<p><a href='#'>Eliminar un empleado</a></p>");
+        }
+        
         ?>
         
             
