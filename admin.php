@@ -25,6 +25,19 @@ and open the template in the editor.
 
             if(isset($_SESSION['nempinsertado']) && $_SESSION['nempinsertado']){
                 print("<script type='text/javascript'>alert('Empleado insertado con exito');</script>");
+                unset($_SESSION['nempinsertado']);
+            }
+            if(isset($_SESSION['nempdelmismo']) && $_SESSION['nempdelmismo']){
+                print("<script type='text/javascript'>alert('No puedes eliminarte a ti mismo');</script>");
+                unset($_SESSION['nempdelmismo']);
+            }
+            if(isset($_SESSION['nempdel']) && $_SESSION['nempdel']){
+                print("<script type='text/javascript'>alert('Empleado eliminado con exito');</script>");
+                unset($_SESSION['nempdel']);
+            }
+            if(isset($_SESSION['nempmod']) && $_SESSION['nempmod']){
+                print("<script type='text/javascript'>alert('Datos del empleado modificados con exito');</script>");
+                unset($_SESSION['nempmod']);
             }
 
             if($_SESSION['resLogin'] == "cliente" || $_SESSION['resLogin'] == "empleado"){
@@ -74,14 +87,15 @@ and open the template in the editor.
         if(getPrivilegios($_SESSION['dni']) == '1'){
            print("<h2>Administración de empleados:</h2>");
            print("<p><a href='formNuevoEmpleado.php'>Añadir nuevo empleado</a></p>");
-           print("<p><a href='#'>Modificar empleado</a></p>");
-           print("<p><a href='#'>Eliminar un empleado</a></p>");
+           print("<p><a href='gestionarEmpleados.php'>Gestionar empleados existentes</a></p>");
         }
         
         ?>
         
-            
+            <br>
+            <h5>Buscador de clientes:</h5>
             <form class="form-inline" action="admin.php" method="post">
+                
                 <input class="form-control mr-sm-2" type="search" placeholder="Buscar" name="dniInsertado" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
             </form>

@@ -186,6 +186,15 @@ function deleteEmp($nemp){
     return $res_valid;
 }
 
+function deleteLineaEmp($nemp){
+    $conex = getConnection();
+    $query = "DELETE FROM `lineaempleado` WHERE `lineaempleado`.`numeroempleado` = $nemp ";
+    
+    $res_valid = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    mysqli_close($conex);
+    return $res_valid;
+}
 
 function getPrivilegios($numEmp){
     $conex = getConnection();

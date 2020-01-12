@@ -75,6 +75,7 @@ and open the template in the editor.
                 </div>
 
             </form>
+            <p>*Si seleccionas eliminarte, no podras</p>
         </div>
     </body>
 </html>

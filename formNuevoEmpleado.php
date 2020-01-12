@@ -39,19 +39,69 @@ and open the template in the editor.
                 if (isset($_POST['accionEmp'])) {
                     $_SESSION['accionEmp'] = $_POST['accionEmp'];
 
-                    $nEmp = $_POST['nempleado'];
+                    $nEmp = $_POST['numeroempleadomod'];
 
                     if ($_SESSION['accionEmp'] == "eliminar") {
+
+                        if ($nEmp == $_SESSION['dni']) {
+                            $_SESSION['nempdelmismo'] = true;
+                            header("location: admin.php");
+                        }
                         
-                       
+                        $clientes = getClientes($nEmp);
+                        if (!deleteLineaEmp($nEmp)) {
+                            header("location: error.html");
+                        }
+
                         if (!deleteEmp($nEmp)) {
                             header("location: error.html");
                         }
-                        
-                        if($nEmp == $_SESSION['dni']){
-                            header("location: logout.php");
+
+                        foreach ($clientes as $dni) {
+                            $plan = getPlan($dni);
+
+                            if ($plan == "nutricion") {
+                                $especialidad = "1";
+                            }
+                            if ($plan == "entrenamiento") {
+                                $especialidad = "2";
+                            } else {
+                                $especialidad = "3";
+                            }
+
+                            if ($especialidad == "1") {
+                                $preparador1 = selectpreparador(1);
+                            }
+                            if ($especialidad == "2" || $especialidad == "3") {
+                                $preparador1 = selectpreparador(1);
+                                $preparador2 = selectpreparador(2);
+
+                                if (getEspecialidad($preparador1) == "3") {
+                                    unset($preparador2);
+                                } else if (getEspecialidad($preparador2) == "3") {
+                                    $preparador1 = $preparador2;
+                                    unset($preparador2);
+                                }
+                            }
+
+                            if (isset($preparador2) && $preparador1 != $preparador2) {
+                                if (!asignarprep($dni, $preparador1)) {
+
+                                    header('location: error.html');
+                                }
+                                if (!asignarprep($dni, $preparador2)) {
+
+                                    header('location: error.html');
+                                }
+                            } else if (!asignarprep($dni, $preparador1)) {
+
+                                header('location: error.html');
+                            }
                         }
+
+
                         
+
                         $_SESSION['nempdel'] = true;
                         unset($_SESSION['insertemp']);
                         unset($_SESSION['erroresemp']);
@@ -221,7 +271,7 @@ and open the template in the editor.
 
                         <br>
                         <div class="form-group">
-                            <input type="submit" class="btnSubmit" value="Insertar empleado" />
+                            <input type="submit" class="btnSubmit" value="Guardar datos" />
                         </div>
                     </form>
                 </div>
