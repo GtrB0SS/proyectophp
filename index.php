@@ -38,6 +38,8 @@ and open the template in the editor.
                         if ($_SESSION['resLogin'] == "cliente") {
                             print("<a class='navbar-brand' href='progreso.php'>Progreso</a>");
                         }
+                        
+                        $resumen = "";
                         if ($_SESSION['resLogin'] == "empleado") {
                             $resumen = "de mis clientes";
                         }
@@ -78,6 +80,7 @@ and open the template in the editor.
                         if ($_SESSION['resLogin'] == "cliente") {
                             print("<a class='navbar-brand' href='progreso.php'>Progreso</a>");
                         }
+                        $resumen = "";
                         if ($_SESSION['resLogin'] == "empleado") {
                             $resumen = "de mis clientes";
                         }
