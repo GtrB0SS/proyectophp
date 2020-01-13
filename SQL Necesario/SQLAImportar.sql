@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-01-2020 a las 19:13:41
--- Versión del servidor: 10.4.8-MariaDB
--- Versión de PHP: 7.3.11
+-- Tiempo de generación: 13-01-2020 a las 19:20:56
+-- Versión del servidor: 10.4.6-MariaDB
+-- Versión de PHP: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,9 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `motofitness`
 --
-
-DROP DATABASE IF EXISTS motofitness;
-
 CREATE DATABASE IF NOT EXISTS `motofitness` DEFAULT CHARACTER SET latin1 COLLATE latin1_spanish_ci;
 USE `motofitness`;
 
@@ -54,12 +51,13 @@ CREATE TABLE `cliente` (
 --
 
 INSERT INTO `cliente` (`dni`, `nombre`, `email`, `direccion`, `telefono`, `objetivo`, `clave`, `coddieta`, `codtabla`, `codplan`, `disponibilidad`, `observaciones`, `vencimiento`) VALUES
-('11111111L', 'asd', 'asdas@gmail.cos', 'adas', '666666666', 'dsad', '1', NULL, NULL, '3', '4', '', '2020-02-09'),
-('32323223A', 'asdas', 'ad@sda.hjh', 'adas', '678678678', 'sfgsdf', '2', 2, 6, '3', '3', 'soy alergico a la coliflor', '2020-01-08'),
-('55555555F', 'sdada', 'sada@m.es', 'asdasd', '777777777', 'sdfsdf', '1', NULL, NULL, '3', '4', '', '2020-02-09'),
-('56565656D', 'sdas', 'asdas@gmas.es', 'asdsa', '666666666', 'adsa', '1', NULL, NULL, '2', '1', '', '2020-02-09'),
-('99999999E', 'PEPEPEPEE', 'asdasd@fas.dsa', 'adasdadasd', '666666666', 'adadas', '1', 2, 1, '1', '4', 'Nada', '2020-02-07'),
-('99999999P', 'adfad', 'asdsad@gamasd.es', 'asdasd', '666666666', 'dfasd', '1', NULL, NULL, '3', '4', '', '2020-02-09');
+('11111111L', 'Benito', 'benito@gmail.com', 'adas', '666666666', 'Adelgazar', '1', 1, 1, '3', '4', '', '2020-02-09'),
+('32323223A', 'Marta', 'marta@gmail.com', 'adas', '678678678', 'Musculacion', '2', 2, 6, '3', '3', 'soy alergico a la coliflor', '2020-01-08'),
+('55555555F', 'Eugenio', 'eugenio@gmail.com', 'asdasd', '777777777', 'Definir', '1', 1, 1, '3', '4', '', '2020-02-09'),
+('56565656D', 'Paco', 'paco@gmail.com', 'asdsa', '666666666', 'Musculacion', '1', 2, 6, '2', '1', '', '2020-02-09'),
+('76556432J', 'Carlos', 'carlos@gmail.com', 'calle falsa 321', '645268230', 'Musculacion', '1', NULL, NULL, '2', '4', '', '2020-02-13'),
+('99999999E', 'Elva', 'elva@gmail.com', 'adasdadasd', '666666666', 'Definir', '1', 2, 1, '1', '4', 'Nada', '2020-02-07'),
+('99999999P', 'Elver', 'elver@gmail.com', 'asdasd', '666666666', 'Adelgazar', '1', 2, 1, '3', '4', '', '2020-02-09');
 
 -- --------------------------------------------------------
 
@@ -77,9 +75,9 @@ CREATE TABLE `comida` (
 --
 
 INSERT INTO `comida` (`codcomida`, `nombre`) VALUES
-(1, 'desayuno'),
-(2, 'comida'),
-(3, 'Plato insertado');
+(1, 'Desayuno'),
+(2, 'Comida'),
+(3, 'Cena');
 
 -- --------------------------------------------------------
 
@@ -165,7 +163,7 @@ CREATE TABLE `empleado` (
   `nombre` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
   `dni` varchar(9) COLLATE latin1_spanish_ci NOT NULL,
   `telefono` varchar(9) COLLATE latin1_spanish_ci NOT NULL,
-  `email` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
+  `email` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   `direccion` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   `clave` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
   `privilegios` int(1) NOT NULL DEFAULT 0
@@ -176,10 +174,11 @@ CREATE TABLE `empleado` (
 --
 
 INSERT INTO `empleado` (`numeroempleado`, `especialidad`, `nombre`, `dni`, `telefono`, `email`, `direccion`, `clave`, `privilegios`) VALUES
-(1, 3, 'pepe', '123', 'asd', 'asd', 'asd', '1', 0),
-(2, 1, 'Pedro', '21312', '1231', 'asda@sad.es', 'adas', '1', 1),
-(3, 2, 'PEPEJUAN', '666666', '666666666', 'sdad', 'asdasd', '1', 0),
-(13, 3, 'Pedro', '99999987K', '666666663', 'Email@gmail.ew', 'asdas', '1', 1);
+(2, 1, 'Ana', '87654321B', '717003717', 'ana@motofitness.com', 'Puerta Zamora 78', '1', 1),
+(3, 2, 'Roberto', '66666666S', '666666666', 'roberto@motofitness.com', 'Avenida Cipreses 9', '1', 0),
+(13, 3, 'Alberto', '99999999K', '678899098', 'alberto@motofitness.com', 'Calle Falsa 123', '1', 1),
+(14, 2, 'Luis', '12345678A', '625903432', 'luis@motofitness.com', 'Avenida Mirat Número 8', '1', 0),
+(15, 1, 'Juan', '98988787D', '654435543', 'juan@motofitness.com', 'Calle falsa 123', '1', 0);
 
 -- --------------------------------------------------------
 
@@ -302,14 +301,16 @@ CREATE TABLE `lineaempleado` (
 --
 
 INSERT INTO `lineaempleado` (`numeroempleado`, `dni`) VALUES
-(1, '11111111L'),
-(1, '55555555F'),
-(1, '99999999P'),
 (2, '32323223A'),
 (2, '56565656D'),
 (2, '99999999E'),
 (3, '32323223A'),
-(3, '56565656D');
+(3, '56565656D'),
+(13, '11111111L'),
+(13, '55555555F'),
+(13, '99999999P'),
+(14, '76556432J'),
+(15, '76556432J');
 
 -- --------------------------------------------------------
 
@@ -597,7 +598,7 @@ ALTER TABLE `ejercicio`
 -- AUTO_INCREMENT de la tabla `empleado`
 --
 ALTER TABLE `empleado`
-  MODIFY `numeroempleado` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `numeroempleado` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `plato`
