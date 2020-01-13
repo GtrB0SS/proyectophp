@@ -58,12 +58,12 @@ and open the template in the editor.
                 ?>
             </nav>
 
-                <?php
-                // put your code here
+            <?php
+            // put your code here
 
 
-                print(getDietas($_SESSION['dni']));
-                ?>
+            print(getDietas($_SESSION['dni']));
+            ?>
         </div>
     </body>
 </html>

@@ -68,7 +68,7 @@ and open the template in the editor.
         
         // Añadir dieta si es nutricionista CAMBIAR
         if($_SESSION["especialidad"] == "1" || $_SESSION["especialidad"] == "3"){
-            print("<h2>Sección nutricionista:</h2>");
+            print("<h2>Gestión de dietas:</h2>");
             print("<p><a href='dietas/formAsignarDieta.php'>Asignar Dieta a cliente</a></p>");
             print("<p><a href='dietas/formNuevaDieta.php'>Nueva dieta</a></p>");
             print("<p><a href='dietas/formNuevoDiaDieta.php'>Nuevo dia dieta</a></p>");
@@ -81,7 +81,7 @@ and open the template in the editor.
         
         // Añadir entrenamiento si es entrenador CAMBIAR
         if($_SESSION["especialidad"] == "2" || $_SESSION["especialidad"] == "3"){
-            print("<h2>Sección entrenador:</h2>");
+            print("<h2>Gestión de tablas:</h2>");
             print("<p><a href='tablas/formAsignarTabla.php'>Asignar tabla a cliente</a></p>");
             print("<p><a href='tablas/formNuevaTabla.php'>Insertar nueva tabla</a></p>");
             print("<p><a href='tablas/formNuevaSesion.php'>Nueva sesión</a></p>");
@@ -89,7 +89,7 @@ and open the template in the editor.
         }
         
         if(getPrivilegios($_SESSION['dni']) == '1'){
-           print("<h2>Administración de empleados:</h2>");
+           print("<h2>Gestión de empleados:</h2>");
            print("<p><a href='formNuevoEmpleado.php'>Añadir nuevo empleado</a></p>");
            print("<p><a href='gestionarEmpleados.php'>Gestionar empleados existentes</a></p>");
         }

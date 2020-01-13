@@ -38,10 +38,14 @@ and open the template in the editor.
                         if ($_SESSION['resLogin'] == "cliente") {
                             print("<a class='navbar-brand' href='progreso.php'>Progreso</a>");
                         }
+                        if ($_SESSION['resLogin'] == "empleado") {
+                            $resumen = "de mis clientes";
+                        }
 
-                        print(" 
-                                
-                                <a class='navbar-brand' href='resumen.php'>Resumen</a>");
+                        print("
+                            <a class='navbar-brand' href='resumen.php'>Resumen $resumen</a>
+                            
+                        ");
                         if ($_SESSION['resLogin'] == "cliente") {
                             print("<a class='navbar-brand' href='dietas.php'>Dietas</a>");
                         }
@@ -74,9 +78,14 @@ and open the template in the editor.
                         if ($_SESSION['resLogin'] == "cliente") {
                             print("<a class='navbar-brand' href='progreso.php'>Progreso</a>");
                         }
-                        print(" 
+                        if ($_SESSION['resLogin'] == "empleado") {
+                            $resumen = "de mis clientes";
+                        }
+
+                        print("
+                            <a class='navbar-brand' href='resumen.php'>Resumen $resumen</a>
                             
-                            <a class='navbar-brand' href='resumen.php'>Resumen</a>");
+                        ");
                         if ($_SESSION['resLogin'] == "cliente") {
                             print("<a class='navbar-brand' href='dietas.php'>Dietas</a>");
                         }
@@ -109,7 +118,7 @@ and open the template in the editor.
 
                 <?php
                 if (isset($_SESSION['dni'])) {
-                    if($_SESSION['resLogin'] == "cliente") {
+                    if ($_SESSION['resLogin'] == "cliente") {
                         $preparadores = getPreparadores($_SESSION['dni']);
                         if ($preparadores['fisico'] == $preparadores['nutricional']) {
                             print("<h4>Tu preparador es " . getDatosEmp($preparadores['fisico']) . "</h4>");
