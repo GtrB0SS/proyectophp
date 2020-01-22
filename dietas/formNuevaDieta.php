@@ -52,9 +52,9 @@ and open the template in the editor.
 
         <h3>Nueva dieta</h3>
         <form action="gestiondietas.php" method="post">
-            <label>Semana de la dieta:</label>
+            <label>Nombre de la dieta:</label>
             <div class="form-group">
-                <input type="text" class="form-control" name="semana" placeholder="Semana de la dieta" value="<?php
+                <input type="text" class="form-control" name="semana" placeholder="Nombre de la dieta" value="<?php
             if (isset($_SESSION['insertdieta']['semana'])) {
                 print($_SESSION['insertdieta']['semana']);
             }
