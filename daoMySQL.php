@@ -394,6 +394,7 @@ function insertCliente($dni, $nombre, $email, $direccion, $telef, $objetivo, $pw
     $conex = getConnection();
     $query = "INSERT INTO `cliente` (`dni`, `nombre`, `email`, `direccion`, `telefono`, `objetivo`, `clave`, `coddieta`, `codtabla`) 
                             VALUES ('$dni', '$nombre', '$email', '$direccion', '$telef', '$objetivo', '$pwd', NULL, NULL) ";
+    
     $result = mysqli_query($conex, $query)
             or die(mysqli_error($conex));
     mysqli_close($conex);
@@ -434,6 +435,7 @@ function insertPlan($dni, $tipoplan, $dispo, $observaciones, $plan) {
     $conex = getConnection();
     $query = "UPDATE `cliente` "
             . "SET `disponibilidad` = '$dispo', `observaciones` = '$observaciones', `vencimiento` = '$fecha', `codplan` = '$plan' WHERE `cliente`.`dni` = '$dni' ";
+    
     $result = mysqli_query($conex, $query)
             or die(mysqli_error($conex));
     mysqli_close($conex);
