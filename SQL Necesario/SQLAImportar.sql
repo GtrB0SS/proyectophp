@@ -41,9 +41,9 @@ CREATE TABLE `cliente` (
   `coddieta` int(10) DEFAULT NULL,
   `codtabla` int(10) DEFAULT NULL,
   `codplan` varchar(10) COLLATE latin1_spanish_ci DEFAULT NULL,
-  `disponibilidad` varchar(30) COLLATE latin1_spanish_ci NOT NULL,
-  `observaciones` text COLLATE latin1_spanish_ci NOT NULL,
-  `vencimiento` date NOT NULL
+  `disponibilidad` varchar(30) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `observaciones` text COLLATE latin1_spanish_ci DEFAULT NULL,
+  `vencimiento` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
