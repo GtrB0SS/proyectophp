@@ -31,10 +31,10 @@ and open the template in the editor.
 
                 if ($plan != null && ($plan == "pro" || $plan == "entrenamiento")) {
 
-                            $linktabla = "<a class='navbar-brand' href='../tablas.php'>Tabla de ejercicios</a>";
-                        } else {
-                            $linktabla = "";
-                        }
+                    $linktabla = "<a class='navbar-brand' href='../tablas.php'>Tabla de ejercicios</a>";
+                } else {
+                    $linktabla = "";
+                }
 
                 print(" 
                             <a class='navbar-brand' href='../index.php'>Inicio</a>
@@ -50,8 +50,8 @@ and open the template in the editor.
             ?>
         </nav>
 
-        <h3>Nueva dieta</h3>
-        <form action="gestiondietas.php" method="post">
+        <h3>Asignar dieta a cliente</h3>
+        <form action="gestionVisualizarBindearDieta.php" method="post">
             <label>Tus clientes asignados:</label>
             <div class="form-group">
                 <select class="form-control" id="exampleFormControlSelect2" name="cliente" >
@@ -78,25 +78,24 @@ and open the template in the editor.
                     ?>
                 </select>
 
-                    <?php
+                <p style='color: #FF0000;'> <?php
                     if (isset($_SESSION['erroresasignar']['cliente'])) {
                         print($_SESSION['erroresasignar']['cliente']);
                     }
-                    ?>
+                    ?></p>
             </div>
-            
+
             <label>Dietas disponibles:</label>
             <div class="form-group">
                 <select class="form-control" id="exampleFormControlSelect2" name="dieta">
                     <?php
-                    
                     $dietas = getTodasDietas();
                     if (isset($_SESSION['asignar']['dieta']["0"])) {
                         print("<option value='0' disabled>Seleccione una dieta</option>");
                     } else {
                         print("<option value='0' disabled selected>Seleccione una dieta</option>");
                     }
-                    
+
                     foreach ($dietas as $clave => $valor) {
                         if (isset($_SESSION['asignar']['dieta'][$clave])) {
                             print("<option value='$clave' selected>$valor</option>");
@@ -111,14 +110,14 @@ and open the template in the editor.
                     }
                     ?>
                 </select>
-
+                <p style='color: #FF0000;'>
                     <?php
                     if (isset($_SESSION['erroresasignar']['dieta'])) {
                         print($_SESSION['erroresasignar']['dieta']);
                     }
-                    ?>
+                    ?></p>
             </div>
-            
+
 
             <br>
             <div class="form-group">
@@ -127,10 +126,10 @@ and open the template in the editor.
 
             <input type="hidden" class="form-control" name="option"  value="asignar" />
         </form>
-<?php
-if (isset($_SESSION['erroresasignar'])) {
-    unset($_SESSION['erroresasignar']);
-}
-?>
+        <?php
+        if (isset($_SESSION['erroresasignar'])) {
+            unset($_SESSION['erroresasignar']);
+        }
+        ?>
     </body>
 </html>

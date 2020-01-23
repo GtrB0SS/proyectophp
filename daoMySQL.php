@@ -50,16 +50,18 @@ function login($user, $pwd) {
     }
 }
 
-function getTodosDatosEmp($nEmp){
+
+
+function getTodosDatosEmp($nEmp) {
     $conex = getConnection();
     $query = "SELECT nombre, especialidad, dni, telefono, email, direccion, clave, privilegios
                 FROM `empleado` 
                 WHERE numeroempleado = '$nEmp' ";
     $res_valid = mysqli_query($conex, $query)
             or die(mysqli_error($conex));
-    
-    if($reg_usuario = mysqli_fetch_array($res_valid)){
-        
+
+    if ($reg_usuario = mysqli_fetch_array($res_valid)) {
+
         $datos['nombre'] = $reg_usuario['nombre'];
         $datos['especialidad'] = $reg_usuario['especialidad'];
         $datos['dni'] = $reg_usuario['dni'];
@@ -68,8 +70,7 @@ function getTodosDatosEmp($nEmp){
         $datos['direccion'] = $reg_usuario['direccion'];
         $datos['clave'] = $reg_usuario['clave'];
         $datos['privilegios'] = $reg_usuario['privilegios'];
-    }
-    else{
+    } else {
         $datos['nombre'] = "";
         $datos['especialidad'] = "";
         $datos['dni'] = "";
@@ -81,11 +82,10 @@ function getTodosDatosEmp($nEmp){
     }
     mysqli_close($conex);
     return $datos;
-    
 }
 
-function getDatosEmp($nEmp){
-    
+function getDatosEmp($nEmp) {
+
     $conex = getConnection();
     $query = "SELECT nombre, telefono, email
                 FROM `empleado` 
@@ -93,17 +93,17 @@ function getDatosEmp($nEmp){
     $res_valid = mysqli_query($conex, $query)
             or die(mysqli_error($conex));
     $datos = "";
-    if($reg_usuario = mysqli_fetch_array($res_valid)){
-        
+    if ($reg_usuario = mysqli_fetch_array($res_valid)) {
+
         $datos = $reg_usuario['nombre'] . ", Su informacion email es: " . $reg_usuario['email'];
     }
-    
+
     mysqli_close($conex);
     return $datos;
 }
 
-function getPreparadores($dni){
-    
+function getPreparadores($dni) {
+
     $conex = getConnection();
 
     $query = "SELECT numeroempleado
@@ -112,26 +112,26 @@ function getPreparadores($dni){
     $res_valid = mysqli_query($conex, $query)
             or die(mysqli_error($conex));
 
-    
-    while($reg_usuario = mysqli_fetch_array($res_valid)){
-        if(getEspecialidad($reg_usuario['numeroempleado']) == '1'){
+
+    while ($reg_usuario = mysqli_fetch_array($res_valid)) {
+        if (getEspecialidad($reg_usuario['numeroempleado']) == '1') {
             $preparador['nutricional'] = $reg_usuario['numeroempleado'];
-        }else if(getEspecialidad($reg_usuario['numeroempleado']) == '2'){
+        } else if (getEspecialidad($reg_usuario['numeroempleado']) == '2') {
             $preparador['fisico'] = $reg_usuario['numeroempleado'];
-        }else if(getEspecialidad($reg_usuario['numeroempleado']) == '3'){
+        } else if (getEspecialidad($reg_usuario['numeroempleado']) == '3') {
             $preparador['nutricional'] = $reg_usuario['numeroempleado'];
             $preparador['fisico'] = $reg_usuario['numeroempleado'];
             mysqli_close($conex);
             return $preparador;
         }
     }
-    
-    
+
+
     mysqli_close($conex);
     return $preparador;
 }
 
-function getEmpleados(){
+function getEmpleados() {
     $conex = getConnection();
 
     $query = "SELECT numeroempleado, nombre
@@ -139,25 +139,25 @@ function getEmpleados(){
         ORDER BY numeroempleado";
     $res_valid = mysqli_query($conex, $query)
             or die(mysqli_error($conex));
-    while($reg_usuario = mysqli_fetch_array($res_valid)){
-        $empleados[$reg_usuario['numeroempleado']]=$reg_usuario['numeroempleado'] . " - " . $reg_usuario['nombre'];
+    while ($reg_usuario = mysqli_fetch_array($res_valid)) {
+        $empleados[$reg_usuario['numeroempleado']] = $reg_usuario['numeroempleado'] . " - " . $reg_usuario['nombre'];
     }
 
     mysqli_close($conex);
     return $empleados;
 }
 
-function insertEmpleado($esp, $name, $dni, $telef, $email, $dir, $clave, $privilegios){
+function insertEmpleado($esp, $name, $dni, $telef, $email, $dir, $clave, $privilegios) {
     $conex = getConnection();
     $query = "INSERT INTO `empleado` (`especialidad`, `nombre`, `dni`, `telefono`, `email`, `direccion`, `clave`, `privilegios`) VALUES ('$esp', '$name', '$dni', '$telef', '$email', '$dir', '$clave', '$privilegios') ";
-    
+
     $res_valid = mysqli_query($conex, $query)
             or die(mysqli_error($conex));
     mysqli_close($conex);
     return $res_valid;
 }
 
-function updateEmpleado($nemp,$esp, $nombre, $dni, $telef, $email, $direccion, $pwd, $privilegios){
+function updateEmpleado($nemp, $esp, $nombre, $dni, $telef, $email, $direccion, $pwd, $privilegios) {
     $conex = getConnection();
     $query = "UPDATE `empleado` 
              SET    `especialidad` = '$esp', 
@@ -169,34 +169,34 @@ function updateEmpleado($nemp,$esp, $nombre, $dni, $telef, $email, $direccion, $
                     `clave` = '$pwd', 
                     `privilegios` = '$privilegios' 
              WHERE  `empleado`.`numeroempleado` = $nemp ";
-    
+
     $res_valid = mysqli_query($conex, $query)
             or die(mysqli_error($conex));
     mysqli_close($conex);
     return $res_valid;
 }
 
-function deleteEmp($nemp){
+function deleteEmp($nemp) {
     $conex = getConnection();
     $query = "DELETE FROM `empleado` WHERE `empleado`.`numeroempleado` = $nemp ";
-    
+
     $res_valid = mysqli_query($conex, $query)
             or die(mysqli_error($conex));
     mysqli_close($conex);
     return $res_valid;
 }
 
-function deleteLineaEmp($nemp){
+function deleteLineaEmp($nemp) {
     $conex = getConnection();
     $query = "DELETE FROM `lineaempleado` WHERE `lineaempleado`.`numeroempleado` = $nemp ";
-    
+
     $res_valid = mysqli_query($conex, $query)
             or die(mysqli_error($conex));
     mysqli_close($conex);
     return $res_valid;
 }
 
-function getPrivilegios($numEmp){
+function getPrivilegios($numEmp) {
     $conex = getConnection();
 
     $query = "SELECT privilegios
@@ -292,7 +292,6 @@ function getDietas($user) {
 
     $conex = getConnection();
 
-
     $query = "SELECT c.dni, d.semana, dd.calorias, dd.macronutrientes, dd.dia, co.nombre as nombreco, p.nombre, p.link
             FROM dieta d, lineadieta ld, diadieta dd, lineadia ln, comida co, lineacomida lc, plato p, cliente c
             WHERE c.dni = '$user'
@@ -320,8 +319,59 @@ function getDietas($user) {
             if ($fila['dia'] != $diaantit) {
                 $dieta = $dieta . "
                                     <h3>" . $fila['dia'] . "</h3>
-                                    <p>$tab Calorias:&nbsp;" . $fila['calorias'] . "</p>
-                                    <p>$tab Macronutrientes:&nbsp;" . $fila['macronutrientes'] . "</p>";
+                                    <p>$tab Calorias:&nbsp;" . $fila['calorias'] . "</p>";
+                $diaantit = $fila['dia'];
+                $comidaantit = "";
+            }
+            if ($fila['nombreco'] != $comidaantit) {
+                $dieta = $dieta . "
+                                    <h4>$tab" . $fila['nombreco'] . ":</h4>";
+                $comidaantit = $fila['nombreco'];
+            }
+
+            $dieta = $dieta . "<p>$tab $tab Plato:&nbsp;" . $fila['nombre'] . "</p>
+                                    <p>$tab $tab Link:&nbsp;" . $fila['link'] . "</p>";
+        }
+        mysqli_close($conex);
+        return $dieta;
+    } else {
+        mysqli_close($conex);
+        return "";
+    }
+}
+
+function getDieta($coddieta) {
+    $tab = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+
+    $conex = getConnection();
+
+
+    $query = "SELECT d.semana, dd.calorias, dd.macronutrientes, dd.dia, co.nombre as nombreco, p.nombre, p.link
+            FROM dieta d, lineadieta ld, diadieta dd, lineadia ln, comida co, lineacomida lc, plato p
+            WHERE d.coddieta = $coddieta
+            AND   d.coddieta = ld.coddieta
+            AND   ld.coddia = dd.coddia
+            AND   dd.coddia = ln.coddia
+            AND   ln.codcomida = co.codcomida
+            AND   co.codcomida = lc.codcomida
+            AND   lc.codplato = p.codplato";
+
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    if ((mysqli_num_rows($result) != 0)) {
+        //$plan=mysqli_fetch_array($res_valid);
+
+        $dieta = "";
+        $diaantit = "";
+        $comidaantit = "";
+        $primit = 1;
+        while ($fila = mysqli_fetch_array($result)) {
+
+
+            if ($fila['dia'] != $diaantit) {
+                $dieta = $dieta . "
+                                    <h3>" . $fila['dia'] . "</h3>
+                                    <p>$tab Calorias:&nbsp;" . $fila['calorias'] . "</p>";
                 $diaantit = $fila['dia'];
                 $comidaantit = "";
             }
@@ -394,7 +444,7 @@ function insertCliente($dni, $nombre, $email, $direccion, $telef, $objetivo, $pw
     $conex = getConnection();
     $query = "INSERT INTO `cliente` (`dni`, `nombre`, `email`, `direccion`, `telefono`, `objetivo`, `clave`, `coddieta`, `codtabla`) 
                             VALUES ('$dni', '$nombre', '$email', '$direccion', '$telef', '$objetivo', '$pwd', NULL, NULL) ";
-    
+
     $result = mysqli_query($conex, $query)
             or die(mysqli_error($conex));
     mysqli_close($conex);
@@ -435,24 +485,40 @@ function insertPlan($dni, $tipoplan, $dispo, $observaciones, $plan) {
     $conex = getConnection();
     $query = "UPDATE `cliente` "
             . "SET `disponibilidad` = '$dispo', `observaciones` = '$observaciones', `vencimiento` = '$fecha', `codplan` = '$plan' WHERE `cliente`.`dni` = '$dni' ";
-    
+
     $result = mysqli_query($conex, $query)
             or die(mysqli_error($conex));
     mysqli_close($conex);
     return $result;
 }
 
-function insertPlato($nombre, $link) {
+function insertPlato($nombre, $link, $cal) {
     $conex = getConnection();
 
-    $query = "INSERT INTO `plato` (`codplato`, `nombre`, `link`) VALUES (NULL, '$nombre', '$link')";
+    $query = "INSERT INTO `plato` (`codplato`, `nombre`, `link`, `calorias`) VALUES (NULL, '$nombre', '$link', $cal)";
 
     $result = mysqli_query($conex, $query)
             or die(mysqli_error($conex));
     $id = mysqli_insert_id($conex);
+    
     mysqli_close($conex);
-
     return $id;
+}
+
+function getCalPlato($clave) {
+    $conex = getConnection();
+
+    $query = "SELECT calorias FROM `plato` WHERE codplato = $clave";
+
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+    if ($fila = mysqli_fetch_array($result)) {
+
+        $cal = $fila['calorias'];
+    }
+    
+    mysqli_close($conex);
+    return $cal;
 }
 
 function getPlatos() {
@@ -603,10 +669,26 @@ function getTodasDietas() {
 
     while ($fila = mysqli_fetch_array($result)) {
 
-        $dietas[$fila['coddieta']] = "Codigo: " . $fila['coddieta'] . " Semana: " . $fila['semana'];
+        $dietas[$fila['coddieta']] = "Codigo: " . $fila['coddieta'] . " Nombre: " . $fila['semana'];
     }
 
     return $dietas;
+}
+function getNomDietas($coddieta) {
+
+    $conex = getConnection();
+
+    $query = "SELECT * FROM `dieta` WHERE coddieta = $coddieta";
+
+    $result = mysqli_query($conex, $query)
+            or die(mysqli_error($conex));
+
+    while ($fila = mysqli_fetch_array($result)) {
+
+        $dieta =$fila['semana'];
+    }
+
+    return $dieta;
 }
 
 function bindDietaCliente($cliente, $dieta) {
@@ -627,11 +709,15 @@ function getObservaciones($dni) {
 
     $result = mysqli_query($conex, $query)
             or die(mysqli_error($conex));
-
+    $resultado = "<p style='color: #FF0000;'>Usuario no encontrado</p>";
+    
     if ($fila = mysqli_fetch_array($result)) {
-        $resultado = "<p>Observaciones del cliente $dni: " . $fila['observaciones'] . "</p><p>Disponibilidad del cliente $dni: " . $fila['disponibilidad'] . " </p>";
+        if (trim($fila['observaciones']) == "") {
+            $resultado = "<p>Disponibilidad del cliente $dni: " . $fila['disponibilidad'] . " dias</p>";
+        } else {
+            $resultado = "<p>Observaciones del cliente $dni: " . $fila['observaciones'] . "</p><p>Disponibilidad del cliente $dni: " . $fila['disponibilidad'] . " dias</p>";
+        }
     }
-
     return $resultado;
 }
 

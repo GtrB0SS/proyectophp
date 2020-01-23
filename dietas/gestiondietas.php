@@ -8,220 +8,270 @@
 
 session_start();
 include "../daoMySQL.php";
+if (!isset($_SESSION['nombreDieta'])) {
+    $nombreDieta = $_POST['nombreDieta'];
 
-$option = $_POST['option'];
-
-if ($option == "plato") {
-
-    $expression = "%^(?:(?:https?|ftp)://)(?:\S+(?::\S*)?@|\d{1,3}(?:\.\d{1,3}){3}|(?:(?:[a-z\d\x{00a1}-\x{ffff}]+-?)*[a-z\d\x{00a1}-\x{ffff}]+)(?:\.(?:[a-z\d\x{00a1}-\x{ffff}]+-?)*[a-z\d\x{00a1}-\x{ffff}]+)*(?:\.[a-z\x{00a1}-\x{ffff}]{2,6}))(?::\d+)?(?:[^\s]*)?$%iu";
-    $nombre = $_POST['nombre'];
-    $link = $_POST['link'];
-
-
-    if (trim($nombre) == "") {
-        $_SESSION['erroresplato']['nombre'] = "Nombre Incorrecto";
+    if (trim($nombreDieta) == "") {
+        $_SESSION['erroresdieta']['nombre'] = "Nombre Incorrecto";
     } else {
-        $_SESSION['insertplato']['nombre'] = $nombre;
+        $_SESSION['insertdieta']['nombre'] = $nombreDieta;
+        $_SESSION['nombreDieta'] = $nombreDieta;
     }
+    if (isset($_SESSION['erroresdieta'])) {
+        header('location: formNuevaDieta.php');
+    }
+}
 
-    if (trim($link) == "" || !preg_match($expression, $link)) {
-        $_SESSION['erroresplato']['link'] = "Link Incorrecto";
+
+$expression = "%^(?:(?:https?|ftp)://)(?:\S+(?::\S*)?@|\d{1,3}(?:\.\d{1,3}){3}|(?:(?:[a-z\d\x{00a1}-\x{ffff}]+-?)*[a-z\d\x{00a1}-\x{ffff}]+)(?:\.(?:[a-z\d\x{00a1}-\x{ffff}]+-?)*[a-z\d\x{00a1}-\x{ffff}]+)*(?:\.[a-z\x{00a1}-\x{ffff}]{2,6}))(?::\d+)?(?:[^\s]*)?$%iu";
+
+$nombre = $_POST['nombre'];
+$link = $_POST['link'];
+$cal = $_POST['cal'];
+
+
+if (trim($nombre) == "") {
+    $_SESSION['erroresplato']['nombre'] = "Nombre Incorrecto";
+} else {
+    $_SESSION['insertplato']['nombre'] = $nombre;
+}
+
+if (trim($link) == "" || !preg_match($expression, $link)) {
+    $_SESSION['erroresplato']['link'] = "Link Incorrecto";
+} else {
+    $_SESSION['insertplato']['link'] = $link;
+}
+if (trim($cal) == "") {
+    $_SESSION['erroresplato']['cal'] = "Calorias Incorrectas";
+} else {
+    $_SESSION['insertplato']['cal'] = $cal;
+}
+
+if (isset($_POST['plato'])) {
+    if (trim($_POST['plato']) == "") {
+        unset($_POST['plato']);
+    }
+}
+
+if (isset($_SESSION['erroresplato']) && !isset($_POST['plato'])) {
+    if ($_SESSION['comida'] == 'desayuno' and $_SESSION['ncomida'] == 0) {
+
+        $_SESSION['ncomida'] = 1;
+        unset($_SESSION['erroresplato']);
+
+        header("location: formNuevoPlato.php");
     } else {
-        $_SESSION['insertplato']['link'] = $link;
-    }
-
-    if (isset($_SESSION['erroresplato'])) {
         header('location: formNuevoPlato.php');
-    } else {
+    }
+} else {
+
+
+    if ($_SESSION['comida'] == 'desayuno' and $_SESSION['ncomida'] == 0) {
+
+        $_SESSION['ncomida'] = 1;
+        //No hay insercion
+        unset($_SESSION['erroresplato']);
+        header("location: gestiondietas.php");
+    } else if ($_SESSION['comida'] == 'desayuno' and $_SESSION['ncomida'] == 1) {
+        $_SESSION['comida'] = 'comida';
+        $_SESSION['ncomida'] = 0;
+
+        //Se inserta plato
         unset($_SESSION['insertplato']);
         unset($_SESSION['erroresplato']);
 
-        $platoInsertado =insertPlato($nombre, $link);
-        if ($platoInsertado == 0 || $platoInsertado == false) {
-            headder('location: ../error.html');
+        if (isset($_POST['plato'])) {
+            $platoInsertado = $_POST['plato'];
+            $cal = getCalPlato($platoInsertado);
         } else {
-            header("location: ../admin.php");
+            $platoInsertado = insertPlato($nombre, $link, $cal);
         }
-    }
-} else if ($option == "comida") {
 
-    $nombre = $_POST['nombre'];
-    if (trim($nombre) == "") {
-        $_SESSION['errorescomida']['nombre'] = "Nombre Incorrecto";
-    } else {
-        $_SESSION['insertcomida']['nombre'] = $nombre;
-    }
+        if ($platoInsertado == 0 || $platoInsertado == false) {
+            header('location: ../error.html');
+        } else {
+            $_SESSION['calDia'] = $_SESSION['calDia'] + $cal;
 
-    $platos = $_POST['plato'];
+            $id = insertComida('desayuno');
 
-    
-    if(count($platos) == 0){
-        $_SESSION['errorescomida']['platos'] = "Seleccione al menos un plato";
-    }
-    else{
-        foreach ($platos as $clave => $valor) {
-            $_SESSION['insertcomida']['platos'][$valor] = "1";
+            if ($id == 0) {
+                header('location: ../error.html');
+            } else if (!bindComidaPlato($id, $platoInsertado)) {
+                header('location: ../error.html');
+            }
+
+            $_SESSION['IdsComidas']['desayuno'] = $id;
         }
-    }
 
-    if (isset($_SESSION['errorescomida'])) {
-        header('location: formNuevaComida.php');
-    } else {
-        unset($_SESSION['insertcomida']);
+        header("location: formNuevoPlato.php");
+    } else if ($_SESSION['comida'] == 'comida' and $_SESSION['ncomida'] == 0 and $_SESSION['ncomida'] < 1) {
+        $_SESSION['ncomida'] = 1;
+
+        //Se inserta plato
+        unset($_SESSION['insertplato']);
+        unset($_SESSION['erroresplato']);
+        if (isset($_POST['plato'])) {
+            $platoInsertado = $_POST['plato'];
+            $cal = getCalPlato($platoInsertado);
+        } else {
+            $platoInsertado = insertPlato($nombre, $link, $cal);
+        }
+
+        if ($platoInsertado == 0 || $platoInsertado == false) {
+            header('location: ../error.html');
+        } else {
+            $_SESSION['calDia'] = $_SESSION['calDia'] + $cal;
+            $_SESSION['platoInsertado'] = $platoInsertado;
+        }
+
+
+        header("location: formNuevoPlato.php");
+    } else if ($_SESSION['comida'] == 'comida' and $_SESSION['ncomida'] == 1) {
+        $_SESSION['comida'] = 'cena';
+        $_SESSION['ncomida'] = 0;
+
+        //Se inserta plato
+        unset($_SESSION['insertplato']);
         unset($_SESSION['erroresplato']);
 
-        $id = insertComida($nombre);
-        if ($id==0) {
-            headder('location: ../error.html');
+        if (isset($_POST['plato'])) {
+            $platoInsertado = $_POST['plato'];
+            $cal = getCalPlato($platoInsertado);
         } else {
-            
-            foreach ($platos as $clave => $valor) {
-                if(!bindComidaPlato($id, $valor)){
-                    headder('location: ../error.html');
+            $platoInsertado = insertPlato($nombre, $link, $cal);
+        }
+
+        if ($platoInsertado == 0 || $platoInsertado == false) {
+            header('location: ../error.html');
+        } else {
+            $_SESSION['calDia'] = $_SESSION['calDia'] + $cal;
+
+            $id = insertComida('comida');
+
+            if ($id == 0) {
+                header('location: ../error.html');
+            } else if (!bindComidaPlato($id, $_SESSION['platoInsertado'])) {
+                header('location: ../error.html');
+            } else if (!bindComidaPlato($id, $platoInsertado)) {
+                header('location: ../error.html');
+            }
+
+            $_SESSION['IdsComidas']['comida'] = $id;
+
+            unset($_SESSION['platoInsertado']);
+        }
+
+        header("location: formNuevoPlato.php");
+    } else if ($_SESSION['comida'] == 'cena' and $_SESSION['ncomida'] == 0 and $_SESSION['ncomida'] < 1) {
+        $_SESSION['ncomida'] = 1;
+
+        //Se inserta plato
+        unset($_SESSION['insertplato']);
+        unset($_SESSION['erroresplato']);
+        if (isset($_POST['plato'])) {
+            $platoInsertado = $_POST['plato'];
+            $cal = getCalPlato($platoInsertado);
+        } else {
+            $platoInsertado = insertPlato($nombre, $link, $cal);
+        }
+
+        if ($platoInsertado == 0 || $platoInsertado == false) {
+            header('location: ../error.html');
+        } else {
+            $_SESSION['calDia'] = $_SESSION['calDia'] + $cal;
+            $_SESSION['platoInsertado'] = $platoInsertado;
+        }
+
+        header("location: formNuevoPlato.php");
+    } else {
+        $_SESSION['comida'] = 'desayuno';
+        $_SESSION['ncomida'] = 1;
+
+        //Se inserta plato
+        unset($_SESSION['insertplato']);
+        unset($_SESSION['erroresplato']);
+        if (isset($_POST['plato'])) {
+            $platoInsertado = $_POST['plato'];
+            $cal = getCalPlato($platoInsertado);
+        } else {
+            $platoInsertado = insertPlato($nombre, $link, $cal);
+        }
+
+        if ($platoInsertado == 0 || $platoInsertado == false) {
+            header('location: ../error.html');
+        } else {
+            $_SESSION['calDia'] = $_SESSION['calDia'] + $cal;
+
+            $id = insertComida('cena');
+
+
+            if ($id == 0) {
+                header('location: ../error.html');
+            } else if (!bindComidaPlato($id, $_SESSION['platoInsertado'])) {
+                header('location: ../error.html');
+            } else if (!bindComidaPlato($id, $platoInsertado)) {
+                header('location: ../error.html');
+            }
+
+            $_SESSION['IdsComidas']['cena'] = $id;
+
+            $idDia = insertDia($_SESSION['calDia'], '', $_SESSION['dia']);
+
+            if ($idDia == 0) {
+                header('location: ../error.html');
+            } else {
+
+                foreach ($_SESSION['IdsComidas'] as $clave => $valor) {
+                    if (!bindDiaComida($idDia, $valor)) {
+                        header('location: ../error.html');
+                    }
                 }
             }
-            header("location: ../admin.php");
-        }
-    }
-}else if ($option == "dia") {
-    $dia = $_POST['dia'];
-    
-    if(trim($dia) == "" || !preg_match("/^(lunes|martes|miercoles|jueves|viernes|sabado|domingo)([^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*)?/", strtolower($dia))){
-        
-        $_SESSION['erroresdia']['dia'] = "Dia erroneo";
-    }
-    else {
-        $_SESSION['insertdia']['dia'] = $dia;
-    }
-    
-    $calorias = $_POST['calorias'];
-    if(trim($calorias) == "" || !is_numeric($calorias) || strlen($calorias)>4){
-        
-        $_SESSION['erroresdia']['calorias'] = "Las calorias deben ser un numero como maximo de 4 cifras";
-    }
-    else {
-        $_SESSION['insertdia']['calorias'] = $calorias;
-    }
-    
-    $macros = $_POST['macros'];
-    if(trim($macros) == "" ){
-        
-        $_SESSION['erroresdia']['macros'] = "Macronutrientes erroneos";
-    }
-    else {
-        $_SESSION['insertdia']['macros'] = $macros;
-    }
-    
-    $comidas = $_POST['comida'];
 
-    
-    if(count($comidas) == 0){
-        $_SESSION['erroresdia']['comidas'] = "Seleccione al menos un plato";
-    }
-    else{
-        foreach ($comidas as $clave => $valor) {
-            $_SESSION['insertdia']['comidas'][$valor] = "1";
+            $_SESSION['IdsDias'][$_SESSION['dia']] = $idDia;
+
+            $_SESSION['calDia'] = 0;
+            unset($_SESSION['platoInsertado']);
         }
-    }
-    //Select verificacion
-    
-    
-    if (isset($_SESSION['erroresdia'])) {
-        header('location: formNuevoDiaDieta.php');
-    } else {
-        unset($_SESSION['insertdia']);
-        unset($_SESSION['erroresdia']);
-        $id = insertDia($calorias, $macros, $dia);
-        if ($id==0) {
-            headder('location: ../error.html');
-        } else {
+
+        if ($_SESSION['dia'] == 'lunes') {
+            $_SESSION['dia'] = 'martes';
+        } else if ($_SESSION['dia'] == 'martes') {
+            $_SESSION['dia'] = 'miercoles';
+        } else if ($_SESSION['dia'] == 'miercoles') {
+            $_SESSION['dia'] = 'jueves';
+        } else if ($_SESSION['dia'] == 'jueves') {
+            $_SESSION['dia'] = 'viernes';
+        } else if ($_SESSION['dia'] == 'viernes') {
+            $_SESSION['dia'] = 'sabado';
+        } else if ($_SESSION['dia'] == 'sabado') {
+            $_SESSION['dia'] = 'domingo';
+        } else if ($_SESSION['dia'] == 'domingo') {
+            //Se acaba la insercion
+            unset($_SESSION['insertdieta']);
+            unset($_SESSION['erroresdieta']);
+
+            $id = insertDieta($_SESSION['nombreDieta']);
+            print($id);
             
-            foreach ($comidas as $clave => $valor) {
-                if(!bindDiaComida($id, $valor)){
-                    headder('location: ../error.html');
+            unset($_SESSION['nombreDieta']);
+            
+            if ($id == 0) {
+                header('location: ../error.html');
+            } else {
+
+                foreach ($_SESSION['IdsDias'] as $clave => $valor) {
+                    print($valor."----");
+                    if (!bindDietaComida($id, $valor)) {
+                        header('location: ../error.html');
+                    }
                 }
             }
+            $_SESSION['dietaInsertadaExito'] = true;
             header("location: ../admin.php");
+            die();
         }
-    }
-}else if ($option == "dieta") {
-    $semana = $_POST['semana'];
-    
-    if(trim($semana) == "" ){
-        
-        $_SESSION['erroresdieta']['semana'] = "Semana erronea";
-    }
-    else {
-        $_SESSION['insertdieta']['semana'] = $macros;
-    }
-    
-    $dias = $_POST['dia'];
-
-    
-    if(count($dias) != 7 ){
-        $_SESSION['erroresdieta']['dias'] = "Seleccione 7 dias";
-    }
-    foreach ($dias as $clave => $valor) {
-        $_SESSION['insertdieta']['dias'][$valor] = "1";
-    }
-    
-    if (isset($_SESSION['erroresdieta'])) {
-        header('location: formNuevaDieta.php');
-    } else {
-        unset($_SESSION['insertdieta']);
-        unset($_SESSION['erroresdieta']);
-        $id = insertDieta($semana);
-        if ($id==0) {
-            headder('location: ../error.html');
-        } else {
-            
-            foreach ($dias as $clave => $valor) {
-                if(!bindDietaComida($id, $valor)){
-                    headder('location: error.html');
-                }
-            }
-            header("location: ../admin.php");
-        }
-    }
-    
-    
-}else if ($option == "asignar") {
-    $cliente = $_POST['cliente'];
-    
-    if($cliente == "0" || !isset($_POST['cliente'])){
-        
-        $_SESSION['erroresasignar']['cliente'] = "Seleccione un cliente";
-        
-    }
-    else{
-        $_SESSION['asignar']['cliente'][$cliente] = "1";
-        
-        
-    }
-    $dieta = $_POST['dieta'];
-    
-    if($dieta == "0" || !isset($_POST['dieta'])){
-        
-        $_SESSION['erroresasignar']['dieta'] = "Seleccione una dieta";
-        
-    }
-    else{
-        $_SESSION['asignar']['dieta'][$dieta] = "1";
-        
-        
-    }
-    
-    if (isset($_SESSION['erroresasignar'])) {
-        header('location: formAsignarDieta.php');
-    } else {
-        unset($_SESSION['asignar']);
-        unset($_SESSION['erroresasignar']);
-
-        if(!bindDietaCliente($cliente, $dieta)){
-            headder('location: ../error.html');
-        }
-        else{
-            header("location: ../admin.php");
-        }
+        header("location: formNuevoPlato.php");
     }
 }
+

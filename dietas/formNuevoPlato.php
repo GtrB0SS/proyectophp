@@ -49,8 +49,18 @@ and open the template in the editor.
             }
             ?>
         </nav>
+        <?php
 
-        <h3>Inserte el plato numero <?php print($_SESSION['nplatos'] + 1); ?></h3>
+        if ($_SESSION['ncomida'] == 0) {
+            $numeroPlato = "primer";
+        } else {
+            $numeroPlato = "segundo";
+        }
+        ?> 
+
+        <h3>Inserte el plato del dia <?php print($_SESSION['dia']); ?> para: <?php print($_SESSION['comida']); ?> <?php if ($_SESSION['comida'] != 'desayuno') {
+            print("- $numeroPlato plato");
+        } ?>  </h3>
         <form action="gestiondietas.php" method="post">
             <label>Nombre del plato:</label>
             <div class="form-group">
@@ -58,24 +68,52 @@ and open the template in the editor.
                 if (isset($_SESSION['insertplato']['nombre'])) {
                     print($_SESSION['insertplato']['nombre']);
                 }
-                ?>" /><?php
+                ?>" /><p style='color: #FF0000;'><?php
                        if (isset($_SESSION['erroresplato']['nombre'])) {
                            print($_SESSION['erroresplato']['nombre']);
                        }
-                ?>
+                       ?></p>
             </div>
             <label>Link del plato:</label>
             <div class="form-group">
                 <input type="text" class="form-control" name="link" placeholder="Link del plato" value="<?php
-                       if (isset($_SESSION['insertplato']['link'])) {
-                           print($_SESSION['insertplato']['link']);
-                       }
-                ?>" /><?php
+                if (isset($_SESSION['insertplato']['link'])) {
+                    print($_SESSION['insertplato']['link']);
+                }
+                ?>" /><p style='color: #FF0000;'><?php
                        if (isset($_SESSION['erroresplato']['link'])) {
                            print($_SESSION['erroresplato']['link']);
                        }
-                ?>
+                       ?></p>
             </div>
+
+            <label>Calorias del plato:</label>
+            <div class="form-group">
+                <input type="number" class="form-control" name="cal" placeholder="Calorias del plato" value="<?php
+                if (isset($_SESSION['insertplato']['cal'])) {
+                    print($_SESSION['insertplato']['cal']);
+                }
+                ?>" /><p style='color: #FF0000;'><?php
+                       if (isset($_SESSION['erroresplato']['cal'])) {
+                           print($_SESSION['erroresplato']['cal']);
+                       }
+                       ?></p>
+            </div>
+            <label>Platos ya creados:</label>
+
+            <!-- MUESTRA TODOS LOS PLATOS DE LA BASE DE DATOS COMO OPTIONES DEL SELECT -->
+            <!--<select class="selectpicker" multiple name="plato[]" > -->
+            <select class="form-control" id="exampleFormControlSelect2" name="plato">
+                <option value='' selected>Seleccione si desea un plato ya creado</option>
+                <?php
+                $platos = getPlatos();
+
+                foreach ($platos as $clave => $valor) {
+
+                    print("<option value='$clave'>$valor</option>");
+                }
+                ?>
+            </select>
 
             <br>
             <div class="form-group">
@@ -85,8 +123,10 @@ and open the template in the editor.
             <input type="hidden" class="form-control" name="option"  value="plato" />
         </form>
 
-<?php if (isset($_SESSION['erroresplato'])) {
-    unset($_SESSION['erroresplato']);
-} ?>
+        <?php
+        if (isset($_SESSION['erroresplato'])) {
+            unset($_SESSION['erroresplato']);
+        }
+        ?>
     </body>
 </html>

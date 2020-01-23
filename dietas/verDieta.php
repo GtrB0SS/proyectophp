@@ -31,10 +31,10 @@ and open the template in the editor.
 
                 if ($plan != null && ($plan == "pro" || $plan == "entrenamiento")) {
 
-                            $linktabla = "<a class='navbar-brand' href='../tablas.php'>Tabla de ejercicios</a>";
-                        } else {
-                            $linktabla = "";
-                        }
+                    $linktabla = "<a class='navbar-brand' href='../tablas.php'>Tabla de ejercicios</a>";
+                } else {
+                    $linktabla = "";
+                }
 
                 print(" 
                             <a class='navbar-brand' href='../index.php'>Inicio</a>
@@ -45,37 +45,21 @@ and open the template in the editor.
 
                     print("<a class='navbar-brand' href='../admin.php'>Administracion</a>");
                 }
-               print("<a class='navbar-brand' href='../logout.php'>Logout</a>");
+                print("<a class='navbar-brand' href='../logout.php'>Logout</a>");
             }
             ?>
         </nav>
 
-        <h3>Nueva dieta</h3>
-        <form action="gestiondietas.php" method="post">
-            <label>Nombre de la dieta:</label>
-            <div class="form-group">
-                <input type="text" class="form-control" name="nombreDieta" placeholder="Nombre de la dieta" value="<?php
-            if (isset($_SESSION['insertdieta']['nombre'])) {
-                print($_SESSION['insertdieta']['nombre']);
-            }
-            ?>" /><p style='color: #FF0000;'><?php
-                       if (isset($_SESSION['erroresdieta']['nombre'])) {
-                           print($_SESSION['erroresdieta']['nombre']);
-                       }
-                       ?></p>
-            </div>
+        <div class="row">
+            <?php
+            $dietas = $_SESSION['dietaAVer'];
+            $nom = $_SESSION['nomDietaAVer'];
+            print("<div class='col-xl-6 col-xs-6'><h2>$nom</h2>");
+            print($dietas . "</div>");
             
-            <br>
-            <div class="form-group">
-                <input type="submit" class="btnSubmit" value="Insertar dieta" />
-            </div>
-
-            <input type="hidden" class="form-control" name="option"  value="dieta" />
-        </form>
-        <?php
-                if (isset($_SESSION['erroresdieta'])) {
-                    unset($_SESSION['erroresdieta']);
-                }
-                ?>
+            unset($_SESSION['dietaAVer']);
+            unset($_SESSION['nomDietaAVer']);
+            ?>
+        </div>
     </body>
 </html>

@@ -50,40 +50,9 @@ and open the template in the editor.
             ?>
         </nav>
 
-        <h3>Nueva dieta</h3>
-        <form action="gestiondietas.php" method="post">
-            <label>Tus clientes asignados:</label>
-            <div class="form-group">
-                <select class="form-control" id="exampleFormControlSelect2" name="cliente" >
-                    <?php
-                    $numempleado = $_SESSION['dni'];
-                    $clientes = getClientes($numempleado);
-                    if (isset($_SESSION['asignar']['cliente'][$clave])) {
-                        print("<option value='-1' disabled>Seleccione un cliente</option>");
-                    } else {
-                        print("<option value='-1' disabled selected>Seleccione un cliente</option>");
-                    }
-                    foreach ($clientes as $clave => $valor) {
-                        if (isset($_SESSION['asignar']['cliente'][$clave])) {
-                            print("<option value='$clave' selected>$valor</option>");
-                        } else {
-                            print("<option value='$clave'>$valor</option>");
-                        }
-                    }
-
-
-                    if (isset($_SESSION['asignar']['cliente'])) {
-                        unset($_SESSION['asignar']['cliente']);
-                    }
-                    ?>
-                </select>
-
-                    <?php
-                    if (isset($_SESSION['erroresasignar']['cliente'])) {
-                        print($_SESSION['erroresasignar']['cliente']);
-                    }
-                    ?>
-            </div>
+        <h3>Dietas disponibles</h3>
+        <form action="gestionVisualizarBindearDieta.php" method="post">
+            
             
             <label>Dietas disponibles:</label>
             <div class="form-group">
@@ -111,21 +80,22 @@ and open the template in the editor.
                     }
                     ?>
                 </select>
-
+                <p style='color: #FF0000;'>
                     <?php
                     if (isset($_SESSION['erroresasignar']['dieta'])) {
                         print($_SESSION['erroresasignar']['dieta']);
                     }
                     ?>
+                </p>
             </div>
             
 
             <br>
             <div class="form-group">
-                <input type="submit" class="btnSubmit" value="Asignar dieta" />
+                <input type="submit" class="btnSubmit" value="Ver dieta" />
             </div>
 
-            <input type="hidden" class="form-control" name="option"  value="asignar" />
+            <input type="hidden" class="form-control" name="option"  value="visualizar" />
         </form>
 <?php
 if (isset($_SESSION['erroresasignar'])) {
