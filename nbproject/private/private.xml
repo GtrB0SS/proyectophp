@@ -1,3 +1,6 @@
+<<<<<<< Updated upstream
+=======
+<<<<<<< b736a22353fca3c0a992decb0d5dfe754055ddb4
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
@@ -5,3 +8,37 @@
         <group/>
     </open-files>
 </project-private>
+=======
+>>>>>>> Stashed changes
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
+        <group/>
+=======
+        <group>
+            <file>file:/C:/xampp/htdocs/proyectophp/dietas/formNuevaDieta.php</file>
+<<<<<<< Updated upstream
+            <file>file:/C:/xampp/htdocs/proyectophp/dietas/formAsignarDieta.php</file>
+            <file>file:/C:/xampp/htdocs/proyectophp/admin.php</file>
+            <file>file:/C:/xampp/htdocs/proyectophp/signupform.php</file>
+            <file>file:/C:/xampp/htdocs/proyectophp/dietas/verDieta.php</file>
+            <file>file:/C:/xampp/htdocs/proyectophp/daoMySQL.php</file>
+            <file>file:/C:/xampp/htdocs/proyectophp/dietas/formSelectDietaVisualizar.php</file>
+            <file>file:/C:/xampp/htdocs/proyectophp/dietas/gestionVisualizarBindearDieta.php</file>
+            <file>file:/C:/xampp/htdocs/proyectophp/dietas/gestiondietas.php</file>
+=======
+            <file>file:/C:/xampp/htdocs/proyectophp/signupform.php</file>
+            <file>file:/C:/xampp/htdocs/proyectophp/signupinsert.php</file>
+            <file>file:/C:/xampp/htdocs/proyectophp/daoMySQL.php</file>
+>>>>>>> Stashed changes
+            <file>file:/C:/xampp/htdocs/proyectophp/dietas/formNuevoPlato.php</file>
+        </group>
+>>>>>>> master
+    </open-files>
+</project-private>
+<<<<<<< Updated upstream
+=======
+>>>>>>> Dietas hechas
+>>>>>>> Stashed changes

@@ -19,6 +19,7 @@ if (!isset($_SESSION['nombreDieta'])) {
     }
     if (isset($_SESSION['erroresdieta'])) {
         header('location: formNuevaDieta.php');
+        die();
     }
 }
 
